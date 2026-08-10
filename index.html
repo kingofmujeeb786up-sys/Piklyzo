@@ -3,366 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Image Compressor & App Icon Generator</title>
+    <title>Piklyzo - Fast Image Compressor & App Icon Generator</title>
     <style>
-        :root {
-            --primary-color: #4F46E5;
-            --primary-hover: #4338CA;
-            --bg-color: #F9FAFB;
-            --card-bg: #FFFFFF;
-            --text-color: #1F2937;
-            --border-color: #E5E7EB;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #f8fafc;
+            color: #1e293b;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: #6B7280;
-        }
-
         .container {
+            background: #ffffff;
             width: 100%;
-            max-width: 800px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             padding: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Drop Zone */
-        .drop-zone {
-            border: 2px dashed var(--primary-color);
-            border-radius: 8px;
-            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             text-align: center;
-            background-color: #EEF2FF;
-            cursor: pointer;
-            transition: 0.2s ease;
         }
 
-        .drop-zone:hover {
-            background-color: #E0E7FF;
+        /* Logo Styling */
+        .logo-container {
+            margin-bottom: 20px;
         }
 
-        .drop-zone p {
-            font-size: 1.1rem;
-            color: #4B5563;
-            margin-bottom: 10px;
+        .logo-img {
+            max-width: 130px;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .drop-zone input[type="file"] {
-            display: none;
+        h1 {
+            color: #4f46e5;
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
-        .btn-select {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Controls Section */
-        .controls-section {
-            display: none;
-            margin-top: 25px;
-        }
-
-        .preview-box {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: center;
+        p.subtitle {
+            color: #64748b;
+            font-size: 14px;
             margin-bottom: 25px;
-            flex-wrap: wrap;
+            line-height: 1.5;
         }
 
-        .preview-box img {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+        .upload-box {
+            border: 2px dashed #6366f1;
+            background-color: #f0f2fe;
+            border-radius: 16px;
+            padding: 35px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .info-box {
-            font-size: 0.95rem;
-            color: #374151;
+        .upload-box:hover {
+            background-color: #e0e7ff;
         }
 
-        .grid-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+        .upload-text {
+            color: #334155;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .form-group input, .form-group select {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        /* Buttons */
-        .action-btns {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            flex: 1;
-            padding: 12px;
-            border-radius: 6px;
-            border: none;
-            background-color: var(--primary-color);
+        .btn-upload {
+            background-color: #4f46e5;
             color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
 
-        .btn-action:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-secondary {
-            background-color: #10B981;
-        }
-
-        .btn-secondary:hover {
-            background-color: #059669;
-        }
-
-        footer {
-            margin-top: auto;
-            padding-top: 20px;
-            color: #9CA3AF;
-            font-size: 0.85rem;
+        #fileInput {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Fast Image & Logo Resizer</h1>
-        <p>100% Free, Private & Serverless Image Compressor and App Icon Generator</p>
-    </header>
-
     <div class="container">
-        <!-- File Upload Area -->
-        <div class="drop-zone" id="dropZone">
-            <p>अपनी इमेज़ यहाँ ड्रैग करें या सेलेक्ट करें</p>
-            <button class="btn-select" onclick="document.getElementById('fileInput').click()">Upload Image</button>
-            <input type="file" id="fileInput" accept="image/*">
+        <!-- Logo Display Section -->
+        <div class="logo-container">
+            <img src="logo.png" alt="Piklyzo Logo" class="logo-img">
         </div>
 
-        <!-- Controls Area (Hidden initially) -->
-        <div class="controls-section" id="controlsSection">
-            <div class="preview-box">
-                <img id="imagePreview" alt="Preview">
-                <div class="info-box">
-                    <p><strong>Original Size:</strong> <span id="originalSize">0 KB</span></p>
-                    <p><strong>Original Resolution:</strong> <span id="originalRes">0 x 0</span></p>
-                </div>
-            </div>
+        <h1>Fast Image & Logo Resizer</h1>
+        <p class="subtitle">100% Free, Private & Serverless Image Compressor and App Icon Generator</p>
 
-            <!-- Custom Resize Controls -->
-            <div class="grid-options">
-                <div class="form-group">
-                    <label for="widthInput">Width (px):</label>
-                    <input type="number" id="widthInput">
-                </div>
-                <div class="form-group">
-                    <label for="heightInput">Height (px):</label>
-                    <input type="number" id="heightInput">
-                </div>
-                <div class="form-group">
-                    <label for="qualityInput">Quality (%):</label>
-                    <input type="range" id="qualityInput" min="10" max="100" value="80">
-                    <span id="qualityVal" style="text-align: right; font-size: 0.8rem;">80%</span>
-                </div>
-                <div class="form-group">
-                    <label for="formatSelect">Format:</label>
-                    <select id="formatSelect">
-                        <option value="image/jpeg">JPEG</option>
-                        <option value="image/png">PNG</option>
-                        <option value="image/webp">WEBP</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Download Buttons -->
-            <div class="action-btns">
-                <button class="btn-action" id="downloadBtn">Custom Resized Download</button>
-                <button class="btn-action btn-secondary" id="appIconBtn">Download App Icon Pack (Zip)</button>
-            </div>
+        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-text">अपनी इमेज यहाँ ड्रैग करें या सेलेक्ट करें</div>
+            <button class="btn-upload">Upload Image</button>
+            <input type="file" id="fileInput" accept="image/*">
         </div>
     </div>
 
-    <footer>
-        <p>All processing happens locally in your browser. No files are uploaded to any server.</p>
-    </footer>
-
-    <!-- Canvas for Image Processing -->
-    <canvas id="canvas" style="display: none;"></canvas>
-
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const dropZone = document.getElementById('dropZone');
-        const controlsSection = document.getElementById('controlsSection');
-        const imagePreview = document.getElementById('imagePreview');
-        const originalSizeEl = document.getElementById('originalSize');
-        const originalResEl = document.getElementById('originalRes');
-        const widthInput = document.getElementById('widthInput');
-        const heightInput = document.getElementById('heightInput');
-        const qualityInput = document.getElementById('qualityInput');
-        const qualityVal = document.getElementById('qualityVal');
-        const formatSelect = document.getElementById('formatSelect');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const appIconBtn = document.getElementById('appIconBtn');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
-        let originalImage = new Image();
-        let originalFileName = "";
-        let aspectRatio = 1;
-
-        // Drag & Drop Handling
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.backgroundColor = '#E0E7FF'; });
-        dropZone.addEventListener('dragleave', () => dropZone.style.backgroundColor = '#EEF2FF');
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.style.backgroundColor = '#EEF2FF';
-            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleFile(e.target.files[0]);
-        });
-
-        function handleFile(file) {
-            if (!file.type.startsWith('image/')) {
-                alert('कृपया सिर्फ इमेज़ फाइल चुनें!');
-                return;
-            }
-
-            originalFileName = file.name.substring(0, file.name.lastIndexOf('.'));
-            originalSizeEl.innerText = (file.size / 1024).toFixed(2) + ' KB';
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                originalImage.onload = () => {
-                    aspectRatio = originalImage.width / originalImage.height;
-                    originalResEl.innerText = `${originalImage.width} x ${originalImage.height}`;
-                    widthInput.value = originalImage.width;
-                    heightInput.value = originalImage.height;
-                    imagePreview.src = e.target.result;
-                    controlsSection.style.display = 'block';
-                };
-                originalImage.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Maintain Aspect Ratio when editing dimensions
-        widthInput.addEventListener('input', () => {
-            if (widthInput.value) heightInput.value = Math.round(widthInput.value / aspectRatio);
-        });
-        heightInput.addEventListener('input', () => {
-            if (heightInput.value) widthInput.value = Math.round(heightInput.value * aspectRatio);
-        });
-
-        qualityInput.addEventListener('input', () => {
-            qualityVal.innerText = qualityInput.value + '%';
-        });
-
-        // Resize and Download Single File
-        downloadBtn.addEventListener('click', () => {
-            const width = parseInt(widthInput.value);
-            const height = parseInt(heightInput.value);
-            const quality = parseFloat(qualityInput.value) / 100;
-            const format = formatSelect.value;
-
-            if (!width || !height) return alert('सही डाइमेंशन दर्ज करें');
-
-            canvas.width = width;
-            canvas.height = height;
-            ctx.drawImage(originalImage, 0, 0, width, height);
-
-            const ext = format.split('/')[1];
-            const dataUrl = canvas.toDataURL(format, quality);
-
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = `${originalFileName}_resized.${ext}`;
-            a.click();
-        });
-
-        // App Icon Pack Generator (Multiple Standard App Sizes)
-        appIconBtn.addEventListener('click', () => {
-            const sizes = [
-                { name: 'PlayStore_Icon_512x512', size: 512 },
-                { name: 'AppStore_Icon_1024x1024', size: 1024 },
-                { name: 'Icon_192x192', size: 192 },
-                { name: 'Icon_180x180', size: 180 },
-                { name: 'Favicon_32x32', size: 32 }
-            ];
-
-            sizes.forEach(item => {
-                canvas.width = item.size;
-                canvas.height = item.size;
-                ctx.drawImage(originalImage, 0, 0, item.size, item.size);
-
-                const dataUrl = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.href = dataUrl;
-                a.download = `${item.name}.png`;
-                a.click();
-            });
-        });
-    </script>
 </body>
 </html>
-
