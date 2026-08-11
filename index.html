@@ -1,159 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="N7PdQgacgDo7Ilzz4af4IZyuvjQH_rTT1DJpn8k20R4" />
+    <title>Piklyzo</title>
     
-    <!-- Primary SEO Meta Tags -->
-    <title>Piklyzo - Free Image Compressor & App Icon Generator</title>
-    <meta name="title" content="Piklyzo - Free Image Compressor & App Icon Generator">
-    <meta name="description" content="Fast, free, and secure online image compressor and app icon resizer. Reduce image file size without losing quality instantly in your browser.">
-    <meta name="keywords" content="image compressor, reduce image size, app icon generator, resize photo online, free image resizer, webp converter, photo optimizer">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Piklyzo">
-
-    <!-- Open Graph / Facebook / WhatsApp Sharing -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
-    <meta property="og:title" content="Piklyzo - Free Online Image Compressor & Icon Generator">
-    <meta property="og:description" content="Compress images and generate app icons instantly. 100% free and browser-based privacy.">
-    <meta property="og:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
-
-    <!-- Twitter Sharing -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
-    <meta property="twitter:title" content="Piklyzo - Free Image Compressor">
-    <meta property="twitter:description" content="Fast, secure, and free online tool to compress photos and resize app icons.">
-    <meta property="twitter:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
-
+    <!-- Google AdSense Tag -->
+    <meta name="google-adsense-account" content="ca-pub-6242018188944887">
+    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
         body {
-            background-color: #f8fafc;
-            color: #1e293b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background: #ffffff;
-            width: 100%;
-            max-width: 520px;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            font-family: Arial, sans-serif;
             text-align: center;
+            padding: 50px;
         }
-
-        .logo-container {
-            margin-bottom: 20px;
-        }
-
-        .logo-img {
-            max-width: 130px;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        h1 {
-            color: #4f46e5;
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        p.subtitle {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .upload-box {
-            border: 2px dashed #6366f1;
-            background-color: #f0f2fe;
-            border-radius: 16px;
-            padding: 40px 20px;
+        /* बटन का स्टाइल */
+        #uploadBtn {
+            padding: 15px 30px;
+            font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .upload-box:hover {
-            background-color: #e0e7ff;
-        }
-
-        .upload-text {
-            color: #334155;
-            font-size: 16px;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .btn-upload {
-            background-color: #4f46e5;
+            background-color: #007bff;
             color: white;
-            padding: 12px 26px;
             border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        #fileInput {
-            display: none;
-        }
-
-        .features {
-            margin-top: 25px;
-            display: flex;
-            justify-content: space-around;
-            font-size: 12px;
-            color: #64748b;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Logo Display Section -->
-        <div class="logo-container">
-            <img src="logo.png" alt="Piklyzo Logo" class="logo-img">
-        </div>
+    <h1>Welcome to Piklyzo</h1>
+    <p>अपनी इमेज अपलोड करने के लिए नीचे क्लिक करें:</p>
 
-        <h1>Fast Image & App Icon Resizer</h1>
-        <p class="subtitle">100% Free, Secure & Browser-Based Online Image Compressor</p>
+    <!-- यह इनपुट छिपा हुआ है -->
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    
+    <!-- यह असली बटन है जिसे यूजर दबाएगा -->
+    <button id="uploadBtn">Upload Image</button>
 
-        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-            <div class="upload-text">Drag & Drop your image here, or browse</div>
-            <button class="btn-upload">Upload Image</button>
-            <input type="file" id="fileInput" accept="image/*">
-        </div>
+    <script>
+        const uploadBtn = document.getElementById('uploadBtn');
+        const imageInput = document.getElementById('imageInput');
 
-        <div class="features">
-            <div class="feature-item">⚡ Ultra Fast</div>
-            <div class="feature-item">🔒 100% Private</div>
-            <div class="feature-item">✨ No Quality Loss</div>
-        </div>
-    </div>
+        // जब बटन क्लिक हो, तो इनपुट को ट्रिगर करे
+        uploadBtn.addEventListener('click', function() {
+            imageInput.click();
+        });
+
+        // जब फाइल सेलेक्ट हो जाए
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert("इमेज सेलेक्ट हो गई: " + file.name);
+                // यहाँ आप अपनी इमेज प्रोसेसिंग का कोड लिख सकते हैं
+            }
+        });
+    </script>
 
 </body>
 </html>
