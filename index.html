@@ -3,58 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piklyzo</title>
+    <title>Piklyzo - Universal Image Compressor & Resizer</title>
     
-    <!-- Google AdSense Tag -->
+    <!-- ✅ Google AdSense Meta Tag -->
     <meta name="google-adsense-account" content="ca-pub-6242018188944887">
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* बटन का स्टाइल */
-        #uploadBtn {
-            padding: 15px 30px;
-            font-size: 18px;
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Header & Country Selector */
+        .header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .country-select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-weight: bold;
             cursor: pointer;
-            background-color: #007bff;
+        }
+
+        /* Main Card */
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Upload Box */
+        .upload-area {
+            border: 2px dashed #2a5298;
+            padding: 25px;
+            border-radius: 12px;
+            background: #f8fafc;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .upload-area:hover {
+            background: #edf2f7;
+        }
+
+        .upload-btn {
+            background: #2a5298;
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Controls Section */
+        .controls {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        .value-display {
+            font-size: 13px;
+            color: #2a5298;
+            font-weight: bold;
+        }
+
+        /* Preview & Download */
+        .preview-box {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: #555;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to Piklyzo</h1>
-    <p>अपनी इमेज अपलोड करने के लिए नीचे क्लिक करें:</p>
+    <!-- Header Section -->
+    <div class="header">
+        <h2>Piklyzo</h2>
+        <!-- Global Country Selector -->
+        <select class="country-select" id="countrySelector">
+            <option value="GLOBAL">🌍 Global (English)</option>
+            <option value="IN">🇮🇳 India (हिंदी)</option>
+            <option value="US">🇺🇸 USA (English)</option>
+            <option value="AE">🇦🇪 UAE (العربية)</option>
+            <option value="ES">🇪🇸 Spain (Español)</option>
+        </select>
+    </div>
 
-    <!-- यह इनपुट छिपा हुआ है -->
-    <input type="file" id="imageInput" accept="image/*" style="display: none;">
-    
-    <!-- यह असली बटन है जिसे यूजर दबाएगा -->
-    <button id="uploadBtn">Upload Image</button>
+    <!-- Main Tool Container -->
+    <div class="container">
+        <h1 id="mainTitle">Image Compressor</h1>
+        <p class="subtitle" id="subTitle">PNG, JPG, App Icons का साइज़ (KB/MB) कम या ज्यादा करें</p>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="fileInput" accept="image/*" hidden>
+
+        <!-- Upload Box -->
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <p>📸 अपनी फोटो या App Icon यहाँ चुनें</p>
+            <button class="upload-btn">Select Image</button>
+        </div>
+
+        <!-- Image Controls (Quality & Compression) -->
+        <div class="controls" id="controlsBox">
+            <div class="control-group">
+                <label>क्वालिटी / साइज़ घटाएँ-बढ़ाएँ (Quality): <span class="value-display" id="qualityValue">80%</span></label>
+                <input type="range" id="qualityRange" min="10" max="100" value="80">
+            </div>
+            
+            <div class="info-text" id="sizeInfo">मूल साइज़: 0 KB | नया साइज़: 0 KB</div>
+        </div>
+
+        <!-- Preview & Download Section -->
+        <div class="preview-box" id="previewBox">
+            <img id="previewImage" alt="Compressed Preview">
+            <button class="download-btn" id="downloadBtn">⬇️ Download Compressed Image</button>
+        </div>
+    </div>
 
     <script>
-        const uploadBtn = document.getElementById('uploadBtn');
-        const imageInput = document.getElementById('imageInput');
+        const fileInput = document.getElementById('fileInput');
+        const controlsBox = document.getElementById('controlsBox');
+        const previewBox = document.getElementById('previewBox');
+        const previewImage = document.getElementById('previewImage');
+        const qualityRange = document.getElementById('qualityRange');
+        const qualityValue = document.getElementById('qualityValue');
+        const sizeInfo = document.getElementById('sizeInfo');
+        const downloadBtn = document.getElementById('downloadBtn');
 
-        // जब बटन क्लिक हो, तो इनपुट को ट्रिगर करे
-        uploadBtn.addEventListener('click', function() {
-            imageInput.click();
-        });
+        let originalFile = null;
 
-        // जब फाइल सेलेक्ट हो जाए
-        imageInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                alert("इमेज सेलेक्ट हो गई: " + file.name);
-                // यहाँ आप अपनी इमेज प्रोसेसिंग का कोड लिख सकते हैं
+        // 1. Image Selection
+        fileInput.addEventListener('change', function(e) {
+            originalFile = e.target.files[0];
+            if (originalFile) {
+                controlsBox.style.display = 'block';
+                previewBox.style.display = 'block';
+                processImage();
             }
         });
-    </script>
 
+        // 2. Quality Range Change
+        qualityRange.addEventListener('input', function() {
+            qualityValue.textContent = qualityRange.value + '%';
+            processImage();
+        });
+
+        // 3. Process & Compress Image Function
+        function processImage() {
+            if (!originalFile) return;
+
+            const reader = new FileReader();
+            reader.readAsDataURL(originalFile);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    const quality = qualityRange.value / 100;
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+
+                    previewImage.src = compressedDataUrl;
+
+                    // Calculate Sizes in KB
+                    const originalSizeKB = (originalFile.size / 1024).toFixed(2);
+                    const compressedSizeKB = Math.round((compressedDataUrl.length * 3 / 4) / 1024);
+
+                    sizeInfo.innerHTML = `<b>मूल साइज़:</b> ${originalSizeKB} KB | <b>नया साइज़:</b> ~${compressedSizeKB} KB`;
+
+                    // Setup Download Link
+                    downloadBtn.onclick = function() {
+                        const link = document.createElement('a');
+                        link.download = 'Piklyzo_' + originalFile.name;
+                        link.href = compressedDataUrl;
+                        link.click();
+                    };
+                };
+            };
+        }
+    </script>
 </body>
 </html>
