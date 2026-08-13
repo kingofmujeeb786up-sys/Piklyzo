@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piklyzo - Universal Image Compressor & Resizer</title>
     
+    <!-- ✅ SEO Meta Tags & Trending Keywords for Google Ranking -->
+    <title>Piklyzo - Free Online Image Compressor, Resizer & KB/MB Reducer</title>
+    <meta name="description" content="Piklyzo is the ultimate universal image compressor and resizer tool. Easily reduce or increase PNG, JPG, and app icon sizes in KB or MB for online forms and documents globally.">
+    <meta name="keywords" content="image compressor, photo resizer, reduce image size in kb, mb to kb converter, online image optimizer, Piklyzo, picture size reducer, compress png jpg">
+    <meta name="author" content="Piklyzo">
+
     <!-- ✅ Google AdSense Meta Tag -->
     <meta name="google-adsense-account" content="ca-pub-6242018188944887">
     
-    <!-- ✅ Google AdSense Main Verification Script (सही जगह पर जोड़ा गया) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6242018188944887"
-     crossorigin="anonymous"></script>
+    <!-- ✅ Google AdSense Main Verification Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6242018188944887" crossorigin="anonymous"></script>
     
     <style>
         * {
@@ -48,6 +52,7 @@
             background: rgba(255, 255, 255, 0.9);
             font-weight: bold;
             cursor: pointer;
+            max-width: 180px;
         }
 
         /* Main Card */
@@ -62,7 +67,7 @@
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 28px;
             color: #1e3c72;
             margin-bottom: 5px;
         }
@@ -173,38 +178,44 @@
     <!-- Header Section -->
     <div class="header">
         <h2>Piklyzo</h2>
-        <!-- Global Country Selector -->
-        <select class="country-select" id="countrySelector">
-            <option value="GLOBAL">🌍 Global (English)</option>
+        <!-- Global Country & Language Selector -->
+        <select class="country-select" id="countrySelector" onchange="changeLanguage()">
+            <option value="EN">🌍 Global (English)</option>
             <option value="IN">🇮🇳 India (हिंदी)</option>
             <option value="US">🇺🇸 USA (English)</option>
             <option value="AE">🇦🇪 UAE (العربية)</option>
             <option value="ES">🇪🇸 Spain (Español)</option>
+            <option value="DE">🇩🇪 Germany (Deutsch)</option>
+            <option value="FR">🇫🇷 France (Français)</option>
+            <option value="JP">🇯🇵 Japan (日本語)</option>
+            <option value="CN">🇨🇳 China (中文)</option>
+            <option value="BR">🇧🇷 Brazil (Português)</option>
+            <option value="RU">🇷🇺 Russia (Русский)</option>
         </select>
     </div>
 
     <!-- Main Tool Container -->
     <div class="container">
-        <h1 id="mainTitle">Image Compressor</h1>
-        <p class="subtitle" id="subTitle">PNG, JPG, App Icons का साइज़ (KB/MB) कम या ज्यादा करें</p>
+        <h1 id="mainTitle">Universal Image Compressor</h1>
+        <p class="subtitle" id="subTitle">Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly</p>
 
         <!-- Hidden File Input -->
         <input type="file" id="fileInput" accept="image/*" hidden>
 
         <!-- Upload Box -->
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <p>📸 अपनी फोटो या App Icon यहाँ चुनें</p>
-            <button class="upload-btn">Select Image</button>
+            <p id="uploadText">📸 Drop your photo or App Icon here / Choose File</p>
+            <button class="upload-btn" id="selectBtnText">Select Image</button>
         </div>
 
         <!-- Image Controls (Quality & Compression) -->
         <div class="controls" id="controlsBox">
             <div class="control-group">
-                <label>क्वालिटी / साइज़ घटाएँ-बढ़ाएँ (Quality): <span class="value-display" id="qualityValue">80%</span></label>
+                <label id="qualityLabel">Quality / Adjust Size: <span class="value-display" id="qualityValue">80%</span></label>
                 <input type="range" id="qualityRange" min="10" max="100" value="80">
             </div>
             
-            <div class="info-text" id="sizeInfo">मूल साइज़: 0 KB | नया साइज़: 0 KB</div>
+            <div class="info-text" id="sizeInfo">Original Size: 0 KB | New Size: 0 KB</div>
         </div>
 
         <!-- Preview & Download Section -->
@@ -226,6 +237,38 @@
 
         let originalFile = null;
 
+        // Multi-language text dictionary for global reach
+        const texts = {
+            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", quality: "Quality / Adjust Size:", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
+            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG, ऐप आइकॉन का साइज़ (KB/MB) तुरंत कम या ज्यादा करें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", quality: "क्वालिटी / साइज़ घटाएँ-बढ़ाएँ:", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
+            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", quality: "Quality / Adjust Size:", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
+            AE: { title: "ضاغط الصور الشامل", sub: "ضغط وتغيير حجم صور PNG و JPG و ايقونات التطبيقات بkب/MB فورا", upload: "📸 ضع صورتك أو أيقونة التطبيق هنا", btn: "اختر صورة", quality: "الجودة / ضبط الحجم:", original: "الحجم الأصلي", new: "الحجم الجديد", download: "⬇️ تنزيل الصورة المضغوطة" },
+            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime, cambia el tamaño y convierte PNG, JPG, iconos a KB/MB", upload: "📸 Suelta tu foto o icono de aplicación aquí", btn: "Seleccionar Imagen", quality: "Calidad / Ajustar Tamaño:", original: "Tamaño Original", new: "Nuevo Tamaño", download: "⬇️ Descargar Imagen Comprimida" },
+            DE: { title: "Universeller Bildkompressor", sub: "Komprimieren, skalieren und konvertieren Sie PNG, JPG, App-Icons in KB/MB", upload: "📸 Ziehen Sie Ihr Foto oder App-Icon hierher", btn: "Bild auswählen", quality: "Qualität / Größe anpassen:", original: "Originalgröße", new: "Neue Größe", download: "⬇️ Komprimiertes Bild herunterladen" },
+            FR: { title: "Compresseur d'Images Universel", sub: "Compressez, redimensionnez et convertissez PNG, JPG, icônes en KB/MB", upload: "📸 Déposez votre photo ou icône d'application ici", btn: "Sélectionner l'image", quality: "Qualité / Ajuster la taille:", original: "Taille d'origine", new: "Nouvelle taille", download: "⬇️ Télécharger l'image compressée" },
+            JP: { title: "ユニバーサル画像圧縮ツール", sub: "PNG、JPG、アプリコーンをKB/MBに即座に圧縮・リサイズ", upload: "📸 ここに写真またはアプリコーンをドロップ", btn: "画像を選択", quality: "品質 / サイズ調整:", original: "元のサイズ", new: "新しいサイズ", download: "⬇️ 圧縮画像をダウンロード" },
+            CN: { title: "通用图像压缩工具", sub: "立即将 PNG、JPG、应用图标压缩、调整大小至 KB/MB", upload: "📸 在此处拖放您的照片或应用图标", btn: "选择图片", quality: "质量/调整大小：", original: "原始大小", new: "新大小", download: "⬇️ 下载压缩图片" },
+            BR: { title: "Compressor de Imagem Universal", sub: "Comprima, redimensione e converta PNG, JPG, ícones para KB/MB", upload: "📸 Arraste sua foto ou ícone de aplicativo aqui", btn: "Selecionar Imagem", quality: "Qualidade / Ajustar Tamanho:", original: "Tamanho Original", new: "Novo Tamanho", download: "⬇️ Baixar Imagem Comprimida" },
+            RU: { title: "Универсальный компрессор изображений", sub: "Быстрое сжатие, изменение размера PNG, JPG, иконок в КБ/МБ", upload: "📸 Перетащите фото или иконку сюда", btn: "Выбрать изображение", quality: "Качество / Настройка размера:", original: "Исходный размер", new: "Новый размер", download: "⬇️ Скачать сжатое изображение" }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById('countrySelector').value;
+            const t = texts[lang] || texts['EN'];
+            
+            document.getElementById('mainTitle').textContent = t.title;
+            document.getElementById('subTitle').textContent = t.sub;
+            document.getElementById('uploadText').textContent = t.upload;
+            document.getElementById('selectBtnText').textContent = t.btn;
+            document.getElementById('qualityLabel').firstChild.nodeValue = t.quality + " ";
+            document.getElementById('downloadBtn').textContent = t.download;
+            
+            if(originalFile) updateSizeDisplay();
+        }
+
+        let originalSizeKBVal = 0;
+        let compressedSizeKBVal = 0;
+
         // 1. Image Selection
         fileInput.addEventListener('change', function(e) {
             originalFile = e.target.files[0];
@@ -241,6 +284,12 @@
             qualityValue.textContent = qualityRange.value + '%';
             processImage();
         });
+
+        function updateSizeDisplay() {
+            const lang = document.getElementById('countrySelector').value;
+            const t = texts[lang] || texts['EN'];
+            sizeInfo.innerHTML = `<b>${t.original}:</b> ${originalSizeKBVal} KB | <b>${t.new}:</b> ~${compressedSizeKBVal} KB`;
+        }
 
         // 3. Process & Compress Image Function
         function processImage() {
@@ -265,10 +314,10 @@
                     previewImage.src = compressedDataUrl;
 
                     // Calculate Sizes in KB
-                    const originalSizeKB = (originalFile.size / 1024).toFixed(2);
-                    const compressedSizeKB = Math.round((compressedDataUrl.length * 3 / 4) / 1024);
+                    originalSizeKBVal = (originalFile.size / 1024).toFixed(2);
+                    compressedSizeKBVal = Math.round((compressedDataUrl.length * 3 / 4) / 1024);
 
-                    sizeInfo.innerHTML = `<b>मूल साइज़:</b> ${originalSizeKB} KB | <b>नया साइज़:</b> ~${compressedSizeKB} KB`;
+                    updateSizeDisplay();
 
                     // Setup Download Link
                     downloadBtn.onclick = function() {
