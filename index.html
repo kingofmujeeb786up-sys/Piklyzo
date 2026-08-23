@@ -123,16 +123,21 @@
             font-size: 14px;
             display: block;
             margin-bottom: 5px;
+            color: #1e3c72;
         }
 
-        input[type="range"] {
+        input[type="number"] {
             width: 100%;
+            padding: 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
         }
 
-        .value-display {
-            font-size: 13px;
-            color: #2a5298;
-            font-weight: bold;
+        input[type="number"]:focus {
+            border-color: #2a5298;
         }
 
         /* Preview & Download */
@@ -167,9 +172,10 @@
         }
 
         .info-text {
-            font-size: 12px;
-            color: #555;
+            font-size: 13px;
+            color: #334155;
             margin-top: 8px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -208,11 +214,11 @@
             <button class="upload-btn" id="selectBtnText">Select Image</button>
         </div>
 
-        <!-- Image Controls (Quality & Compression) -->
+        <!-- Image Controls (Target KB Input) -->
         <div class="controls" id="controlsBox">
             <div class="control-group">
-                <label id="qualityLabel">Quality / Adjust Size: <span class="value-display" id="qualityValue">80%</span></label>
-                <input type="range" id="qualityRange" min="10" max="100" value="80">
+                <label id="targetLabel" for="targetKbInput">Enter Desired Size (in KB):</label>
+                <input type="number" id="targetKbInput" placeholder="e.g. 50" min="5">
             </div>
             
             <div class="info-text" id="sizeInfo">Original Size: 0 KB | New Size: 0 KB</div>
@@ -230,26 +236,26 @@
         const controlsBox = document.getElementById('controlsBox');
         const previewBox = document.getElementById('previewBox');
         const previewImage = document.getElementById('previewImage');
-        const qualityRange = document.getElementById('qualityRange');
-        const qualityValue = document.getElementById('qualityValue');
+        const targetKbInput = document.getElementById('targetKbInput');
         const sizeInfo = document.getElementById('sizeInfo');
         const downloadBtn = document.getElementById('downloadBtn');
 
         let originalFile = null;
+        let finalDataUrl = "";
 
-        // Multi-language text dictionary for global reach
+        // Multi-language text dictionary
         const texts = {
-            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", quality: "Quality / Adjust Size:", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
-            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG, ऐप आइकॉन का साइज़ (KB/MB) तुरंत कम या ज्यादा करें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", quality: "क्वालिटी / साइज़ घटाएँ-बढ़ाएँ:", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
-            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", quality: "Quality / Adjust Size:", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
-            AE: { title: "ضاغط الصور الشامل", sub: "ضغط وتغيير حجم صور PNG و JPG و ايقونات التطبيقات بkب/MB فورا", upload: "📸 ضع صورتك أو أيقونة التطبيق هنا", btn: "اختر صورة", quality: "الجودة / ضبط الحجم:", original: "الحجم الأصلي", new: "الحجم الجديد", download: "⬇️ تنزيل الصورة المضغوطة" },
-            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime, cambia el tamaño y convierte PNG, JPG, iconos a KB/MB", upload: "📸 Suelta tu foto o icono de aplicación aquí", btn: "Seleccionar Imagen", quality: "Calidad / Ajustar Tamaño:", original: "Tamaño Original", new: "Nuevo Tamaño", download: "⬇️ Descargar Imagen Comprimida" },
-            DE: { title: "Universeller Bildkompressor", sub: "Komprimieren, skalieren und konvertieren Sie PNG, JPG, App-Icons in KB/MB", upload: "📸 Ziehen Sie Ihr Foto oder App-Icon hierher", btn: "Bild auswählen", quality: "Qualität / Größe anpassen:", original: "Originalgröße", new: "Neue Größe", download: "⬇️ Komprimiertes Bild herunterladen" },
-            FR: { title: "Compresseur d'Images Universel", sub: "Compressez, redimensionnez et convertissez PNG, JPG, icônes en KB/MB", upload: "📸 Déposez votre photo ou icône d'application ici", btn: "Sélectionner l'image", quality: "Qualité / Ajuster la taille:", original: "Taille d'origine", new: "Nouvelle taille", download: "⬇️ Télécharger l'image compressée" },
-            JP: { title: "ユニバーサル画像圧縮ツール", sub: "PNG、JPG、アプリコーンをKB/MBに即座に圧縮・リサイズ", upload: "📸 ここに写真またはアプリコーンをドロップ", btn: "画像を選択", quality: "品質 / サイズ調整:", original: "元のサイズ", new: "新しいサイズ", download: "⬇️ 圧縮画像をダウンロード" },
-            CN: { title: "通用图像压缩工具", sub: "立即将 PNG、JPG、应用图标压缩、调整大小至 KB/MB", upload: "📸 在此处拖放您的照片或应用图标", btn: "选择图片", quality: "质量/调整大小：", original: "原始大小", new: "新大小", download: "⬇️ 下载压缩图片" },
-            BR: { title: "Compressor de Imagem Universal", sub: "Comprima, redimensione e converta PNG, JPG, ícones para KB/MB", upload: "📸 Arraste sua foto ou ícone de aplicativo aqui", btn: "Selecionar Imagem", quality: "Qualidade / Ajustar Tamanho:", original: "Tamanho Original", new: "Novo Tamanho", download: "⬇️ Baixar Imagem Comprimida" },
-            RU: { title: "Универсальный компрессор изображений", sub: "Быстрое сжатие, изменение размера PNG, JPG, иконок в КБ/МБ", upload: "📸 Перетащите фото или иконку сюда", btn: "Выбрать изображение", quality: "Качество / Настройка размера:", original: "Исходный размер", new: "Новый размер", download: "⬇️ Скачать сжатое изображение" }
+            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
+            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG, ऐप आइकॉन का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
+            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
+            AE: { title: "ضاغط الصور الشامل", sub: "ضغط وتغيير حجم صور PNG و JPG و ايقونات التطبيقات بالحجم المطلوب", upload: "📸 ضع صورتك أو أيقونة التطبيق هنا", btn: "اختر صورة", target: "أدخل الحجم المطلوب (بالكيلوبايت):", original: "الحجم الأصلي", new: "الحجم الجديد", download: "⬇️ تنزيل الصورة المضغوطة" },
+            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime, cambia el tamaño y convierte PNG, JPG, iconos al tamaño exacto en KB", upload: "📸 Suelta tu foto o icono de aplicación aquí", btn: "Seleccionar Imagen", target: "Ingrese el tamaño deseado (en KB):", original: "Tamaño Original", new: "Nuevo Tamaño", download: "⬇️ Descargar Imagen Comprimida" },
+            DE: { title: "Universeller Bildkompressor", sub: "Komprimieren, skalieren und konvertieren Sie PNG, JPG, App-Icons in gewünschte KB-Größe", upload: "📸 Ziehen Sie Ihr Foto oder App-Icon hierher", btn: "Bild auswählen", target: "Gewünschte Größe eingeben (in KB):", original: "Originalgröße", new: "Neue Größe", download: "⬇️ Komprimiertes Bild herunterladen" },
+            FR: { title: "Compresseur d'Images Universel", sub: "Compressez, redimensionnez et convertissez PNG, JPG, icônes à la taille souhaitée", upload: "📸 Déposez votre photo ou icône d'application ici", btn: "Sélectionner l'image", target: "Entrez la taille souhaitée (en Ko):", original: "Taille d'origine", new: "Nouvelle taille", download: "⬇️ Télécharger l'image compressée" },
+            JP: { title: "ユニバーサル画像圧縮ツール", sub: "希望のKBサイズに即座に圧縮・リサイズ", upload: "📸 ここに写真またはアプリコーンをドロップ", btn: "画像を選択", target: "希望サイズを入力 (KB):", original: "元のサイズ", new: "新しいサイズ", download: "⬇️ 圧縮画像をダウンロード" },
+            CN: { title: "通用图像压缩工具", sub: "轻松将图片压缩至您指定的KB大小", upload: "📸 在此处拖放您的照片或应用图标", btn: "选择图片", target: "输入所需大小 (KB)：", original: "原始大小", new: "新大小", download: "⬇️ 下载压缩图片" },
+            BR: { title: "Compressor de Imagem Universal", sub: "Comprima e redimensione imagens para o tamanho exato em KB", upload: "📸 Arraste sua foto ou ícone de aplicativo aqui", btn: "Selecionar Imagem", target: "Insira o tamanho desejado (em KB):", original: "Tamanho Original", new: "Novo Tamanho", download: "⬇️ Baixar Imagem Comprimida" },
+            RU: { title: "Универсальный компрессор изображений", sub: "Сжатие изображений до точного размера в КБ", upload: "📸 Перетащите фото или иконку сюда", btn: "Выбрать изображение", target: "Введите желаемый размер (в КБ):", original: "Исходный размер", new: "Новый размер", download: "⬇️ Скачать сжатое изображение" }
         };
 
         function changeLanguage() {
@@ -260,38 +266,28 @@
             document.getElementById('subTitle').textContent = t.sub;
             document.getElementById('uploadText').textContent = t.upload;
             document.getElementById('selectBtnText').textContent = t.btn;
-            document.getElementById('qualityLabel').firstChild.nodeValue = t.quality + " ";
+            document.getElementById('targetLabel').textContent = t.target;
             document.getElementById('downloadBtn').textContent = t.download;
             
-            if(originalFile) updateSizeDisplay();
+            if(originalFile) processImage();
         }
 
-        let originalSizeKBVal = 0;
-        let compressedSizeKBVal = 0;
-
-        // 1. Image Selection
         fileInput.addEventListener('change', function(e) {
             originalFile = e.target.files[0];
             if (originalFile) {
                 controlsBox.style.display = 'block';
                 previewBox.style.display = 'block';
+                // Default target value set to half of original or 50KB as starting point
+                const defaultKb = Math.min(Math.round(originalFile.size / 1024), 100);
+                targetKbInput.value = defaultKb > 10 ? defaultKb : 20;
                 processImage();
             }
         });
 
-        // 2. Quality Range Change
-        qualityRange.addEventListener('input', function() {
-            qualityValue.textContent = qualityRange.value + '%';
-            processImage();
+        targetKbInput.addEventListener('input', function() {
+            if(originalFile) processImage();
         });
 
-        function updateSizeDisplay() {
-            const lang = document.getElementById('countrySelector').value;
-            const t = texts[lang] || texts['EN'];
-            sizeInfo.innerHTML = `<b>${t.original}:</b> ${originalSizeKBVal} KB | <b>${t.new}:</b> ~${compressedSizeKBVal} KB`;
-        }
-
-        // 3. Process & Compress Image Function
         function processImage() {
             if (!originalFile) return;
 
@@ -308,27 +304,50 @@
                     canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
 
-                    const quality = qualityRange.value / 100;
-                    const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                    const targetKB = parseFloat(targetKbInput.value) || 50;
+                    
+                    // Binary search approach to hit target KB closely
+                    let low = 0.01;
+                    let high = 1.0;
+                    let quality = 0.8;
+                    let bestDataUrl = canvas.toDataURL('image/jpeg', quality);
 
-                    previewImage.src = compressedDataUrl;
+                    // Quick iterative estimation for quality control
+                    for (let i = 0; i < 5; i++) {
+                        bestDataUrl = canvas.toDataURL('image/jpeg', quality);
+                        let currentKB = (bestDataUrl.length * 3 / 4) / 1024;
+                        
+                        if (Math.abs(currentKB - targetKB) < 2) break;
+                        
+                        if (currentKB > targetKB) {
+                            high = quality;
+                            quality = (low + quality) / 2;
+                        } else {
+                            low = quality;
+                            quality = (quality + high) / 2;
+                        }
+                    }
 
-                    // Calculate Sizes in KB
-                    originalSizeKBVal = (originalFile.size / 1024).toFixed(2);
-                    compressedSizeKBVal = Math.round((compressedDataUrl.length * 3 / 4) / 1024);
+                    finalDataUrl = bestDataUrl;
+                    previewImage.src = finalDataUrl;
 
-                    updateSizeDisplay();
+                    const originalSizeKBVal = (originalFile.size / 1024).toFixed(2);
+                    const compressedSizeKBVal = Math.round((finalDataUrl.length * 3 / 4) / 1024);
 
-                    // Setup Download Link
-                    downloadBtn.onclick = function() {
-                        const link = document.createElement('a');
-                        link.download = 'Piklyzo_' + originalFile.name;
-                        link.href = compressedDataUrl;
-                        link.click();
-                    };
+                    const lang = document.getElementById('countrySelector').value;
+                    const t = texts[lang] || texts['EN'];
+                    sizeInfo.innerHTML = `<b>${t.original}:</b> ${originalSizeKBVal} KB | <b>${t.new}:</b> ~${compressedSizeKBVal} KB`;
                 };
             };
         }
+
+        downloadBtn.onclick = function() {
+            if (!finalDataUrl || !originalFile) return;
+            const link = document.createElement('a');
+            link.download = 'Piklyzo_' + targetKbInput.value + 'KB_' + originalFile.name;
+            link.href = finalDataUrl;
+            link.click();
+        };
     </script>
 </body>
 </html>
