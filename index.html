@@ -1,129 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ✅ SEO Meta Tags & Trending Keywords for Google Ranking -->
-    <title>Piklyzo - Free Online Image Compressor, Resizer & KB/MB Reducer</title>
-    <meta name="description" content="Piklyzo is the ultimate universal image compressor and resizer tool. Easily reduce or increase PNG, JPG, and app icon sizes in KB or MB for online forms and documents globally.">
-    <meta name="keywords" content="image compressor, photo resizer, reduce image size in kb, mb to kb converter, online image optimizer, Piklyzo, picture size reducer, compress png jpg">
+    <!-- ✅ SEO Meta Tags -->
+    <title>Piklyzo - Free Online Image Compressor, Resizer & KB Reducer</title>
+    <meta name="description" content="Piklyzo is a free universal image compressor and resizer. Easily reduce JPG, PNG photo size to specific KB or MB for online forms & documents safely in browser.">
+    <meta name="keywords" content="image compressor, photo resizer, reduce image size in kb, mb to kb converter, online image optimizer, Piklyzo, compress png jpg">
     <meta name="author" content="Piklyzo">
+    <meta name="robots" content="index, follow">
 
-    <!-- ✅ Google AdSense Meta Tag -->
+    <!-- ✅ 1. Google AdSense Account Verification Script -->
     <meta name="google-adsense-account" content="ca-pub-6242018188944887">
-    
-    <!-- ✅ Google AdSense Main Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6242018188944887" crossorigin="anonymous"></script>
     
     <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             min-height: 100vh;
-            color: #333;
-            padding: 20px;
+            color: var(--text-color);
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Top Header & Country Selector */
-        .header {
+        /* Top Navigation Bar */
+        nav {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            padding: 10px 0;
             color: white;
         }
 
-        .country-select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            cursor: pointer;
-            max-width: 180px;
+            color: #fff;
+            text-decoration: none;
         }
 
-        /* Main Card */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .country-select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Container & Ads Layout */
         .container {
-            background: #ffffff;
+            background: var(--card-bg);
             width: 100%;
-            max-width: 600px;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            max-width: 650px;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
             text-align: center;
         }
 
         h1 {
-            font-size: 28px;
-            color: #1e3c72;
-            margin-bottom: 5px;
+            font-size: 26px;
+            color: var(--primary);
+            margin-bottom: 8px;
         }
 
         p.subtitle {
             font-size: 14px;
-            color: #666;
-            margin-bottom: 25px;
+            color: #64748b;
+            margin-bottom: 20px;
         }
 
-        /* Upload Box */
+        /* Ad Placement Area Styles */
+        .ad-space-top, .ad-space-bottom {
+            width: 100%;
+            margin: 15px 0;
+            min-height: 90px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Upload Container */
         .upload-area {
-            border: 2px dashed #2a5298;
-            padding: 25px;
+            border: 2px dashed var(--secondary);
+            padding: 30px 20px;
             border-radius: 12px;
             background: #f8fafc;
             cursor: pointer;
-            margin-bottom: 20px;
-            transition: 0.3s;
+            transition: all 0.2s ease;
         }
 
         .upload-area:hover {
             background: #edf2f7;
+            border-color: var(--primary);
         }
 
         .upload-btn {
-            background: #2a5298;
+            background: var(--secondary);
             color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 12px;
+            transition: 0.2s;
         }
 
-        /* Controls Section */
+        .upload-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Controls Area */
         .controls {
             display: none;
             margin-top: 20px;
             text-align: left;
             background: #f1f5f9;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 18px;
+            border-radius: 10px;
         }
 
         .control-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         label {
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
             display: block;
-            margin-bottom: 5px;
-            color: #1e3c72;
+            margin-bottom: 6px;
+            color: var(--primary);
         }
 
         input[type="number"] {
@@ -133,14 +188,20 @@
             border-radius: 8px;
             font-size: 15px;
             outline: none;
-            transition: 0.3s;
         }
 
         input[type="number"]:focus {
-            border-color: #2a5298;
+            border-color: var(--secondary);
         }
 
-        /* Preview & Download */
+        .info-text {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* Preview & Download Box */
         .preview-box {
             display: none;
             margin-top: 20px;
@@ -148,43 +209,100 @@
 
         .preview-box img {
             max-width: 100%;
-            max-height: 250px;
-            border-radius: 10px;
+            max-height: 220px;
+            border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            will-change: transform;
         }
 
         .download-btn {
-            background: #10b981;
+            background: var(--accent);
             color: white;
             border: none;
-            padding: 14px 28px;
+            padding: 14px 24px;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
             margin-top: 15px;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .download-btn:hover {
-            background: #059669;
+            background: var(--accent-hover);
         }
 
-        .info-text {
-            font-size: 13px;
-            color: #334155;
-            margin-top: 8px;
-            font-weight: 500;
+        /* SEO Section (AdSense Safety Net) */
+        .seo-section {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            text-align: left;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .seo-section h2 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        .seo-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .seo-section p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Policy Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <div class="header">
-        <h2>Piklyzo</h2>
-        <!-- Global Country & Language Selector -->
+    <!-- Header & Policy Navigation -->
+    <nav>
+        <a href="#" class="logo">Piklyzo</a>
+        <div class="nav-links">
+            <a onclick="showModal('about')">About Us</a>
+            <a onclick="showModal('privacy')">Privacy Policy</a>
+            <a onclick="showModal('contact')">Contact Us</a>
+        </div>
         <select class="country-select" id="countrySelector" onchange="changeLanguage()">
             <option value="EN">🌍 Global (English)</option>
             <option value="IN">🇮🇳 India (हिंदी)</option>
@@ -195,39 +313,76 @@
             <option value="FR">🇫🇷 France (Français)</option>
             <option value="JP">🇯🇵 Japan (日本語)</option>
             <option value="CN">🇨🇳 China (中文)</option>
-            <option value="BR">🇧🇷 Brazil (Português)</option>
-            <option value="RU">🇷🇺 Russia (Русский)</option>
         </select>
-    </div>
+    </nav>
 
-    <!-- Main Tool Container -->
+    <!-- Main Utility Tool -->
     <div class="container">
         <h1 id="mainTitle">Universal Image Compressor</h1>
-        <p class="subtitle" id="subTitle">Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly</p>
+        <p class="subtitle" id="subTitle">Compress, Resize & Convert PNG, JPG to exact KB size instantly</p>
 
-        <!-- Hidden File Input -->
+        <!-- ✅ 2. Top Banner Ad Slot -->
+        <div class="ad-space-top">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-6242018188944887"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
         <input type="file" id="fileInput" accept="image/*" hidden>
 
-        <!-- Upload Box -->
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
             <p id="uploadText">📸 Drop your photo or App Icon here / Choose File</p>
             <button class="upload-btn" id="selectBtnText">Select Image</button>
         </div>
 
-        <!-- Image Controls (Target KB Input) -->
         <div class="controls" id="controlsBox">
             <div class="control-group">
                 <label id="targetLabel" for="targetKbInput">Enter Desired Size (in KB):</label>
                 <input type="number" id="targetKbInput" placeholder="e.g. 50" min="5">
             </div>
-            
             <div class="info-text" id="sizeInfo">Original Size: 0 KB | New Size: 0 KB</div>
         </div>
 
-        <!-- Preview & Download Section -->
         <div class="preview-box" id="previewBox">
             <img id="previewImage" alt="Compressed Preview">
             <button class="download-btn" id="downloadBtn">⬇️ Download Compressed Image</button>
+        </div>
+
+        <!-- ✅ 3. Bottom In-Container Ad Slot -->
+        <div class="ad-space-bottom">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-6242018188944887"
+                 data-ad-slot="auto"
+                 data-ad-format="rectangle"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- SEO & Article Content (Protection Against Thin-Content Errors) -->
+    <div class="seo-section">
+        <h2>About Piklyzo Image Optimizer</h2>
+        <p>Piklyzo is an ultra-fast, secure online image compression utility designed to help users instantly resize and shrink photo dimensions to specific KB sizes without losing quality.</p>
+        
+        <h2>How to Reduce Photo Size in KB?</h2>
+        <p>1. Upload your PNG, JPG, or WEBP photo using the file picker above.<br>
+           2. Set your custom file target in KB (e.g., 20KB, 50KB, 100KB).<br>
+           3. Click on the Download button to save your resized photo instantly.</p>
+           
+        <h2>Fast & Secure Browser-Side Compression</h2>
+        <p>All photo processing happens natively inside your browser canvas engine. No images are ever uploaded to an external server, keeping your data completely private and safe.</p>
+    </div>
+
+    <!-- Policy Modal Overlay -->
+    <div class="modal" id="policyModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
         </div>
     </div>
 
@@ -242,20 +397,11 @@
 
         let originalFile = null;
         let finalDataUrl = "";
+        let processTimeout = null;
 
-        // Multi-language text dictionary
         const texts = {
-            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
-            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG, ऐप आइकॉन का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
-            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG, App Icons to KB/MB instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
-            AE: { title: "ضاغط الصور الشامل", sub: "ضغط وتغيير حجم صور PNG و JPG و ايقونات التطبيقات بالحجم المطلوب", upload: "📸 ضع صورتك أو أيقونة التطبيق هنا", btn: "اختر صورة", target: "أدخل الحجم المطلوب (بالكيلوبايت):", original: "الحجم الأصلي", new: "الحجم الجديد", download: "⬇️ تنزيل الصورة المضغوطة" },
-            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime, cambia el tamaño y convierte PNG, JPG, iconos al tamaño exacto en KB", upload: "📸 Suelta tu foto o icono de aplicación aquí", btn: "Seleccionar Imagen", target: "Ingrese el tamaño deseado (en KB):", original: "Tamaño Original", new: "Nuevo Tamaño", download: "⬇️ Descargar Imagen Comprimida" },
-            DE: { title: "Universeller Bildkompressor", sub: "Komprimieren, skalieren und konvertieren Sie PNG, JPG, App-Icons in gewünschte KB-Größe", upload: "📸 Ziehen Sie Ihr Foto oder App-Icon hierher", btn: "Bild auswählen", target: "Gewünschte Größe eingeben (in KB):", original: "Originalgröße", new: "Neue Größe", download: "⬇️ Komprimiertes Bild herunterladen" },
-            FR: { title: "Compresseur d'Images Universel", sub: "Compressez, redimensionnez et convertissez PNG, JPG, icônes à la taille souhaitée", upload: "📸 Déposez votre photo ou icône d'application ici", btn: "Sélectionner l'image", target: "Entrez la taille souhaitée (en Ko):", original: "Taille d'origine", new: "Nouvelle taille", download: "⬇️ Télécharger l'image compressée" },
-            JP: { title: "ユニバーサル画像圧縮ツール", sub: "希望のKBサイズに即座に圧縮・リサイズ", upload: "📸 ここに写真またはアプリコーンをドロップ", btn: "画像を選択", target: "希望サイズを入力 (KB):", original: "元のサイズ", new: "新しいサイズ", download: "⬇️ 圧縮画像をダウンロード" },
-            CN: { title: "通用图像压缩工具", sub: "轻松将图片压缩至您指定的KB大小", upload: "📸 在此处拖放您的照片或应用图标", btn: "选择图片", target: "输入所需大小 (KB)：", original: "原始大小", new: "新大小", download: "⬇️ 下载压缩图片" },
-            BR: { title: "Compressor de Imagem Universal", sub: "Comprima e redimensione imagens para o tamanho exato em KB", upload: "📸 Arraste sua foto ou ícone de aplicativo aqui", btn: "Selecionar Imagem", target: "Insira o tamanho desejado (em KB):", original: "Tamanho Original", new: "Novo Tamanho", download: "⬇️ Baixar Imagem Comprimida" },
-            RU: { title: "Универсальный компрессор изображений", sub: "Сжатие изображений до точного размера в КБ", upload: "📸 Перетащите фото или иконку сюда", btn: "Выбрать изображение", target: "Введите желаемый размер (в КБ):", original: "Исходный размер", new: "Новый размер", download: "⬇️ Скачать сжатое изображение" }
+            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
+            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG फ़ोटो का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" }
         };
 
         function changeLanguage() {
@@ -277,20 +423,22 @@
             if (originalFile) {
                 controlsBox.style.display = 'block';
                 previewBox.style.display = 'block';
-                // Default target value set to half of original or 50KB as starting point
                 const defaultKb = Math.min(Math.round(originalFile.size / 1024), 100);
                 targetKbInput.value = defaultKb > 10 ? defaultKb : 20;
                 processImage();
             }
         });
 
+        // Debounce input to maximize speed while typing numbers
         targetKbInput.addEventListener('input', function() {
-            if(originalFile) processImage();
+            if(originalFile) {
+                clearTimeout(processTimeout);
+                processTimeout = setTimeout(processImage, 100);
+            }
         });
 
         function processImage() {
             if (!originalFile) return;
-
             const reader = new FileReader();
             reader.readAsDataURL(originalFile);
             reader.onload = function(event) {
@@ -298,27 +446,20 @@
                 img.src = event.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-
+                    const ctx = canvas.getContext('2d', { alpha: false });
                     canvas.width = img.width;
                     canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
 
                     const targetKB = parseFloat(targetKbInput.value) || 50;
-                    
-                    // Binary search approach to hit target KB closely
-                    let low = 0.01;
-                    let high = 1.0;
-                    let quality = 0.8;
+                    let low = 0.01, high = 1.0, quality = 0.7;
                     let bestDataUrl = canvas.toDataURL('image/jpeg', quality);
 
-                    // Quick iterative estimation for quality control
-                    for (let i = 0; i < 5; i++) {
+                    // Binary search optimized to 4 iterations for blazing speed
+                    for (let i = 0; i < 4; i++) {
                         bestDataUrl = canvas.toDataURL('image/jpeg', quality);
-                        let currentKB = (bestDataUrl.length * 3 / 4) / 1024;
-                        
-                        if (Math.abs(currentKB - targetKB) < 2) break;
-                        
+                        let currentKB = (bestDataUrl.length * 0.75) / 1024;
+                        if (Math.abs(currentKB - targetKB) < 3) break;
                         if (currentKB > targetKB) {
                             high = quality;
                             quality = (low + quality) / 2;
@@ -330,10 +471,8 @@
 
                     finalDataUrl = bestDataUrl;
                     previewImage.src = finalDataUrl;
-
                     const originalSizeKBVal = (originalFile.size / 1024).toFixed(2);
-                    const compressedSizeKBVal = Math.round((finalDataUrl.length * 3 / 4) / 1024);
-
+                    const compressedSizeKBVal = Math.round((finalDataUrl.length * 0.75) / 1024);
                     const lang = document.getElementById('countrySelector').value;
                     const t = texts[lang] || texts['EN'];
                     sizeInfo.innerHTML = `<b>${t.original}:</b> ${originalSizeKBVal} KB | <b>${t.new}:</b> ~${compressedSizeKBVal} KB`;
@@ -348,6 +487,24 @@
             link.href = finalDataUrl;
             link.click();
         };
+
+        // Handlers for AdSense Mandatory Policy Pages
+        function showModal(type) {
+            const modal = document.getElementById('policyModal');
+            const body = document.getElementById('modalBody');
+            if(type === 'privacy') {
+                body.innerHTML = "<h3>Privacy Policy</h3><p>Piklyzo values your privacy. We do not store, log, or transmit uploaded images. All file optimization is executed locally in your browser context.</p>";
+            } else if(type === 'about') {
+                body.innerHTML = "<h3>About Us</h3><p>Piklyzo is a free browser-based image optimization service focused on providing high-speed image compression for online applications.</p>";
+            } else if(type === 'contact') {
+                body.innerHTML = "<h3>Contact Us</h3><p>For support inquiries or site suggestions, please contact our team via support@piklyzo.com.</p>";
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('policyModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
