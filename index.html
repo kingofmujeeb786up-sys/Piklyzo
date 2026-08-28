@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ✅ SEO Meta Tags -->
     <title>Piklyzo - Free Online Image Compressor, Resizer & KB Reducer</title>
     <meta name="description" content="Piklyzo is a free universal image compressor and resizer. Easily reduce JPG, PNG photo size to specific KB or MB for online forms & documents safely in browser.">
     <meta name="keywords" content="image compressor, photo resizer, reduce image size in kb, mb to kb converter, online image optimizer, Piklyzo, compress png jpg">
@@ -14,11 +13,9 @@
     <meta property="og:title" content="Piklyzo - Free Online Image Compressor">
     <meta name="robots" content="index, follow">
 
-    <!-- ✅ Favicon / Website Logo Tag (ब्राउज़र टैब आइकॉन) -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="shortcut icon" type="image/png" href="logo.png">
 
-    <!-- ✅ 1. Google AdSense Account Verification Script -->
     <meta name="google-adsense-account" content="ca-pub-6242018188944887">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6242018188944887" crossorigin="anonymous"></script>
     
@@ -50,7 +47,6 @@
             align-items: center;
         }
 
-        /* Top Navigation Bar */
         nav {
             width: 100%;
             max-width: 800px;
@@ -100,7 +96,6 @@
             font-size: 13px;
         }
 
-        /* Container & Ads Layout */
         .container {
             background: var(--card-bg);
             width: 100%;
@@ -123,7 +118,6 @@
             margin-bottom: 20px;
         }
 
-        /* Ad Placement Area Styles */
         .ad-space-top, .ad-space-bottom {
             width: 100%;
             margin: 15px 0;
@@ -137,7 +131,6 @@
             overflow: hidden;
         }
 
-        /* Upload Container */
         .upload-area {
             border: 2px dashed var(--secondary);
             padding: 30px 20px;
@@ -169,7 +162,6 @@
             background: var(--primary);
         }
 
-        /* Controls Area */
         .controls {
             display: none;
             margin-top: 20px;
@@ -181,6 +173,15 @@
 
         .control-group {
             margin-bottom: 12px;
+        }
+
+        .dimension-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dimension-inputs > div {
+            flex: 1;
         }
 
         label {
@@ -204,14 +205,45 @@
             border-color: var(--secondary);
         }
 
-        .info-text {
-            font-size: 13px;
-            color: #475569;
-            margin-top: 8px;
+        /* Compression Stats Dashboard Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+        }
+
+        .stat-card.highlight {
+            background: #e6fffa;
+            border-color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
             font-weight: 600;
         }
 
-        /* Preview & Download Box */
+        .stat-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 4px;
+        }
+
+        .stat-card.highlight .stat-value {
+            color: var(--accent-hover);
+        }
+
         .preview-box {
             display: none;
             margin-top: 20px;
@@ -219,10 +251,9 @@
 
         .preview-box img {
             max-width: 100%;
-            max-height: 220px;
+            max-height: 250px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            will-change: transform;
         }
 
         .download-btn {
@@ -243,7 +274,6 @@
             background: var(--accent-hover);
         }
 
-        /* SEO Section (AdSense Safety Net) */
         .seo-section {
             width: 100%;
             max-width: 650px;
@@ -273,7 +303,6 @@
             margin-bottom: 10px;
         }
 
-        /* Policy Modal */
         .modal {
             display: none;
             position: fixed;
@@ -305,7 +334,6 @@
 </head>
 <body>
 
-    <!-- Header & Policy Navigation -->
     <nav>
         <a href="#" class="logo">Piklyzo</a>
         <div class="nav-links">
@@ -326,12 +354,10 @@
         </select>
     </nav>
 
-    <!-- Main Utility Tool -->
     <div class="container">
         <h1 id="mainTitle">Universal Image Compressor</h1>
         <p class="subtitle" id="subTitle">Compress, Resize & Convert PNG, JPG to exact KB size instantly</p>
 
-        <!-- ✅ 2. Top Banner Ad Slot -->
         <div class="ad-space-top">
             <ins class="adsbygoogle"
                  style="display:block; width:100%;"
@@ -354,7 +380,33 @@
                 <label id="targetLabel" for="targetKbInput">Enter Desired Size (in KB):</label>
                 <input type="number" id="targetKbInput" placeholder="e.g. 50" min="5">
             </div>
-            <div class="info-text" id="sizeInfo">Original Size: 0 KB | New Size: 0 KB</div>
+
+            <div class="control-group">
+                <label id="dimensionsLabel">Custom Dimensions (Width x Height px):</label>
+                <div class="dimension-inputs">
+                    <div>
+                        <input type="number" id="widthInput" placeholder="Width (px)">
+                    </div>
+                    <div>
+                        <input type="number" id="heightInput" placeholder="Height (px)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label" id="lblOriginal">Original Size</div>
+                    <div class="stat-value" id="valOriginal">0 KB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label" id="lblCompressed">New Size</div>
+                    <div class="stat-value" id="valCompressed">0 KB</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-label" id="lblSaved">Reduction</div>
+                    <div class="stat-value" id="valSaved">0%</div>
+                </div>
+            </div>
         </div>
 
         <div class="preview-box" id="previewBox">
@@ -362,7 +414,6 @@
             <button class="download-btn" id="downloadBtn">⬇️ Download Compressed Image</button>
         </div>
 
-        <!-- ✅ 3. Bottom In-Container Ad Slot -->
         <div class="ad-space-bottom">
             <ins class="adsbygoogle"
                  style="display:block; width:100%;"
@@ -374,21 +425,19 @@
         </div>
     </div>
 
-    <!-- SEO & Article Content (Protection Against Thin-Content Errors) -->
     <div class="seo-section">
         <h2>About Piklyzo Image Optimizer</h2>
         <p>Piklyzo is an ultra-fast, secure online image compression utility designed to help users instantly resize and shrink photo dimensions to specific KB sizes without losing quality.</p>
         
         <h2>How to Reduce Photo Size in KB?</h2>
         <p>1. Upload your PNG, JPG, or WEBP photo using the file picker above.<br>
-           2. Set your custom file target in KB (e.g., 20KB, 50KB, 100KB).<br>
+           2. Set your custom file target in KB (e.g., 20KB, 50KB, 100KB) and optionally adjust width/height.<br>
            3. Click on the Download button to save your resized photo instantly.</p>
            
         <h2>Fast & Secure Browser-Side Compression</h2>
         <p>All photo processing happens natively inside your browser canvas engine. No images are ever uploaded to an external server, keeping your data completely private and safe.</p>
     </div>
 
-    <!-- Policy Modal Overlay -->
     <div class="modal" id="policyModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -402,16 +451,26 @@
         const previewBox = document.getElementById('previewBox');
         const previewImage = document.getElementById('previewImage');
         const targetKbInput = document.getElementById('targetKbInput');
-        const sizeInfo = document.getElementById('sizeInfo');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
         const downloadBtn = document.getElementById('downloadBtn');
 
         let originalFile = null;
+        let originalImgDimensions = { width: 0, height: 0 };
         let finalDataUrl = "";
         let processTimeout = null;
 
+        // Multilingual Translations Dictionary
         const texts = {
-            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", original: "Original Size", new: "New Size", download: "⬇️ Download Compressed Image" },
-            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG फ़ोटो का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", original: "मूल साइज़", new: "नया साइज़", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" }
+            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", dims: "Custom Dimensions (Width x Height px):", original: "Original Size", newSize: "New Size", saved: "Reduction", download: "⬇️ Download Compressed Image" },
+            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG फ़ोटो का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", dims: "लंबाई-चौड़ाई बदलें (चौड़ाई x ऊंचाई px):", original: "मूल साइज़", newSize: "नया साइज़", saved: "कुल बचत", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
+            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop photo here / Choose File", btn: "Select Image", target: "Desired Size (in KB):", dims: "Dimensions (Width x Height px):", original: "Original Size", newSize: "New Size", saved: "Reduction", download: "⬇️ Download Compressed Image" },
+            AE: { title: "ضاغط الصور العالمي", sub: "قم بتقليل حجم صور PNG و JPG إلى KB بالضبط فوراً", upload: "📸 إسقاط الصورة هنا / اختر ملف", btn: "اختر صورة", target: "الحجم المطلوب (بالكيلوبايت):", dims: "الأبعاد (العرض × الارتفاع):", original: "الحجم الأصلي", newSize: "الحجم الجديد", saved: "نسبة التخفيض", download: "⬇️ تحميل الصورة المضغوطة" },
+            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime y cambia el tamaño de fotos PNG, JPG a KB exactos", upload: "📸 Arrastra tu foto aquí / Seleccionar", btn: "Seleccionar Foto", target: "Tamaño deseado (en KB):", dims: "Dimensiones (Ancho x Alto px):", original: "Tamaño Original", newSize: "Nuevo Tamaño", saved: "Reducción", download: "⬇️ Descargar Imagen Comprimida" },
+            DE: { title: "Universal Bildkomprimierer", sub: "PNG, JPG Bilder sofort auf exakte KB-Größe anpassen", upload: "📸 Foto hier ablegen / Datei wählen", btn: "Bild Auswählen", target: "Gewünschte Größe (in KB):", dims: "Abmessungen (Breite x Höhe px):", original: "Originalgröße", newSize: "Neue Größe", saved: "Reduzierung", download: "⬇️ Komprimiertes Bild Herunterladen" },
+            FR: { title: "Compresseur d'Image Universel", sub: "Redimensionnez vos photos PNG, JPG à la taille KB exacte", upload: "📸 Déposez votre photo ici / Choisir", btn: "Sélectionner", target: "Taille désirée (en KB):", dims: "Dimensions (Largeur x Hauteur px):", original: "Taille Originale", newSize: "Nouvelle Taille", saved: "Réduction", download: "⬇️ Télécharger l'Image Comprimée" },
+            JP: { title: "ユニバーサル画像圧縮ツール", sub: "PNG、JPG画像を指定のKBサイズに即座に圧縮・リサイズ", upload: "📸 ドロップして画像を選択", btn: "画像を選択", target: "希望のサイズ (KB):", dims: "幅 x 高さ (ピクセル):", original: "元のサイズ", newSize: "新しいサイズ", saved: "削減率", download: "⬇️ 圧縮した画像をダウンロード" },
+            CN: { title: "通用图像压缩器", sub: "轻松将 PNG、JPG 图片压缩至指定的 KB 大小", upload: "📸 拖放照片至此 / 选择文件", btn: "选择图片", target: "目标大小 (KB):", dims: "自定义尺寸 (宽度 x 高度 px):", original: "原始大小", newSize: "压缩后大小", saved: "已压缩", download: "⬇️ 下载压缩后的图片" }
         };
 
         function changeLanguage() {
@@ -423,6 +482,10 @@
             document.getElementById('uploadText').textContent = t.upload;
             document.getElementById('selectBtnText').textContent = t.btn;
             document.getElementById('targetLabel').textContent = t.target;
+            document.getElementById('dimensionsLabel').textContent = t.dims;
+            document.getElementById('lblOriginal').textContent = t.original;
+            document.getElementById('lblCompressed').textContent = t.newSize;
+            document.getElementById('lblSaved').textContent = t.saved;
             document.getElementById('downloadBtn').textContent = t.download;
             
             if(originalFile) processImage();
@@ -431,19 +494,42 @@
         fileInput.addEventListener('change', function(e) {
             originalFile = e.target.files[0];
             if (originalFile) {
-                controlsBox.style.display = 'block';
-                previewBox.style.display = 'block';
-                const defaultKb = Math.min(Math.round(originalFile.size / 1024), 100);
-                targetKbInput.value = defaultKb > 10 ? defaultKb : 20;
-                processImage();
+                const reader = new FileReader();
+                reader.readAsDataURL(originalFile);
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = function() {
+                        originalImgDimensions = { width: img.width, height: img.height };
+                        widthInput.value = img.width;
+                        heightInput.value = img.height;
+
+                        controlsBox.style.display = 'block';
+                        previewBox.style.display = 'block';
+                        
+                        const defaultKb = Math.min(Math.round(originalFile.size / 1024), 100);
+                        targetKbInput.value = defaultKb > 10 ? defaultKb : 20;
+                        processImage();
+                    };
+                };
             }
         });
 
-        // Debounce input to maximize speed while typing numbers
-        targetKbInput.addEventListener('input', function() {
-            if(originalFile) {
-                clearTimeout(processTimeout);
-                processTimeout = setTimeout(processImage, 100);
+        // Input triggers with Debounce logic
+        [targetKbInput, widthInput, heightInput].forEach(element => {
+            element.addEventListener('input', function() {
+                if(originalFile) {
+                    clearTimeout(processTimeout);
+                    processTimeout = setTimeout(processImage, 120);
+                }
+            });
+        });
+
+        // Maintain aspect ratio when width is modified
+        widthInput.addEventListener('input', function() {
+            if (originalImgDimensions.width > 0 && widthInput.value > 0) {
+                const ratio = originalImgDimensions.height / originalImgDimensions.width;
+                heightInput.value = Math.round(widthInput.value * ratio);
             }
         });
 
@@ -457,19 +543,24 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d', { alpha: false });
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
+                    
+                    // Apply Custom or Default Dimensions
+                    const targetWidth = parseInt(widthInput.value) || img.width;
+                    const targetHeight = parseInt(heightInput.value) || img.height;
+                    
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
                     const targetKB = parseFloat(targetKbInput.value) || 50;
                     let low = 0.01, high = 1.0, quality = 0.7;
                     let bestDataUrl = canvas.toDataURL('image/jpeg', quality);
 
-                    // Binary search optimized to 4 iterations for blazing speed
-                    for (let i = 0; i < 4; i++) {
+                    // Binary search optimized to 5 iterations for maximum quality-to-size accuracy
+                    for (let i = 0; i < 5; i++) {
                         bestDataUrl = canvas.toDataURL('image/jpeg', quality);
                         let currentKB = (bestDataUrl.length * 0.75) / 1024;
-                        if (Math.abs(currentKB - targetKB) < 3) break;
+                        if (Math.abs(currentKB - targetKB) < 2) break;
                         if (currentKB > targetKB) {
                             high = quality;
                             quality = (low + quality) / 2;
@@ -481,11 +572,15 @@
 
                     finalDataUrl = bestDataUrl;
                     previewImage.src = finalDataUrl;
-                    const originalSizeKBVal = (originalFile.size / 1024).toFixed(2);
-                    const compressedSizeKBVal = Math.round((finalDataUrl.length * 0.75) / 1024);
-                    const lang = document.getElementById('countrySelector').value;
-                    const t = texts[lang] || texts['EN'];
-                    sizeInfo.innerHTML = `<b>${t.original}:</b> ${originalSizeKBVal} KB | <b>${t.new}:</b> ~${compressedSizeKBVal} KB`;
+                    
+                    // Calculations for Stats Card Display
+                    const originalKBVal = (originalFile.size / 1024).toFixed(1);
+                    const compressedKBVal = Math.round((finalDataUrl.length * 0.75) / 1024);
+                    const savedPercentage = Math.max(0, (((originalFile.size - (finalDataUrl.length * 0.75)) / originalFile.size) * 100)).toFixed(1);
+
+                    document.getElementById('valOriginal').textContent = `${originalKBVal} KB`;
+                    document.getElementById('valCompressed').textContent = `~${compressedKBVal} KB`;
+                    document.getElementById('valSaved').textContent = `${savedPercentage}%`;
                 };
             };
         }
@@ -498,7 +593,6 @@
             link.click();
         };
 
-        // Handlers for AdSense Mandatory Policy Pages
         function showModal(type) {
             const modal = document.getElementById('policyModal');
             const body = document.getElementById('modalBody');
