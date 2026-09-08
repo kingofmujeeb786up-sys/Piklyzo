@@ -14,13 +14,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Piklyzo - Free Online Image Compressor, Resizer & KB Reducer</title>
-    <meta name="description" content="Piklyzo is a free universal image compressor and resizer. Easily reduce JPG, PNG photo size to specific KB or MB for online forms & documents safely in browser.">
-    <meta name="keywords" content="image compressor, photo resizer, reduce image size in kb, mb to kb converter, online image optimizer, Piklyzo, compress png jpg">
+    <title>Piklyzo - World's 1st Image Resizer with Auto Name, Date Stamp, Border & Direct Share</title>
+    <meta name="description" content="Piklyzo is the world's most advanced free online image compressor and resizer with auto name & date stamp, photo border adder, and direct sharing for government exams and forms.">
+    <meta name="keywords" content="image compressor, photo resizer, image resizer with name and date, add border to photo online, image to pdf converter kb, reduce image size, Piklyzo">
     <meta name="author" content="Piklyzo">
     <meta name="application-name" content="Piklyzo">
     <meta property="og:site_name" content="Piklyzo">
-    <meta property="og:title" content="Piklyzo - Free Online Image Compressor">
+    <meta property="og:title" content="Piklyzo - Free Image Compressor & Advanced Form Photo Maker">
     <meta name="robots" content="index, follow">
 
     <link rel="icon" type="image/png" href="logo.png">
@@ -202,7 +202,7 @@
             color: var(--primary);
         }
 
-        input[type="number"] {
+        input[type="number"], input[type="text"] {
             width: 100%;
             padding: 10px;
             border: 2px solid #cbd5e1;
@@ -211,11 +211,20 @@
             outline: none;
         }
 
-        input[type="number"]:focus {
+        input:focus {
             border-color: var(--secondary);
         }
 
-        /* Compression Stats Dashboard Grid */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--primary);
+            margin-top: 8px;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -266,22 +275,44 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
         .download-btn {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 14px 24px;
+            padding: 12px 10px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
+            flex: 1;
             transition: 0.2s;
         }
 
         .download-btn:hover {
             background: var(--accent-hover);
+        }
+
+        .share-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .share-btn:hover {
+            background: var(--secondary);
         }
 
         .seo-section {
@@ -365,8 +396,8 @@
     </nav>
 
     <div class="container">
-        <h1 id="mainTitle">Universal Image Compressor</h1>
-        <p class="subtitle" id="subTitle">Compress, Resize & Convert PNG, JPG to exact KB size instantly</p>
+        <h1 id="mainTitle">Advanced Image Compressor & Form Maker</h1>
+        <p class="subtitle" id="subTitle">Compress, Resize, Add Name/Date Stamp & Borders instantly</p>
 
         <div class="ad-space-top">
             <ins class="adsbygoogle"
@@ -381,7 +412,7 @@
         <input type="file" id="fileInput" accept="image/*" hidden>
 
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <p id="uploadText">📸 Drop your photo or App Icon here / Choose File</p>
+            <p id="uploadText">📸 Drop your photo or document here / Choose File</p>
             <button class="upload-btn" id="selectBtnText">Select Image</button>
         </div>
 
@@ -403,6 +434,24 @@
                 </div>
             </div>
 
+            <!-- EXCLUSIVE FEATURE 1: Name & Date Stamp -->
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="stampToggle"> Add Name & Date Stamp (Govt Forms)
+                </label>
+                <div id="stampInputs" style="display: none; margin-top: 8px; gap: 8px;">
+                    <input type="text" id="userNameInput" placeholder="Enter Full Name">
+                    <input type="text" id="userDateInput" placeholder="Date (DD-MM-YYYY)" style="margin-top: 6px;">
+                </div>
+            </div>
+
+            <!-- EXCLUSIVE FEATURE 2: Add Professional Border (New & Unique) -->
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="borderToggle"> Add Clean Border (For Official Docs)
+                </label>
+            </div>
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label" id="lblOriginal">Original Size</div>
@@ -421,7 +470,11 @@
 
         <div class="preview-box" id="previewBox">
             <img id="previewImage" alt="Compressed Preview">
-            <button class="download-btn" id="downloadBtn">⬇️ Download Compressed Image</button>
+            <div class="action-buttons">
+                <button class="download-btn" id="downloadBtn">⬇️ JPG</button>
+                <button class="download-btn" id="downloadPdfBtn" style="background:#2563eb;">📄 PDF</button>
+                <button class="share-btn" id="shareBtn">🚀 Share</button>
+            </div>
         </div>
 
         <div class="ad-space-bottom">
@@ -437,15 +490,15 @@
 
     <div class="seo-section">
         <h2>About Piklyzo Image Optimizer</h2>
-        <p>Piklyzo is an ultra-fast, secure online image compression utility designed to help users instantly resize and shrink photo dimensions to specific KB sizes without losing quality.</p>
+        <p>Piklyzo is the world's most comprehensive online image utility designed for job aspirants and students. It offers instant KB compression, custom form naming, date stamping, professional borders, and direct sharing without app installations.</p>
         
-        <h2>How to Reduce Photo Size in KB?</h2>
-        <p>1. Upload your PNG, JPG, or WEBP photo using the file picker above.<br>
-           2. Set your custom file target in KB (e.g., 20KB, 50KB, 100KB) and optionally adjust width/height.<br>
-           3. Click on the Download button to save your resized photo instantly.</p>
+        <h2>How to Optimize Photos for Forms?</h2>
+        <p>1. Upload your JPG or PNG photo securely.<br>
+           2. Choose target KB size, dimensions, and check stamp or border options.<br>
+           3. Download instantly as JPG/PDF or share directly with a single click.</p>
            
-        <h2>Fast & Secure Browser-Side Compression</h2>
-        <p>All photo processing happens natively inside your browser canvas engine. No images are ever uploaded to an external server, keeping your data completely private and safe.</p>
+        <h2>100% Secure Client-Side Processing</h2>
+        <p>All processing runs natively in your browser. Your private documents are never uploaded to any external server.</p>
     </div>
 
     <div class="modal" id="policyModal">
@@ -464,40 +517,56 @@
         const widthInput = document.getElementById('widthInput');
         const heightInput = document.getElementById('heightInput');
         const downloadBtn = document.getElementById('downloadBtn');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const stampToggle = document.getElementById('stampToggle');
+        const stampInputs = document.getElementById('stampInputs');
+        const userNameInput = document.getElementById('userNameInput');
+        const userDateInput = document.getElementById('userDateInput');
+        const borderToggle = document.getElementById('borderToggle');
 
         let originalFile = null;
         let originalImgDimensions = { width: 0, height: 0 };
         let finalDataUrl = "";
         let processTimeout = null;
 
-        // Multilingual Translations Dictionary
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        userDateInput.value = `${dd}-${mm}-${yyyy}`;
+
+        stampToggle.addEventListener('change', function() {
+            stampInputs.style.display = this.checked ? 'block' : 'none';
+            processImage();
+        });
+
+        borderToggle.addEventListener('change', function() {
+            processImage();
+        });
+
         const texts = {
-            EN: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop your photo or App Icon here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", dims: "Custom Dimensions (Width x Height px):", original: "Original Size", newSize: "New Size", saved: "Reduction", download: "⬇️ Download Compressed Image" },
-            IN: { title: "यूनिवर्सल इमेज कंप्रेसर", sub: "PNG, JPG फ़ोटो का साइज़ (KB/MB) मनपसंद KB में बदलें", upload: "📸 अपनी फोटो या App Icon यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", dims: "लंबाई-चौड़ाई बदलें (चौड़ाई x ऊंचाई px):", original: "मूल साइज़", newSize: "नया साइज़", saved: "कुल बचत", download: "⬇️ कंप्रेस्ड इमेज डाउनलोड करें" },
-            US: { title: "Universal Image Compressor", sub: "Compress, Resize & Convert PNG, JPG to exact KB size instantly", upload: "📸 Drop photo here / Choose File", btn: "Select Image", target: "Desired Size (in KB):", dims: "Dimensions (Width x Height px):", original: "Original Size", newSize: "New Size", saved: "Reduction", download: "⬇️ Download Compressed Image" },
-            AE: { title: "ضاغط الصور العالمي", sub: "قم بتقليل حجم صور PNG و JPG إلى KB بالضبط فوراً", upload: "📸 إسقاط الصورة هنا / اختر ملف", btn: "اختر صورة", target: "الحجم المطلوب (بالكيلوبايت):", dims: "الأبعاد (العرض × الارتفاع):", original: "الحجم الأصلي", newSize: "الحجم الجديد", saved: "نسبة التخفيض", download: "⬇️ تحميل الصورة المضغوطة" },
-            ES: { title: "Compresor de Imágenes Universal", sub: "Comprime y cambia el tamaño de fotos PNG, JPG a KB exactos", upload: "📸 Arrastra tu foto aquí / Seleccionar", btn: "Seleccionar Foto", target: "Tamaño deseado (en KB):", dims: "Dimensiones (Ancho x Alto px):", original: "Tamaño Original", newSize: "Nuevo Tamaño", saved: "Reducción", download: "⬇️ Descargar Imagen Comprimida" },
-            DE: { title: "Universal Bildkomprimierer", sub: "PNG, JPG Bilder sofort auf exakte KB-Größe anpassen", upload: "📸 Foto hier ablegen / Datei wählen", btn: "Bild Auswählen", target: "Gewünschte Größe (in KB):", dims: "Abmessungen (Breite x Höhe px):", original: "Originalgröße", newSize: "Neue Größe", saved: "Reduzierung", download: "⬇️ Komprimiertes Bild Herunterladen" },
-            FR: { title: "Compresseur d'Image Universel", sub: "Redimensionnez vos photos PNG, JPG à la taille KB exacte", upload: "📸 Déposez votre photo ici / Choisir", btn: "Sélectionner", target: "Taille désirée (en KB):", dims: "Dimensions (Largeur x Hauteur px):", original: "Taille Originale", newSize: "Nouvelle Taille", saved: "Réduction", download: "⬇️ Télécharger l'Image Comprimée" },
-            JP: { title: "ユニバーサル画像圧縮ツール", sub: "PNG、JPG画像を指定のKBサイズに即座に圧縮・リサイズ", upload: "📸 ドロップして画像を選択", btn: "画像を選択", target: "希望のサイズ (KB):", dims: "幅 x 高さ (ピクセル):", original: "元のサイズ", newSize: "新しいサイズ", saved: "削減率", download: "⬇️ 圧縮した画像をダウンロード" },
-            CN: { title: "通用图像压缩器", sub: "轻松将 PNG、JPG 图片压缩至指定的 KB 大小", upload: "📸 拖放照片至此 / 选择文件", btn: "选择图片", target: "目标大小 (KB):", dims: "自定义尺寸 (宽度 x 高度 px):", original: "原始大小", newSize: "压缩后大小", saved: "已压缩", download: "⬇️ 下载压缩后的图片" }
+            EN: { title: "Advanced Image Compressor & Form Maker", sub: "Compress, Resize, Add Name/Date Stamp & Borders instantly", upload: "📸 Drop your photo or document here / Choose File", btn: "Select Image", target: "Enter Desired Size (in KB):", dims: "Custom Dimensions (Width x Height px):", original: "Original Size", newSize: "New Size", saved: "Reduction", download: "⬇️ JPG", downloadPdf: "📄 PDF", share: "🚀 Share" },
+            IN: { title: "एडवांस्ड इमेज कंप्रेसर और फॉर्म मेकर", sub: "साइज़ बदलें, नाम-तारीख स्टाम्प और बॉर्डर जोड़ें", upload: "📸 अपनी फोटो या दस्तावेज यहाँ चुनें", btn: "फोटो चुनें", target: "मनचाहा साइज़ दर्ज करें (KB में):", dims: "लंबाई-चौड़ाई (px):", original: "मूल साइज़", newSize: "नया साइज़", saved: "कुल बचत", download: "⬇️ JPG", downloadPdf: "📄 PDF", share: "🚀 शेयर" }
         };
 
         function changeLanguage() {
             const lang = document.getElementById('countrySelector').value;
             const t = texts[lang] || texts['EN'];
-            
-            document.getElementById('mainTitle').textContent = t.title;
-            document.getElementById('subTitle').textContent = t.sub;
-            document.getElementById('uploadText').textContent = t.upload;
-            document.getElementById('selectBtnText').textContent = t.btn;
-            document.getElementById('targetLabel').textContent = t.target;
-            document.getElementById('dimensionsLabel').textContent = t.dims;
-            document.getElementById('lblOriginal').textContent = t.original;
-            document.getElementById('lblCompressed').textContent = t.newSize;
-            document.getElementById('lblSaved').textContent = t.saved;
-            document.getElementById('downloadBtn').textContent = t.download;
-            
+            if(texts[lang]) {
+                document.getElementById('mainTitle').textContent = t.title;
+                document.getElementById('subTitle').textContent = t.sub;
+                document.getElementById('uploadText').textContent = t.upload;
+                document.getElementById('selectBtnText').textContent = t.btn;
+                document.getElementById('targetLabel').textContent = t.target;
+                document.getElementById('dimensionsLabel').textContent = t.dims;
+                document.getElementById('lblOriginal').textContent = t.original;
+                document.getElementById('lblCompressed').textContent = t.newSize;
+                document.getElementById('lblSaved').textContent = t.saved;
+                document.getElementById('downloadBtn').textContent = t.download;
+                document.getElementById('downloadPdfBtn').textContent = t.downloadPdf;
+                document.getElementById('shareBtn').textContent = t.share;
+            }
             if(originalFile) processImage();
         }
 
@@ -517,7 +586,7 @@
                         controlsBox.style.display = 'block';
                         previewBox.style.display = 'block';
                         
-                        const defaultKb = Math.min(Math.round(originalFile.size / 1024), 100);
+                        const defaultKb = Math.min(Math.round(originalFile.size / 1024), 50);
                         targetKbInput.value = defaultKb > 10 ? defaultKb : 20;
                         processImage();
                     };
@@ -525,8 +594,7 @@
             }
         });
 
-        // Input triggers with Debounce logic
-        [targetKbInput, widthInput, heightInput].forEach(element => {
+        [targetKbInput, widthInput, heightInput, userNameInput, userDateInput].forEach(element => {
             element.addEventListener('input', function() {
                 if(originalFile) {
                     clearTimeout(processTimeout);
@@ -535,7 +603,6 @@
             });
         });
 
-        // Maintain aspect ratio when width is modified
         widthInput.addEventListener('input', function() {
             if (originalImgDimensions.width > 0 && widthInput.value > 0) {
                 const ratio = originalImgDimensions.height / originalImgDimensions.width;
@@ -554,19 +621,46 @@
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d', { alpha: false });
                     
-                    // Apply Custom or Default Dimensions
                     const targetWidth = parseInt(widthInput.value) || img.width;
-                    const targetHeight = parseInt(heightInput.value) || img.height;
+                    let targetHeight = parseInt(heightInput.value) || img.height;
                     
-                    canvas.width = targetWidth;
-                    canvas.height = targetHeight;
-                    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+                    let stampExtraHeight = 0;
+                    if(stampToggle.checked) {
+                        stampExtraHeight = Math.max(40, Math.round(targetHeight * 0.12));
+                    }
+                    
+                    let borderWidth = borderToggle.checked ? Math.max(4, Math.round(targetWidth * 0.015)) : 0;
+                    
+                    canvas.width = targetWidth + (borderWidth * 2);
+                    canvas.height = targetHeight + stampExtraHeight + (borderWidth * 2);
+
+                    // Background & Border
+                    ctx.fillStyle = borderToggle.checked ? "#000000" : "#FFFFFF";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw image inside border
+                    ctx.drawImage(img, borderWidth, borderWidth, targetWidth, targetHeight);
+
+                    // Draw Stamp if checked
+                    if(stampToggle.checked) {
+                        const stampY = targetHeight + borderWidth;
+                        ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+                        ctx.fillRect(borderWidth, stampY, targetWidth, stampExtraHeight);
+                        
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.font = `bold ${Math.max(12, Math.round(targetWidth * 0.035))}px sans-serif`;
+                        ctx.textAlign = "center";
+                        
+                        const nameText = userNameInput.value ? userNameInput.value : "NAME: ______";
+                        const dateText = `DATE: ${userDateInput.value}`;
+                        
+                        ctx.fillText(`${nameText}  |  ${dateText}`, canvas.width / 2, stampY + (stampExtraHeight / 1.6));
+                    }
 
                     const targetKB = parseFloat(targetKbInput.value) || 50;
                     let low = 0.01, high = 1.0, quality = 0.7;
                     let bestDataUrl = canvas.toDataURL('image/jpeg', quality);
 
-                    // Binary search optimized to 5 iterations for maximum quality-to-size accuracy
                     for (let i = 0; i < 5; i++) {
                         bestDataUrl = canvas.toDataURL('image/jpeg', quality);
                         let currentKB = (bestDataUrl.length * 0.75) / 1024;
@@ -583,7 +677,6 @@
                     finalDataUrl = bestDataUrl;
                     previewImage.src = finalDataUrl;
                     
-                    // Calculations for Stats Card Display
                     const originalKBVal = (originalFile.size / 1024).toFixed(1);
                     const compressedKBVal = Math.round((finalDataUrl.length * 0.75) / 1024);
                     const savedPercentage = Math.max(0, (((originalFile.size - (finalDataUrl.length * 0.75)) / originalFile.size) * 100)).toFixed(1);
@@ -598,20 +691,48 @@
         downloadBtn.onclick = function() {
             if (!finalDataUrl || !originalFile) return;
             const link = document.createElement('a');
-            link.download = 'Piklyzo_' + targetKbInput.value + 'KB_' + originalFile.name;
+            link.download = 'Piklyzo_Form_' + targetKbInput.value + 'KB.jpg';
             link.href = finalDataUrl;
             link.click();
+        };
+
+        // Extra feature: Simple browser-native Print/PDF layout trigger
+        downloadPdfBtn.onclick = function() {
+            if (!finalDataUrl) return;
+            const win = window.open('');
+            win.document.write('<html><head><title>Piklyzo PDF Print</title></head><body style="text-align:center;margin-top:20px;"><img src="' + finalDataUrl + '" style="max-width:100%;"/><script>window.print();<\/script></body></html>');
+            win.document.close();
+        };
+
+        shareBtn.onclick = async function() {
+            if (!finalDataUrl) return;
+            try {
+                const blob = await (await fetch(finalDataUrl)).blob();
+                const file = new File([blob], "Piklyzo_Form_Image.jpg", { type: "image/jpeg" });
+                
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        title: 'Piklyzo Form Document',
+                        text: 'Optimized via Piklyzo',
+                        files: [file]
+                    });
+                } else {
+                    alert('Direct share is not supported on this device/browser. Please use the JPG download button.');
+                }
+            } catch (err) {
+                console.log('Share error:', err);
+            }
         };
 
         function showModal(type) {
             const modal = document.getElementById('policyModal');
             const body = document.getElementById('modalBody');
             if(type === 'privacy') {
-                body.innerHTML = "<h3>Privacy Policy</h3><p>Piklyzo values your privacy. We do not store, log, or transmit uploaded images. All file optimization is executed locally in your browser context.</p>";
+                body.innerHTML = "<h3>Privacy Policy</h3><p>Piklyzo respects your privacy. All processing happens 100% locally in your browser.</p>";
             } else if(type === 'about') {
-                body.innerHTML = "<h3>About Us</h3><p>Piklyzo is a free browser-based image optimization service focused on providing high-speed image compression for online applications.</p>";
+                body.innerHTML = "<h3>About Us</h3><p>Piklyzo is a next-generation browser tool for fast image resizing and form preparation.</p>";
             } else if(type === 'contact') {
-                body.innerHTML = "<h3>Contact Us</h3><p>For support inquiries or site suggestions, please contact our team via support@piklyzo.com.</p>";
+                body.innerHTML = "<h3>Contact Us</h3><p>Reach us at support@piklyzo.com</p>";
             }
             modal.style.display = 'flex';
         }
