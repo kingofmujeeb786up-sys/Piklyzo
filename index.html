@@ -4,76 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Piklyzo - Free Image Resizer & Compressor with Name, Date Stamp & Border</title>
+<title>Piklyzo - Free Image Resizer, Compressor & Form Photo Maker</title>
 
-<meta name="description" content="Piklyzo is a free online image compressor, resizer and form photo maker. Compress images to target KB, resize, add name/date stamps, borders and watermark. No sign-up required.">
-<meta name="keywords" content="Piklyzo, image compressor, image resizer, photo resizer, reduce image size, compress image to KB, government form photo maker, add name date to photo, photo border, image to PDF">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="Piklyzo">
-<meta name="application-name" content="Piklyzo">
+<meta name="description" content="Piklyzo is a free online image compressor, resizer and form photo maker with background color removal, name/date stamps, borders, PDF export and sharing.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1266f1">
 
-<link rel="canonical" href="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
 <link rel="icon" href="logo.png">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="Piklyzo - Free Image Compressor & Advanced Form Photo Maker">
-<meta property="og:description" content="Compress images to exact KB, resize, add name/date stamp, border and watermark. Free and no sign-up required.">
-<meta property="og:url" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
-<meta property="og:site_name" content="Piklyzo">
-<meta property="og:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Piklyzo - Free Image Compressor & Form Photo Maker">
-<meta name="twitter:description" content="Free online image compressor and form photo maker.">
-<meta name="twitter:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E47NJK3HMB"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-E47NJK3HMB');
-</script>
-
-<!-- Google AdSense -->
-<meta name="google-adsense-account" content="ca-pub-6242018188944887">
-<script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6242018188944887"
-crossorigin="anonymous"></script>
-
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"WebApplication",
- "name":"Piklyzo",
- "url":"https://kingofmujeeb786up-sys.github.io/Piklyzo/",
- "description":"Free online image compressor, resizer and government form photo maker with name, date stamp, border and watermark.",
- "applicationCategory":"UtilityApplication",
- "operatingSystem":"All",
- "offers":{
-   "@type":"Offer",
-   "price":"0",
-   "priceCurrency":"USD"
- }
-}
-</script>
 
 <style>
 :root{
   --primary:#1266f1;
   --primary2:#00a8ff;
   --bg:#eef5ff;
-  --card:#fff;
+  --card:#ffffff;
   --text:#172033;
   --muted:#687386;
   --border:#dce5f2;
-  --success:#168a45;
-  --danger:#d93025;
+  --soft:#f4f8ff;
+  --danger:#dc3545;
+  --success:#16834b;
   --shadow:0 12px 35px rgba(25,75,130,.12);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
@@ -84,6 +40,7 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:linear-gradient(135deg,#eef6ff,#f8fbff);
   color:var(--text);
+  transition:.2s;
 }
 
 body.dark{
@@ -92,15 +49,23 @@ body.dark{
   --text:#f2f6ff;
   --muted:#aeb9ca;
   --border:#304057;
+  --soft:#111c2d;
   background:#101827;
 }
 
-button,input,select{
+button,
+input,
+select{
   font:inherit;
 }
 
 button{
   cursor:pointer;
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
 }
 
 header{
@@ -109,12 +74,11 @@ header{
   z-index:1000;
   background:rgba(255,255,255,.94);
   backdrop-filter:blur(15px);
-  border-bottom:1px solid #e2eaf4;
+  border-bottom:1px solid var(--border);
 }
 
 .dark header{
   background:rgba(16,24,39,.94);
-  border-color:#26344a;
 }
 
 .nav{
@@ -123,7 +87,7 @@ header{
   padding:12px 18px;
   display:flex;
   align-items:center;
-  gap:15px;
+  gap:12px;
 }
 
 .logo{
@@ -137,10 +101,10 @@ header{
 }
 
 .logo img{
-  width:40px;
-  height:40px;
+  width:34px;
+  height:34px;
   object-fit:contain;
-  border-radius:10px;
+  border-radius:8px;
 }
 
 .nav-actions{
@@ -150,8 +114,8 @@ header{
   flex-wrap:wrap;
 }
 
-.nav button,
-.nav select{
+.nav select,
+.nav button{
   border:1px solid var(--border);
   background:var(--card);
   color:var(--text);
@@ -175,6 +139,7 @@ main{
   margin:15px 0 8px;
   background:linear-gradient(90deg,var(--primary),var(--primary2));
   -webkit-background-clip:text;
+  background-clip:text;
   color:transparent;
 }
 
@@ -182,7 +147,8 @@ main{
   color:var(--muted);
   font-size:18px;
   margin:0 auto;
-  max-width:750px;
+  max-width:800px;
+  line-height:1.5;
 }
 
 .badges{
@@ -207,15 +173,6 @@ main{
   color:#9dc4ff;
 }
 
-.ad-box{
-  min-height:70px;
-  margin:18px 0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
 .tool-card,
 .info-card{
   background:var(--card);
@@ -229,7 +186,7 @@ main{
 .upload-area{
   border:2px dashed #80aef3;
   background:linear-gradient(135deg,#f7fbff,#eef6ff);
-  min-height:220px;
+  min-height:230px;
   border-radius:18px;
   display:flex;
   justify-content:center;
@@ -239,21 +196,18 @@ main{
   transition:.2s;
 }
 
+.upload-area.dragover{
+  border-color:var(--primary);
+  transform:scale(1.01);
+  background:#e4f0ff;
+}
+
 .dark .upload-area{
   background:#142137;
 }
 
-.upload-area.drag{
-  border-color:var(--primary);
-  transform:scale(1.01);
-}
-
-.upload-content h2{
-  margin:5px 0;
-}
-
-.upload-content p{
-  color:var(--muted);
+.dark .upload-area.dragover{
+  background:#1b3152;
 }
 
 .upload-icon{
@@ -279,26 +233,14 @@ main{
   font-weight:700;
 }
 
-.danger-btn{
-  border:0;
-  background:#ffe9e7;
-  color:#c62828;
-  padding:11px 15px;
-  border-radius:11px;
-  font-weight:700;
-}
-
 .file-info{
   display:none;
   margin-top:15px;
   padding:12px;
-  background:#f3f7fc;
+  background:var(--soft);
   border-radius:12px;
   color:var(--muted);
-}
-
-.dark .file-info{
-  background:#111c2d;
+  line-height:1.5;
 }
 
 .controls{
@@ -371,21 +313,11 @@ main{
   padding:12px;
   margin-top:5px;
   border-left:3px solid var(--primary);
-  background:#f7faff;
+  background:var(--soft);
   border-radius:8px;
 }
 
-.dark .sub-options{
-  background:#132035;
-}
-
-.range-value{
-  font-weight:900;
-  color:var(--primary);
-}
-
 .preset-row,
-.tool-buttons,
 .action-buttons{
   display:flex;
   gap:8px;
@@ -425,6 +357,7 @@ main{
 
 .stat strong{
   font-size:16px;
+  word-break:break-word;
 }
 
 .preview-area{
@@ -450,104 +383,30 @@ main{
   box-shadow:0 5px 20px rgba(0,0,0,.2);
 }
 
-.progress{
+.progress-wrap{
   display:none;
-  height:10px;
-  background:#e4ebf5;
-  border-radius:99px;
-  overflow:hidden;
-  margin:15px 0;
+  margin-top:15px;
 }
 
 .progress-bar{
+  height:10px;
+  background:var(--border);
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
   width:0;
   height:100%;
   background:linear-gradient(90deg,var(--primary),var(--primary2));
-  transition:.15s;
+  transition:width .15s;
 }
 
-.smart-box{
-  background:linear-gradient(135deg,#eef6ff,#f8fbff);
-  border:1px solid #cfe0f8;
-  border-radius:14px;
-  padding:13px;
-  margin-top:12px;
-}
-
-.dark .smart-box{
-  background:#14243b;
-  border-color:#304c73;
-}
-
-.smart-box strong{
-  color:var(--primary);
-}
-
-.hidden{
-  display:none!important;
-}
-
-.info-card h2{
-  margin-top:0;
-  color:var(--primary);
-}
-
-.info-card p,
-.info-card li{
-  line-height:1.7;
+.progress-text{
+  margin-top:7px;
   color:var(--muted);
-}
-
-footer{
+  font-size:13px;
   text-align:center;
-  padding:25px 15px;
-  color:var(--muted);
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:3000;
-  background:rgba(0,0,0,.65);
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-
-.modal-box{
-  max-width:650px;
-  width:100%;
-  max-height:85vh;
-  overflow:auto;
-  background:var(--card);
-  color:var(--text);
-  border-radius:18px;
-  padding:22px;
-  position:relative;
-}
-
-.close{
-  position:absolute;
-  right:15px;
-  top:10px;
-  border:0;
-  background:transparent;
-  font-size:28px;
-  color:var(--text);
-}
-
-.notice{
-  padding:12px;
-  border-radius:10px;
-  background:#fff7d8;
-  color:#705700;
-  margin-top:12px;
-}
-
-.dark .notice{
-  background:#3b331b;
-  color:#ffe58a;
 }
 
 .toast{
@@ -563,6 +422,8 @@ footer{
   opacity:0;
   transition:.3s;
   pointer-events:none;
+  max-width:90%;
+  text-align:center;
 }
 
 .toast.show{
@@ -570,20 +431,72 @@ footer{
   transform:translateX(-50%) translateY(0);
 }
 
+.error{
+  color:var(--danger);
+}
+
+.success{
+  color:var(--success);
+}
+
+.info-card h2{
+  margin-top:0;
+}
+
+.info-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.hidden{
+  display:none!important;
+}
+
 @media(max-width:800px){
-  .grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .nav{align-items:flex-start}
-  .nav-actions{justify-content:flex-end}
+  .nav{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    width:100%;
+  }
+
+  .nav-actions{
+    width:100%;
+  }
+
+  .nav-actions select,
+  .nav-actions button{
+    flex:1;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media(max-width:500px){
-  .logo span{display:none}
-  .nav-actions button{font-size:12px}
-  .tool-card,.info-card{padding:14px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .hero h1{font-size:31px}
+  main{
+    padding:0 10px;
+  }
+
+  .tool-card,
+  .info-card{
+    padding:14px;
+    border-radius:17px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .action-buttons button{
+    flex:1 1 45%;
+  }
 }
 </style>
 </head>
@@ -591,335 +504,561 @@ footer{
 <body>
 
 <header>
-  <nav class="nav">
-    <div class="logo">
-      <img src="logo.png" onerror="this.style.display='none'" alt="Piklyzo">
-      <span>Piklyzo</span>
-    </div>
+<nav class="nav">
 
-    <div class="nav-actions">
-      <select id="countrySelect" title="Country"></select>
+  <div class="logo">
+    <img src="logo.png" alt="Piklyzo Logo"
+         onerror="this.style.display='none'">
+    <span>Piklyzo</span>
+  </div>
 
-      <select id="languageSelect" title="Language"></select>
+  <div class="nav-actions">
 
-      <button id="themeBtn" type="button">🌙</button>
-      <button type="button" onclick="openModal('about')">About</button>
-      <button type="button" onclick="openModal('privacy')">Privacy</button>
-      <button type="button" onclick="openModal('contact')">Contact</button>
-    </div>
-  </nav>
+    <select id="countrySelect" title="Country"></select>
+
+    <select id="languageSelect" title="Language"></select>
+
+    <button id="themeBtn" type="button" aria-label="Toggle dark mode">
+      🌙
+    </button>
+
+  </div>
+
+</nav>
 </header>
+
 
 <main>
 
 <section class="hero">
-  <h1 data-i18n="title">Advanced Image Compressor & Form Maker</h1>
-  <p data-i18n="subtitle">
-    Compress, Resize, Add Name/Date Stamp, Border & Watermark instantly
+
+  <h1 id="heroTitle">
+    Advanced Image Compressor & Form Maker
+  </h1>
+
+  <p id="heroSubtitle">
+    Compress, Resize, Remove Background, Add Name/Date Stamp, Border & Watermark instantly
   </p>
 
   <div class="badges">
+    <span class="badge">✓ Background Tool</span>
+    <span class="badge">✓ Exact KB Target</span>
     <span class="badge">✓ 100% Free</span>
     <span class="badge">✓ No Sign-Up</span>
-    <span class="badge">✓ Instant KB Reduction</span>
-    <span class="badge">✓ Browser Processing</span>
-    <span class="badge">✓ Mobile Friendly</span>
+    <span class="badge">✓ Client-Side Processing</span>
   </div>
+
 </section>
 
-<div class="ad-box">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-6242018188944887"
-       data-ad-slot=""
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 
 <section class="tool-card">
 
   <div id="uploadArea" class="upload-area">
+
     <div class="upload-content">
+
       <div class="upload-icon">📸</div>
-      <h2 data-i18n="uploadTitle">Upload Your Image</h2>
-      <p data-i18n="uploadHint">
-        Drag & drop, paste an image or choose from your device
+
+      <h2 id="uploadTitle">Upload Your Image</h2>
+
+      <p id="uploadText">
+        Drag & drop an image here or choose from your device
       </p>
 
-      <input id="fileInput"
-             type="file"
-             accept="image/*"
-             hidden>
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        hidden
+      >
 
-      <button class="primary-btn"
-              type="button"
-              onclick="document.getElementById('fileInput').click()"
-              data-i18n="choose">
+      <button
+        id="chooseBtn"
+        class="primary-btn"
+        type="button">
         Choose Image
       </button>
 
-      <p style="font-size:12px;color:#8793a5">
-        JPG • JPEG • PNG • WebP • GIF (first frame)
-      </p>
     </div>
+
   </div>
+
 
   <div id="fileInfo" class="file-info"></div>
 
+
   <div id="controls" class="controls">
 
-    <div class="section-title" data-i18n="presetsTitle">
+    <!-- QUICK PRESETS -->
+
+    <div class="section-title">
       ⚡ Quick Form Presets
     </div>
 
     <div class="preset-row">
-      <button class="preset" onclick="applyPreset(200,230)">📄 200×230</button>
-      <button class="preset" onclick="applyPreset(300,400)">🪪 300×400</button>
-      <button class="preset" onclick="applyPreset(600,800)">📷 600×800</button>
-      <button class="preset" onclick="applyPreset(1080,1080)">⬜ 1080×1080</button>
-      <button class="preset" onclick="applyPreset(350,450)">🧑 35×45 Style</button>
-      <button class="preset" onclick="applyPreset(null,null)">🔄 Original</button>
+
+      <button class="preset" type="button"
+              data-preset-w="200"
+              data-preset-h="230">
+        200×230
+      </button>
+
+      <button class="preset" type="button"
+              data-preset-w="300"
+              data-preset-h="400">
+        300×400
+      </button>
+
+      <button class="preset" type="button"
+              data-preset-w="600"
+              data-preset-h="800">
+        600×800
+      </button>
+
+      <button class="preset" type="button"
+              id="originalPreset">
+        Original
+      </button>
+
     </div>
 
-    <div class="section-title" data-i18n="compressionTitle">
+
+    <!-- BACKGROUND -->
+
+    <div class="section-title">
+      ✨ Background Tool
+    </div>
+
+    <label class="check-row">
+
+      <input
+        id="bgRemoveToggle"
+        type="checkbox">
+
+      <span>
+        Remove / Replace Similar Background Color
+      </span>
+
+    </label>
+
+
+    <div id="bgOptions" class="sub-options">
+
+      <div class="grid">
+
+        <div class="field">
+
+          <label for="bgColorType">
+            Background Style
+          </label>
+
+          <select id="bgColorType">
+
+            <option value="white">
+              Solid White
+            </option>
+
+            <option value="transparent">
+              Transparent PNG
+            </option>
+
+            <option value="blue">
+              Light Blue
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="bgThreshold">
+            Color Threshold:
+            <span id="thresholdValue">40</span>
+          </label>
+
+          <input
+            id="bgThreshold"
+            type="range"
+            min="5"
+            max="150"
+            value="40">
+
+        </div>
+
+      </div>
+
+      <p style="color:var(--muted);font-size:13px">
+        This is a color-based remover. It works best when the background
+        has a relatively uniform color.
+      </p>
+
+    </div>
+
+
+    <!-- COMPRESSION -->
+
+    <div class="section-title">
       🎯 Compression & Resize
     </div>
 
     <div class="grid">
 
       <div class="field">
-        <label data-i18n="targetKB">Target Size (KB)</label>
-        <input id="targetKB"
-               type="number"
-               min="5"
-               max="5000"
-               value="100">
+
+        <label for="targetKB">
+          Target Size (KB)
+        </label>
+
+        <input
+          id="targetKB"
+          type="number"
+          min="5"
+          max="50000"
+          value="100">
+
       </div>
 
+
       <div class="field">
-        <label data-i18n="format">Output Format</label>
+
+        <label for="format">
+          Output Format
+        </label>
+
         <select id="format">
-          <option value="image/jpeg">JPG</option>
-          <option value="image/png">PNG</option>
-          <option value="image/webp">WebP</option>
+
+          <option value="image/jpeg">
+            JPG
+          </option>
+
+          <option value="image/webp">
+            WebP
+          </option>
+
+          <option value="image/png">
+            PNG
+          </option>
+
         </select>
+
       </div>
 
+
       <div class="field">
-        <label>
-          <span data-i18n="quality">Quality</span>:
-          <span id="qualityValue" class="range-value">85%</span>
+
+        <label for="quality">
+          Quality:
+          <span id="qualityValue">85%</span>
         </label>
-        <input id="quality"
-               type="range"
-               min="10"
-               max="100"
-               value="85">
+
+        <input
+          id="quality"
+          type="range"
+          min="10"
+          max="100"
+          value="85">
+
       </div>
+
 
       <div class="field">
-        <label data-i18n="filename">Output File Name</label>
-        <input id="filename"
-               type="text"
-               value="piklyzo-image">
-      </div>
 
-      <div class="field">
-        <label data-i18n="width">Width (px)</label>
-        <input id="width" type="number" min="1">
-      </div>
-
-      <div class="field">
-        <label data-i18n="height">Height (px)</label>
-        <input id="height" type="number" min="1">
-      </div>
-
-      <div class="field full">
-        <label class="check-row">
-          <input id="aspectLock" type="checkbox" checked>
-          <span data-i18n="aspect">Lock Aspect Ratio</span>
+        <label for="filename">
+          File Name
         </label>
+
+        <input
+          id="filename"
+          type="text"
+          value="piklyzo-image"
+          maxlength="100">
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="width">
+          Width (px)
+        </label>
+
+        <input
+          id="width"
+          type="number"
+          min="1">
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="height">
+          Height (px)
+        </label>
+
+        <input
+          id="height"
+          type="number"
+          min="1">
+
       </div>
 
     </div>
 
-    <div class="smart-box">
-      <strong>🧠 Smart KB Optimizer</strong>
-      <p style="margin:5px 0;color:var(--muted)">
-        Piklyzo automatically searches for a suitable JPEG/WebP quality
-        when a target KB is selected.
-      </p>
-      <button class="secondary-btn" onclick="smartOptimize()">
-        ✨ Smart Optimize
-      </button>
-    </div>
 
-    <div class="section-title" data-i18n="adjustments">
-      🎨 Image Adjustments
-    </div>
+    <label class="check-row">
 
-    <div class="grid">
+      <input
+        id="aspectLock"
+        type="checkbox"
+        checked>
 
-      <div class="field">
-        <label>☀️ Brightness: <span id="brightnessValue">100%</span></label>
-        <input id="brightness" type="range" min="50" max="150" value="100">
-      </div>
+      <span>
+        🔒 Lock Aspect Ratio
+      </span>
 
-      <div class="field">
-        <label>◐ Contrast: <span id="contrastValue">100%</span></label>
-        <input id="contrast" type="range" min="50" max="150" value="100">
-      </div>
+    </label>
 
-      <div class="field">
-        <label>🎨 Saturation: <span id="saturationValue">100%</span></label>
-        <input id="saturation" type="range" min="0" max="200" value="100">
-      </div>
 
-      <div class="field">
-        <label>🌫️ Blur: <span id="blurValue">0px</span></label>
-        <input id="blur" type="range" min="0" max="8" value="0">
-      </div>
+    <!-- STAMP -->
 
+    <div class="section-title">
+      📝 Government Form Name & Date Stamp
     </div>
 
     <label class="check-row">
-      <input id="grayscale" type="checkbox">
-      <span data-i18n="grayscale">Convert to Grayscale</span>
+
+      <input
+        id="stampToggle"
+        type="checkbox">
+
+      <span>
+        Add Name & Date Stamp
+      </span>
+
     </label>
 
-    <div class="section-title">
-      🔄 Transform
-    </div>
-
-    <div class="tool-buttons">
-      <button class="secondary-btn" onclick="rotate(-90)">↶ Rotate Left</button>
-      <button class="secondary-btn" onclick="rotate(90)">↷ Rotate Right</button>
-      <button class="secondary-btn" onclick="flipH()">↔ Flip Horizontal</button>
-      <button class="secondary-btn" onclick="flipV()">↕ Flip Vertical</button>
-    </div>
-
-    <div class="section-title">
-      📝 Government Form Name & Date
-    </div>
-
-    <label class="check-row">
-      <input id="stampToggle" type="checkbox">
-      <span data-i18n="stamp">Add Name & Date Stamp</span>
-    </label>
 
     <div id="stampOptions" class="sub-options">
+
       <div class="grid">
 
         <div class="field">
-          <label>Full Name</label>
-          <input id="fullName" type="text" placeholder="Your Full Name">
+
+          <label for="fullName">
+            Full Name
+          </label>
+
+          <input
+            id="fullName"
+            type="text"
+            placeholder="Your Name">
+
         </div>
 
-        <div class="field">
-          <label>Date</label>
-          <input id="stampDate" type="text" placeholder="DD-MM-YYYY">
-        </div>
 
         <div class="field">
-          <label>Stamp Color</label>
-          <input id="stampColor" type="color" value="#000000">
+
+          <label for="stampDate">
+            Date
+          </label>
+
+          <input
+            id="stampDate"
+            type="text"
+            placeholder="DD-MM-YYYY">
+
         </div>
 
+
         <div class="field">
-          <label>Stamp Size</label>
-          <input id="stampSize" type="number" value="28" min="8" max="100">
+
+          <label for="stampColor">
+            Text Color
+          </label>
+
+          <input
+            id="stampColor"
+            type="color"
+            value="#000000">
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="stampSize">
+            Text Size
+          </label>
+
+          <input
+            id="stampSize"
+            type="number"
+            min="8"
+            max="200"
+            value="26">
+
         </div>
 
       </div>
+
     </div>
+
+
+    <!-- BORDER -->
 
     <div class="section-title">
       🖼️ Professional Border
     </div>
 
     <label class="check-row">
-      <input id="borderToggle" type="checkbox">
-      <span data-i18n="border">Add Professional Border</span>
+
+      <input
+        id="borderToggle"
+        type="checkbox">
+
+      <span>
+        Add Professional Border
+      </span>
+
     </label>
+
 
     <div id="borderOptions" class="sub-options">
 
       <div class="grid">
 
         <div class="field">
-          <label>Border Width</label>
-          <input id="borderWidth"
-                 type="number"
-                 min="1"
-                 max="50"
-                 value="5">
+
+          <label for="borderWidth">
+            Border Width
+          </label>
+
+          <input
+            id="borderWidth"
+            type="number"
+            min="1"
+            max="100"
+            value="5">
+
         </div>
 
+
         <div class="field">
-          <label>Border Color</label>
-          <input id="borderColor" type="color" value="#000000">
+
+          <label for="borderColor">
+            Border Color
+          </label>
+
+          <input
+            id="borderColor"
+            type="color"
+            value="#000000">
+
         </div>
 
       </div>
 
     </div>
+
+
+    <!-- WATERMARK -->
 
     <div class="section-title">
       💧 Watermark
     </div>
 
     <label class="check-row">
-      <input id="watermarkToggle" type="checkbox">
-      <span data-i18n="watermark">Add Watermark</span>
+
+      <input
+        id="watermarkToggle"
+        type="checkbox">
+
+      <span>
+        Add Text Watermark
+      </span>
+
     </label>
+
 
     <div id="watermarkOptions" class="sub-options">
 
       <div class="grid">
 
         <div class="field">
-          <label>Watermark Text</label>
-          <input id="watermarkText" type="text" placeholder="Piklyzo">
+
+          <label for="watermarkText">
+            Watermark Text
+          </label>
+
+          <input
+            id="watermarkText"
+            type="text"
+            placeholder="Piklyzo">
+
         </div>
 
-        <div class="field">
-          <label>Watermark Size</label>
-          <input id="watermarkSize"
-                 type="number"
-                 min="8"
-                 max="150"
-                 value="30">
-        </div>
 
         <div class="field">
-          <label>Opacity</label>
-          <input id="watermarkOpacity"
-                 type="range"
-                 min="5"
-                 max="100"
-                 value="30">
+
+          <label for="watermarkColor">
+            Color
+          </label>
+
+          <input
+            id="watermarkColor"
+            type="color"
+            value="#ffffff">
+
         </div>
 
+
         <div class="field">
-          <label>Position</label>
-          <select id="watermarkPosition">
-            <option value="bottom-right">Bottom Right</option>
-            <option value="bottom-left">Bottom Left</option>
-            <option value="top-right">Top Right</option>
-            <option value="top-left">Top Left</option>
-            <option value="center">Center</option>
-          </select>
+
+          <label for="watermarkSize">
+            Size
+          </label>
+
+          <input
+            id="watermarkSize"
+            type="number"
+            min="8"
+            max="200"
+            value="24">
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="watermarkOpacity">
+            Opacity:
+            <span id="watermarkOpacityValue">50%</span>
+          </label>
+
+          <input
+            id="watermarkOpacity"
+            type="range"
+            min="5"
+            max="100"
+            value="50">
+
         </div>
 
       </div>
 
     </div>
 
+
+    <!-- STATS -->
+
     <div class="section-title">
       📊 Image Information
     </div>
 
-    <div id="stats" class="stats">
+    <div class="stats">
 
       <div class="stat">
         <small>Original</small>
@@ -948,848 +1087,2706 @@ footer{
 
     </div>
 
-    <div class="progress" id="progress">
-      <div class="progress-bar" id="progressBar"></div>
+
+    <!-- PROGRESS -->
+
+    <div id="progressWrap" class="progress-wrap">
+
+      <div class="progress-bar">
+
+        <div
+          id="progressFill"
+          class="progress-fill">
+        </div>
+
+      </div>
+
+      <div
+        id="progressText"
+        class="progress-text">
+        Processing...
+      </div>
+
     </div>
+
+
+    <!-- ACTIONS -->
 
     <div class="action-buttons">
 
-      <button class="primary-btn" onclick="processImage()">
-        ⚡ <span data-i18n="process">Process Image</span>
+      <button
+        id="processBtn"
+        class="primary-btn"
+        type="button">
+        ⚡ Process Image
       </button>
 
-      <button class="secondary-btn" onclick="downloadOriginal()">
-        📥 Original
-      </button>
-
-      <button class="secondary-btn" onclick="resetAll()">
-        🔄 <span data-i18n="reset">Reset</span>
+      <button
+        id="resetBtn"
+        class="secondary-btn"
+        type="button">
+        🔄 Reset
       </button>
 
     </div>
+
+
+    <!-- PREVIEW -->
 
     <div class="section-title">
       👁️ Preview
     </div>
 
-    <div id="previewArea" class="preview-area">
+    <div
+      id="previewArea"
+      class="preview-area">
+
       <span style="color:var(--muted)">
         Your processed image will appear here.
       </span>
+
     </div>
+
+
+    <!-- DOWNLOAD -->
 
     <div class="action-buttons">
 
-      <button class="primary-btn" onclick="downloadImage()">
-        📥 <span data-i18n="download">Download Image</span>
+      <button
+        id="downloadBtn"
+        class="primary-btn"
+        type="button">
+        📥 Download Image
       </button>
 
-      <button class="secondary-btn" onclick="downloadPDF()">
+      <button
+        id="pdfBtn"
+        class="secondary-btn"
+        type="button">
         📄 PDF
       </button>
 
-      <button class="secondary-btn" onclick="shareImage()">
-        📤 <span data-i18n="share">Share</span>
+      <button
+        id="shareBtn"
+        class="secondary-btn"
+        type="button">
+        📤 Share
       </button>
 
-      <button class="secondary-btn" onclick="copyImage()">
+      <button
+        id="copyBtn"
+        class="secondary-btn"
+        type="button">
         📋 Copy
       </button>
 
     </div>
 
   </div>
+
 </section>
 
-<div class="ad-box">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-6242018188944887"
-       data-ad-slot=""
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
 
 <section class="info-card">
-  <h2>About Piklyzo</h2>
+
+  <h2>
+    About Piklyzo Image Optimizer
+  </h2>
 
   <p>
-    Piklyzo is a free browser-based image compressor, image resizer and
-    form photo maker. It is designed for students, job applicants,
-    creators and anyone who needs an image with a particular file size
-    or dimension.
+    Piklyzo is a free browser-based image compressor and resizer
+    designed for photos used in online applications, forms,
+    documents and everyday image optimization.
   </p>
-
-  <h3>What can Piklyzo do?</h3>
-
-  <ul>
-    <li>Compress an image toward a target KB size.</li>
-    <li>Resize images by width and height.</li>
-    <li>Lock the original aspect ratio.</li>
-    <li>Add name and date stamps.</li>
-    <li>Add professional borders.</li>
-    <li>Add text watermarks.</li>
-    <li>Rotate and flip images.</li>
-    <li>Adjust brightness, contrast and saturation.</li>
-    <li>Convert to grayscale.</li>
-    <li>Export JPG, PNG or WebP.</li>
-    <li>Create a print-friendly PDF.</li>
-    <li>Share or copy the processed image.</li>
-    <li>Use quick form-photo presets.</li>
-  </ul>
-
-  <h3>Privacy</h3>
 
   <p>
-    Image processing is performed inside the browser using the HTML Canvas
-    API. This version does not intentionally upload your selected image
-    to a Piklyzo server.
+    Image processing is performed locally in your browser.
+    The selected image is not intentionally uploaded to a Piklyzo
+    server by this page.
   </p>
 
-  <div class="notice">
-    ⚠️ Always check the exact photo dimensions and file-size requirements
-    of the specific application or examination form before submitting.
-  </div>
-</section>
-
-<section class="info-card">
-  <h2>How to Use Piklyzo</h2>
-
-  <ol>
-    <li>Select or drag an image into Piklyzo.</li>
-    <li>Choose a target KB size if required.</li>
-    <li>Set width and height if required.</li>
-    <li>Add name, date, border or watermark when needed.</li>
-    <li>Use brightness, contrast and other adjustments if necessary.</li>
-    <li>Press Process Image.</li>
-    <li>Check the output statistics.</li>
-    <li>Download, share, copy or print your image.</li>
-  </ol>
 </section>
 
 </main>
 
-<footer>
-  <strong>Piklyzo</strong> © 2026 —
-  Free Image Compressor & Form Photo Maker
-</footer>
-
-<!-- MODAL -->
-<div id="modal" class="modal" onclick="closeModal(event)">
-  <div class="modal-box">
-
-    <button class="close" onclick="closeModal()">×</button>
-
-    <div id="modalContent"></div>
-
-  </div>
-</div>
-
-<div id="toast" class="toast"></div>
 
 <script>
+"use strict";
+
 /* =========================================================
-   PIKLYZO GLOBAL COUNTRY + LANGUAGE SYSTEM
+   PIKLYZO ADVANCED IMAGE TOOL
    ========================================================= */
 
 const countries = [
-
-["AF","🇦🇫 Afghanistan","fa"],
-["AL","🇦🇱 Albania","sq"],
-["DZ","🇩🇿 Algeria","ar"],
-["AD","🇦🇩 Andorra","fr"],
-["AO","🇦🇴 Angola","pt"],
-["AG","🇦🇬 Antigua and Barbuda","en"],
-["AR","🇦🇷 Argentina","es"],
-["AM","🇦🇲 Armenia","hy"],
-["AU","🇦🇺 Australia","en"],
-["AT","🇦🇹 Austria","de"],
-["AZ","🇦🇿 Azerbaijan","az"],
-["BS","🇧🇸 Bahamas","en"],
-["BH","🇧🇭 Bahrain","ar"],
-["BD","🇧🇩 Bangladesh","bn"],
-["BB","🇧🇧 Barbados","en"],
-["BY","🇧🇾 Belarus","ru"],
-["BE","🇧🇪 Belgium","fr"],
-["BZ","🇧🇿 Belize","en"],
-["BJ","🇧🇯 Benin","fr"],
-["BT","🇧🇹 Bhutan","en"],
-["BO","🇧🇴 Bolivia","es"],
-["BA","🇧🇦 Bosnia and Herzegovina","sr"],
-["BW","🇧🇼 Botswana","en"],
-["BR","🇧🇷 Brazil","pt"],
-["BN","🇧🇳 Brunei","ms"],
-["BG","🇧🇬 Bulgaria","bg"],
-["BF","🇧🇫 Burkina Faso","fr"],
-["BI","🇧🇮 Burundi","fr"],
-["CV","🇨🇻 Cabo Verde","pt"],
-["KH","🇰🇭 Cambodia","km"],
-["CM","🇨🇲 Cameroon","fr"],
-["CA","🇨🇦 Canada","en"],
-["CF","🇨🇫 Central African Republic","fr"],
-["TD","🇹🇩 Chad","fr"],
-["CL","🇨🇱 Chile","es"],
-["CN","🇨🇳 China","zh"],
-["CO","🇨🇴 Colombia","es"],
-["KM","🇰🇲 Comoros","ar"],
-["CG","🇨🇬 Congo","fr"],
-["CR","🇨🇷 Costa Rica","es"],
-["CI","🇨🇮 Côte d'Ivoire","fr"],
-["HR","🇭🇷 Croatia","hr"],
-["CU","🇨🇺 Cuba","es"],
-["CY","🇨🇾 Cyprus","el"],
-["CZ","🇨🇿 Czechia","cs"],
-["CD","🇨🇩 Democratic Republic of the Congo","fr"],
-["DK","🇩🇰 Denmark","da"],
-["DJ","🇩🇯 Djibouti","fr"],
-["DM","🇩🇲 Dominica","en"],
-["DO","🇩🇴 Dominican Republic","es"],
-["EC","🇪🇨 Ecuador","es"],
-["EG","🇪🇬 Egypt","ar"],
-["SV","🇸🇻 El Salvador","es"],
-["GQ","🇬🇶 Equatorial Guinea","es"],
-["ER","🇪🇷 Eritrea","en"],
-["EE","🇪🇪 Estonia","et"],
-["SZ","🇸🇿 Eswatini","en"],
-["ET","🇪🇹 Ethiopia","am"],
-["FJ","🇫🇯 Fiji","en"],
-["FI","🇫🇮 Finland","fi"],
-["FR","🇫🇷 France","fr"],
-["GA","🇬🇦 Gabon","fr"],
-["GM","🇬🇲 Gambia","en"],
-["GE","🇬🇪 Georgia","ka"],
-["DE","🇩🇪 Germany","de"],
-["GH","🇬🇭 Ghana","en"],
-["GR","🇬🇷 Greece","el"],
-["GD","🇬🇩 Grenada","en"],
-["GT","🇬🇹 Guatemala","es"],
-["GN","🇬🇳 Guinea","fr"],
-["GW","🇬🇼 Guinea-Bissau","pt"],
-["GY","🇬🇾 Guyana","en"],
-["HT","🇭🇹 Haiti","fr"],
-["HN","🇭🇳 Honduras","es"],
-["HU","🇭🇺 Hungary","hu"],
-["IS","🇮🇸 Iceland","is"],
-["IN","🇮🇳 India","hi"],
-["ID","🇮🇩 Indonesia","id"],
-["IR","🇮🇷 Iran","fa"],
-["IQ","🇮🇶 Iraq","ar"],
-["IE","🇮🇪 Ireland","en"],
-["IL","🇮🇱 Israel","he"],
-["IT","🇮🇹 Italy","it"],
-["JM","🇯🇲 Jamaica","en"],
-["JP","🇯🇵 Japan","ja"],
-["JO","🇯🇴 Jordan","ar"],
-["KZ","🇰🇿 Kazakhstan","kk"],
-["KE","🇰🇪 Kenya","sw"],
-["KI","🇰🇮 Kiribati","en"],
-["KW","🇰🇼 Kuwait","ar"],
-["KG","🇰🇬 Kyrgyzstan","ky"],
-["LA","🇱🇦 Laos","lo"],
-["LV","🇱🇻 Latvia","lv"],
-["LB","🇱🇧 Lebanon","ar"],
-["LS","🇱🇸 Lesotho","en"],
-["LR","🇱🇷 Liberia","en"],
-["LY","🇱🇾 Libya","ar"],
-["LI","🇱🇮 Liechtenstein","de"],
-["LT","🇱🇹 Lithuania","lt"],
-["LU","🇱🇺 Luxembourg","fr"],
-["MG","🇲🇬 Madagascar","fr"],
-["MW","🇲🇼 Malawi","en"],
-["MY","🇲🇾 Malaysia","ms"],
-["MV","🇲🇻 Maldives","en"],
-["ML","🇲🇱 Mali","fr"],
-["MT","🇲🇹 Malta","en"],
-["MH","🇲🇭 Marshall Islands","en"],
-["MR","🇲🇷 Mauritania","ar"],
-["MU","🇲🇺 Mauritius","fr"],
-["MX","🇲🇽 Mexico","es"],
-["FM","🇫🇲 Micronesia","en"],
-["MD","🇲🇩 Moldova","ro"],
-["MC","🇲🇨 Monaco","fr"],
-["MN","🇲🇳 Mongolia","mn"],
-["ME","🇲🇪 Montenegro","sr"],
-["MA","🇲🇦 Morocco","ar"],
-["MZ","🇲🇿 Mozambique","pt"],
-["MM","🇲🇲 Myanmar","my"],
-["NA","🇳🇦 Namibia","en"],
-["NR","🇳🇷 Nauru","en"],
-["NP","🇳🇵 Nepal","ne"],
-["NL","🇳🇱 Netherlands","nl"],
-["NZ","🇳🇿 New Zealand","en"],
-["NI","🇳🇮 Nicaragua","es"],
-["NE","🇳🇪 Niger","fr"],
-["NG","🇳🇬 Nigeria","en"],
-["KP","🇰🇵 North Korea","ko"],
-["MK","🇲🇰 North Macedonia","mk"],
-["NO","🇳🇴 Norway","no"],
-["OM","🇴🇲 Oman","ar"],
-["PK","🇵🇰 Pakistan","ur"],
-["PW","🇵🇼 Palau","en"],
-["PS","🇵🇸 Palestine","ar"],
-["PA","🇵🇦 Panama","es"],
-["PG","🇵🇬 Papua New Guinea","en"],
-["PY","🇵🇾 Paraguay","es"],
-["PE","🇵🇪 Peru","es"],
-["PH","🇵🇭 Philippines","en"],
-["PL","🇵🇱 Poland","pl"],
-["PT","🇵🇹 Portugal","pt"],
-["QA","🇶🇦 Qatar","ar"],
-["RO","🇷🇴 Romania","ro"],
-["RU","🇷🇺 Russia","ru"],
-["RW","🇷🇼 Rwanda","en"],
-["KN","🇰🇳 Saint Kitts and Nevis","en"],
-["LC","🇱🇨 Saint Lucia","en"],
-["VC","🇻🇨 Saint Vincent and the Grenadines","en"],
-["WS","🇼🇸 Samoa","en"],
-["SM","🇸🇲 San Marino","it"],
-["ST","🇸🇹 Sao Tome and Principe","pt"],
-["SA","🇸🇦 Saudi Arabia","ar"],
-["SN","🇸🇳 Senegal","fr"],
-["RS","🇷🇸 Serbia","sr"],
-["SC","🇸🇨 Seychelles","en"],
-["SL","🇸🇱 Sierra Leone","en"],
-["SG","🇸🇬 Singapore","en"],
-["SK","🇸🇰 Slovakia","sk"],
-["SI","🇸🇮 Slovenia","sl"],
-["SB","🇸🇧 Solomon Islands","en"],
-["SO","🇸🇴 Somalia","so"],
-["ZA","🇿🇦 South Africa","en"],
-["KR","🇰🇷 South Korea","ko"],
-["SS","🇸🇸 South Sudan","en"],
-["ES","🇪🇸 Spain","es"],
-["LK","🇱🇰 Sri Lanka","si"],
-["SD","🇸🇩 Sudan","ar"],
-["SR","🇸🇷 Suriname","nl"],
-["SE","🇸🇪 Sweden","sv"],
-["CH","🇨🇭 Switzerland","de"],
-["SY","🇸🇾 Syria","ar"],
-["TJ","🇹🇯 Tajikistan","tg"],
-["TZ","🇹🇿 Tanzania","sw"],
-["TH","🇹🇭 Thailand","th"],
-["TL","🇹🇱 Timor-Leste","pt"],
-["TG","🇹🇬 Togo","fr"],
-["TO","🇹🇴 Tonga","en"],
-["TT","🇹🇹 Trinidad and Tobago","en"],
-["TN","🇹🇳 Tunisia","ar"],
-["TR","🇹🇷 Türkiye","tr"],
-["TM","🇹🇲 Turkmenistan","tk"],
-["TV","🇹🇻 Tuvalu","en"],
-["UG","🇺🇬 Uganda","en"],
-["UA","🇺🇦 Ukraine","uk"],
-["AE","🇦🇪 United Arab Emirates","ar"],
-["GB","🇬🇧 United Kingdom","en"],
-["US","🇺🇸 United States","en"],
-["UY","🇺🇾 Uruguay","es"],
-["UZ","🇺🇿 Uzbekistan","uz"],
-["VU","🇻🇺 Vanuatu","en"],
-["VA","🇻🇦 Vatican City","it"],
-["VE","🇻🇪 Venezuela","es"],
-["VN","🇻🇳 Vietnam","vi"],
-["YE","🇾🇪 Yemen","ar"],
-["ZM","🇿🇲 Zambia","en"],
-["ZW","🇿🇼 Zimbabwe","en"]
-
+  ["IN","🇮🇳 India","hi"],
+  ["US","🇺🇸 United States","en"],
+  ["GB","🇬🇧 United Kingdom","en"],
+  ["CA","🇨🇦 Canada","en"],
+  ["AU","🇦🇺 Australia","en"],
+  ["NZ","🇳🇿 New Zealand","en"],
+  ["PK","🇵🇰 Pakistan","ur"],
+  ["BD","🇧🇩 Bangladesh","bn"],
+  ["LK","🇱🇰 Sri Lanka","si"],
+  ["NP","🇳🇵 Nepal","ne"],
+  ["AE","🇦🇪 United Arab Emirates","ar"],
+  ["SA","🇸🇦 Saudi Arabia","ar"],
+  ["QA","🇶🇦 Qatar","ar"],
+  ["KW","🇰🇼 Kuwait","ar"],
+  ["OM","🇴🇲 Oman","ar"],
+  ["ID","🇮🇩 Indonesia","id"],
+  ["MY","🇲🇾 Malaysia","ms"],
+  ["SG","🇸🇬 Singapore","en"],
+  ["PH","🇵🇭 Philippines","en"],
+  ["TH","🇹🇭 Thailand","th"],
+  ["VN","🇻🇳 Vietnam","vi"],
+  ["JP","🇯🇵 Japan","ja"],
+  ["KR","🇰🇷 South Korea","ko"],
+  ["CN","🇨🇳 China","zh"],
+  ["DE","🇩🇪 Germany","de"],
+  ["FR","🇫🇷 France","fr"],
+  ["ES","🇪🇸 Spain","es"],
+  ["IT","🇮🇹 Italy","it"],
+  ["PT","🇵🇹 Portugal","pt"],
+  ["NL","🇳🇱 Netherlands","nl"],
+  ["BE","🇧🇪 Belgium","nl"],
+  ["CH","🇨🇭 Switzerland","de"],
+  ["AT","🇦🇹 Austria","de"],
+  ["SE","🇸🇪 Sweden","sv"],
+  ["NO","🇳🇴 Norway","no"],
+  ["DK","🇩🇰 Denmark","da"],
+  ["FI","🇫🇮 Finland","fi"],
+  ["PL","🇵🇱 Poland","pl"],
+  ["TR","🇹🇷 Türkiye","tr"],
+  ["GR","🇬🇷 Greece","el"],
+  ["BR","🇧🇷 Brazil","pt"],
+  ["MX","🇲🇽 Mexico","es"],
+  ["AR","🇦🇷 Argentina","es"],
+  ["CL","🇨🇱 Chile","es"],
+  ["CO","🇨🇴 Colombia","es"],
+  ["ZA","🇿🇦 South Africa","en"],
+  ["NG","🇳🇬 Nigeria","en"],
+  ["KE","🇰🇪 Kenya","en"],
+  ["EG","🇪🇬 Egypt","ar"],
+  ["MA","🇲🇦 Morocco","ar"],
+  ["IL","🇮🇱 Israel","he"],
+  ["UA","🇺🇦 Ukraine","uk"],
+  ["RU","🇷🇺 Russia","ru"]
 ];
+
+const languages = [
+  ["en","English"],
+  ["hi","हिन्दी"],
+  ["ur","اردو"],
+  ["bn","বাংলা"],
+  ["ar","العربية"],
+  ["id","Bahasa Indonesia"],
+  ["ms","Bahasa Melayu"],
+  ["pt","Português"],
+  ["es","Español"],
+  ["de","Deutsch"],
+  ["fr","Français"],
+  ["it","Italiano"],
+  ["ja","日本語"],
+  ["ko","한국어"],
+  ["zh","中文"],
+  ["tr","Türkçe"],
+  ["th","ไทย"],
+  ["vi","Tiếng Việt"],
+  ["nl","Nederlands"],
+  ["ru","Русский"]
+];
+
+const translations = {
+  en:{
+    hero:"Advanced Image Compressor & Form Maker",
+    subtitle:"Compress, Resize, Remove Background, Add Name/Date Stamp, Border & Watermark instantly",
+    upload:"Upload Your Image",
+    uploadText:"Drag & drop an image here or choose from your device",
+    choose:"Choose Image"
+  },
+  hi:{
+    hero:"एडवांस्ड इमेज कंप्रेसर और फॉर्म मेकर",
+    subtitle:"इमेज को Compress, Resize करें और Background, Name/Date Stamp, Border व Watermark जोड़ें",
+    upload:"अपनी इमेज अपलोड करें",
+    uploadText:"इमेज यहाँ Drag & Drop करें या अपने डिवाइस से चुनें",
+    choose:"इमेज चुनें"
+  },
+  ur:{
+    hero:"ایڈوانسڈ امیج کمپریسر اور فارم میکر",
+    subtitle:"تصویر کو کمپریس اور ریسائز کریں اور بیک گراؤنڈ، نام، تاریخ اور بارڈر شامل کریں",
+    upload:"اپنی تصویر اپ لوڈ کریں",
+    uploadText:"تصویر یہاں Drag & Drop کریں یا اپنے ڈیوائس سے منتخب کریں",
+    choose:"تصویر منتخب کریں"
+  },
+  ar:{
+    hero:"ضاغط الصور المتقدم وصانع النماذج",
+    subtitle:"ضغط وتغيير حجم الصور وإزالة الخلفية وإضافة الاسم والتاريخ والحدود والعلامة المائية",
+    upload:"ارفع صورتك",
+    uploadText:"اسحب الصورة وأفلتها هنا أو اخترها من جهازك",
+    choose:"اختيار صورة"
+  },
+  es:{
+    hero:"Compresor de Imágenes y Creador de Formularios",
+    subtitle:"Comprime, cambia el tamaño, elimina fondos y añade nombre, fecha, borde y marca de agua",
+    upload:"Sube tu imagen",
+    uploadText:"Arrastra una imagen aquí o selecciónala desde tu dispositivo",
+    choose:"Elegir imagen"
+  },
+  de:{
+    hero:"Erweiterter Bildkompressor und Formular-Maker",
+    subtitle:"Bilder komprimieren, Größe ändern, Hintergrund entfernen und Name, Datum, Rahmen und Wasserzeichen hinzufügen",
+    upload:"Bild hochladen",
+    uploadText:"Bild hierher ziehen oder vom Gerät auswählen",
+    choose:"Bild auswählen"
+  },
+  fr:{
+    hero:"Compresseur d'images avancé et créateur de formulaires",
+    subtitle:"Compressez, redimensionnez, supprimez l'arrière-plan et ajoutez nom, date, bordure et filigrane",
+    upload:"Téléchargez votre image",
+    uploadText:"Glissez-déposez une image ici ou choisissez-la sur votre appareil",
+    choose:"Choisir une image"
+  },
+  pt:{
+    hero:"Compressor de Imagens Avançado e Criador de Formulários",
+    subtitle:"Comprima, redimensione, remova o fundo e adicione nome, data, borda e marca d'água",
+    upload:"Envie sua imagem",
+    uploadText:"Arraste uma imagem aqui ou escolha no seu dispositivo",
+    choose:"Escolher imagem"
+  },
+  ja:{
+    hero:"高度な画像圧縮・リサイズツール",
+    subtitle:"画像の圧縮、サイズ変更、背景処理、名前・日付・枠線・透かしを追加できます",
+    upload:"画像をアップロード",
+    uploadText:"ここに画像をドラッグ＆ドロップするか、端末から選択してください",
+    choose:"画像を選択"
+  },
+  zh:{
+    hero:"高级图片压缩与表单制作工具",
+    subtitle:"压缩、调整图片尺寸、处理背景，并添加姓名、日期、边框和水印",
+    upload:"上传图片",
+    uploadText:"将图片拖放到这里，或从设备中选择",
+    choose:"选择图片"
+  },
+  ko:{
+    hero:"고급 이미지 압축 및 폼 제작기",
+    subtitle:"이미지 압축, 크기 조정, 배경 처리, 이름·날짜·테두리·워터마크 추가",
+    upload:"이미지 업로드",
+    uploadText:"이미지를 여기에 드래그하거나 기기에서 선택하세요",
+    choose:"이미지 선택"
+  }
+};
 
 
 /* =========================================================
-   LANGUAGE PACKS
+   STATE
    ========================================================= */
 
-const languages = {
+let originalImage = null;
+let originalFile = null;
+let processedBlob = null;
+let processedURL = null;
+let originalWidth = 0;
+let originalHeight = 0;
+let processing = false;
 
-en:{
-name:"English",dir:"ltr",
-title:"Advanced Image Compressor & Form Maker",
-subtitle:"Compress, Resize, Add Name/Date Stamp, Border & Watermark instantly",
-uploadTitle:"Upload Your Image",
-uploadHint:"Drag & drop, paste an image or choose from your device",
-choose:"Choose Image",
-presetsTitle:"⚡ Quick Form Presets",
-compressionTitle:"🎯 Compression & Resize",
-targetKB:"Target Size (KB)",
-format:"Output Format",
-quality:"Quality",
-filename:"Output File Name",
-width:"Width (px)",
-height:"Height (px)",
-aspect:"Lock Aspect Ratio",
-adjustments:"🎨 Image Adjustments",
-grayscale:"Convert to Grayscale",
-stamp:"Add Name & Date Stamp",
-border:"Add Professional Border",
-watermark:"Add Watermark",
-process:"Process Image",
-download:"Download Image",
-share:"Share",
-reset:"Reset"
-},
 
-hi:{
-name:"हिन्दी",dir:"ltr",
-title:"एडवांस्ड इमेज कंप्रेसर और फॉर्म मेकर",
-subtitle:"इमेज को कंप्रेस, रिसाइज़ करें और नाम/तारीख, बॉर्डर व वॉटरमार्क जोड़ें",
-uploadTitle:"अपनी फोटो अपलोड करें",
-uploadHint:"फोटो Drag & Drop करें, Paste करें या डिवाइस से चुनें",
-choose:"फोटो चुनें",
-presetsTitle:"⚡ क्विक फॉर्म प्रीसेट",
-compressionTitle:"🎯 कंप्रेशन और रिसाइज़",
-targetKB:"लक्षित साइज (KB)",
-format:"आउटपुट फॉर्मेट",
-quality:"क्वालिटी",
-filename:"फाइल का नाम",
-width:"चौड़ाई (px)",
-height:"ऊंचाई (px)",
-aspect:"अनुपात लॉक करें",
-adjustments:"🎨 फोटो एडजस्टमेंट",
-grayscale:"ब्लैक एंड व्हाइट करें",
-stamp:"नाम और तारीख जोड़ें",
-border:"प्रोफेशनल बॉर्डर जोड़ें",
-watermark:"वॉटरमार्क जोड़ें",
-process:"फोटो प्रोसेस करें",
-download:"फोटो डाउनलोड करें",
-share:"शेयर",
-reset:"रीसेट"
-},
+/* =========================================================
+   ELEMENT HELPER
+   ========================================================= */
 
-ur:{
-name:"اردو",dir:"rtl",
-title:"ایڈوانسڈ امیج کمپریسر اور فارم میکر",
-subtitle:"تصویر کمپریس، ریسائز کریں اور نام، تاریخ، بارڈر اور واٹر مارک شامل کریں",
-uploadTitle:"اپنی تصویر اپ لوڈ کریں",
-uploadHint:"تصویر Drag & Drop کریں، Paste کریں یا ڈیوائس سے منتخب کریں",
-choose:"تصویر منتخب کریں",
-presetsTitle:"⚡ فوری فارم پری سیٹس",
-compressionTitle:"🎯 کمپریشن اور ریسائز",
-targetKB:"مطلوبہ سائز (KB)",
-format:"آؤٹ پٹ فارمیٹ",
-quality:"کوالٹی",
-filename:"فائل کا نام",
-width:"چوڑائی (px)",
-height:"اونچائی (px)",
-aspect:"تصویر کا تناسب لاک کریں",
-adjustments:"🎨 تصویر ایڈجسٹمنٹ",
-grayscale:"گرے اسکیل کریں",
-stamp:"نام اور تاریخ شامل کریں",
-border:"پروفیشنل بارڈر شامل کریں",
-watermark:"واٹر مارک شامل کریں",
-process:"تصویر تیار کریں",
-download:"تصویر ڈاؤن لوڈ کریں",
-share:"شیئر",
-reset:"ری سیٹ"
-},
+const $ = id => document.getElementById(id);
 
-ar:{
-name:"العربية",dir:"rtl",
-title:"ضاغط الصور ومنشئ صور النماذج المتقدم",
-subtitle:"اضغط الصورة وغيّر حجمها وأضف الاسم والتاريخ والإطار والعلامة المائية",
-uploadTitle:"ارفع صورتك",
-uploadHint:"اسحب الصورة وأفلتها أو الصقها أو اخترها من جهازك",
-choose:"اختيار صورة",
-presetsTitle:"⚡ إعدادات النماذج السريعة",
-compressionTitle:"🎯 الضغط وتغيير الحجم",
-targetKB:"الحجم المستهدف (KB)",
-format:"تنسيق الإخراج",
-quality:"الجودة",
-filename:"اسم الملف",
-width:"العرض (px)",
-height:"الارتفاع (px)",
-aspect:"قفل نسبة الأبعاد",
-adjustments:"🎨 تعديلات الصورة",
-grayscale:"تحويل إلى تدرج رمادي",
-stamp:"إضافة الاسم والتاريخ",
-border:"إضافة إطار احترافي",
-watermark:"إضافة علامة مائية",
-process:"معالجة الصورة",
-download:"تنزيل الصورة",
-share:"مشاركة",
-reset:"إعادة ضبط"
-},
 
-bn:{
-name:"বাংলা",dir:"ltr",
-title:"অ্যাডভান্সড ইমেজ কমপ্রেসর ও ফর্ম মেকার",
-subtitle:"ছবি কমপ্রেস, রিসাইজ এবং নাম, তারিখ, বর্ডার ও ওয়াটারমার্ক যোগ করুন",
-uploadTitle:"আপনার ছবি আপলোড করুন",
-uploadHint:"ছবি Drag & Drop করুন, Paste করুন অথবা ডিভাইস থেকে নির্বাচন করুন",
-choose:"ছবি নির্বাচন করুন",
-presetsTitle:"⚡ দ্রুত ফর্ম প্রিসেট",
-compressionTitle:"🎯 কমপ্রেশন ও রিসাইজ",
-targetKB:"লক্ষ্য সাইজ (KB)",
-format:"আউটপুট ফরম্যাট",
-quality:"কোয়ালিটি",
-filename:"ফাইলের নাম",
-width:"প্রস্থ (px)",
-height:"উচ্চতা (px)",
-aspect:"Aspect Ratio লক করুন",
-adjustments:"🎨 ছবি অ্যাডজাস্টমেন্ট",
-grayscale:"গ্রেস্কেল করুন",
-stamp:"নাম ও তারিখ যোগ করুন",
-border:"প্রফেশনাল বর্ডার যোগ করুন",
-watermark:"ওয়াটারমার্ক যোগ করুন",
-process:"ছবি প্রসেস করুন",
-download:"ছবি ডাউনলোড করুন",
-share:"শেয়ার",
-reset:"রিসেট"
-},
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
-es:{
-name:"Español",dir:"ltr",
-title:"Compresor de Imágenes y Creador de Formularios",
-subtitle:"Comprime, cambia el tamaño y añade nombre, fecha, borde y marca de agua",
-uploadTitle:"Sube tu imagen",
-uploadHint:"Arrastra, pega o selecciona una imagen desde tu dispositivo",
-choose:"Elegir imagen",
-presetsTitle:"⚡ Preajustes rápidos",
-compressionTitle:"🎯 Compresión y tamaño",
-targetKB:"Tamaño objetivo (KB)",
-format:"Formato de salida",
-quality:"Calidad",
-filename:"Nombre del archivo",
-width:"Ancho (px)",
-height:"Alto (px)",
-aspect:"Bloquear proporción",
-adjustments:"🎨 Ajustes de imagen",
-grayscale:"Convertir a escala de grises",
-stamp:"Añadir nombre y fecha",
-border:"Añadir borde profesional",
-watermark:"Añadir marca de agua",
-process:"Procesar imagen",
-download:"Descargar imagen",
-share:"Compartir",
-reset:"Restablecer"
-},
+document.addEventListener("DOMContentLoaded", () => {
 
-fr:{
-name:"Français",dir:"ltr",
-title:"Compresseur d’images et créateur de formulaires",
-subtitle:"Compressez, redimensionnez et ajoutez nom, date, bordure et filigrane",
-uploadTitle:"Téléversez votre image",
-uploadHint:"Glissez-déposez, collez ou choisissez une image",
-choose:"Choisir une image",
-presetsTitle:"⚡ Préréglages rapides",
-compressionTitle:"🎯 Compression et redimensionnement",
-targetKB:"Taille cible (KB)",
-format:"Format de sortie",
-quality:"Qualité",
-filename:"Nom du fichier",
-width:"Largeur (px)",
-height:"Hauteur (px)",
-aspect:"Verrouiller les proportions",
-adjustments:"🎨 Réglages de l’image",
-grayscale:"Niveaux de gris",
-stamp:"Ajouter nom et date",
-border:"Ajouter une bordure",
-watermark:"Ajouter un filigrane",
-process:"Traiter l’image",
-download:"Télécharger l’image",
-share:"Partager",
-reset:"Réinitialiser"
-},
+  populateCountries();
+  populateLanguages();
 
-de:{
-name:"Deutsch",dir:"ltr",
-title:"Erweiterter Bildkompressor & Formular-Maker",
-subtitle:"Bilder komprimieren, skalieren und Name, Datum, Rahmen und Wasserzeichen hinzufügen",
-uploadTitle:"Bild hochladen",
-uploadHint:"Bild ziehen, einfügen oder vom Gerät auswählen",
-choose:"Bild auswählen",
-presetsTitle:"⚡ Schnelle Formular-Presets",
-compressionTitle:"🎯 Komprimieren & Skalieren",
-targetKB:"Zielgröße (KB)",
-format:"Ausgabeformat",
-quality:"Qualität",
-filename:"Dateiname",
-width:"Breite (px)",
-height:"Höhe (px)",
-aspect:"Seitenverhältnis sperren",
-adjustments:"🎨 Bildanpassungen",
-grayscale:"Graustufen",
-stamp:"Name und Datum hinzufügen",
-border:"Professionellen Rahmen hinzufügen",
-watermark:"Wasserzeichen hinzufügen",
-process:"Bild verarbeiten",
-download:"Bild herunterladen",
-share:"Teilen",
-reset:"Zurücksetzen"
-},
+  setupEvents();
 
-pt:{
-name:"Português",dir:"ltr",
-title:"Compressor de Imagens e Criador de Formulários",
-subtitle:"Comprima, redimensione e adicione nome, data, borda e marca d’água",
-uploadTitle:"Envie sua imagem",
-uploadHint:"Arraste, cole ou escolha uma imagem do dispositivo",
-choose:"Escolher imagem",
-presetsTitle:"⚡ Predefinições rápidas",
-compressionTitle:"🎯 Compressão e redimensionamento",
-targetKB:"Tamanho alvo (KB)",
-format:"Formato de saída",
-quality:"Qualidade",
-filename:"Nome do arquivo",
-width:"Largura (px)",
-height:"Altura (px)",
-aspect:"Bloquear proporção",
-adjustments:"🎨 Ajustes da imagem",
-grayscale:"Converter para escala de cinza",
-stamp:"Adicionar nome e data",
-border:"Adicionar borda profissional",
-watermark:"Adicionar marca d’água",
-process:"Processar imagem",
-download:"Baixar imagem",
-share:"Compartilhar",
-reset:"Redefinir"
-},
+  const savedTheme = localStorage.getItem("piklyzo-theme");
 
-it:{
-name:"Italiano",dir:"ltr",
-title:"Compressore immagini e creatore di moduli",
-subtitle:"Comprimi, ridimensiona e aggiungi nome, data, bordo e filigrana",
-uploadTitle:"Carica la tua immagine",
-uploadHint:"Trascina, incolla o scegli un'immagine dal dispositivo",
-choose:"Scegli immagine",
-presetsTitle:"⚡ Preset rapidi",
-compressionTitle:"🎯 Compressione e ridimensionamento",
-targetKB:"Dimensione target (KB)",
-format:"Formato di output",
-quality:"Qualità",
-filename:"Nome file",
-width:"Larghezza (px)",
-height:"Altezza (px)",
-aspect:"Blocca proporzioni",
-adjustments:"🎨 Regolazioni immagine",
-grayscale:"Scala di grigi",
-stamp:"Aggiungi nome e data",
-border:"Aggiungi bordo professionale",
-watermark:"Aggiungi filigrana",
-process:"Elabora immagine",
-download:"Scarica immagine",
-share:"Condividi",
-reset:"Ripristina"
-},
+  if(savedTheme === "dark"){
+    document.body.classList.add("dark");
+    $("themeBtn").textContent = "☀️";
+  }
 
-tr:{
-name:"Türkçe",dir:"ltr",
-title:"Gelişmiş Görsel Sıkıştırıcı ve Form Oluşturucu",
-subtitle:"Görselleri sıkıştırın, yeniden boyutlandırın ve ad, tarih, kenarlık ve filigran ekleyin",
-uploadTitle:"Görselinizi yükleyin",
-uploadHint:"Sürükleyin, yapıştırın veya cihazınızdan seçin",
-choose:"Görsel seç",
-presetsTitle:"⚡ Hızlı Form Ayarları",
-compressionTitle:"🎯 Sıkıştırma ve Boyutlandırma",
-targetKB:"Hedef Boyut (KB)",
-format:"Çıktı Formatı",
-quality:"Kalite",
-filename:"Dosya adı",
-width:"Genişlik (px)",
-height:"Yükseklik (px)",
-aspect:"En-boy oranını kilitle",
-adjustments:"🎨 Görsel Ayarları",
-grayscale:"Gri tonlama",
-stamp:"Ad ve tarih ekle",
-border:"Profesyonel kenarlık ekle",
-watermark:"Filigran ekle",
-process:"Görseli işle",
-download:"Görseli indir",
-share:"Paylaş",
-reset:"Sıfırla"
-},
+  const savedLanguage = localStorage.getItem("piklyzo-language");
 
-id:{
-name:"Bahasa Indonesia",dir:"ltr",
-title:"Kompresor Gambar & Pembuat Formulir",
-subtitle:"Kompres, ubah ukuran, dan tambahkan nama, tanggal, bingkai, serta watermark",
-uploadTitle:"Unggah gambar Anda",
-uploadHint:"Seret, tempel, atau pilih gambar dari perangkat",
-choose:"Pilih gambar",
-presetsTitle:"⚡ Preset Formulir Cepat",
-compressionTitle:"🎯 Kompresi & Ubah Ukuran",
-targetKB:"Ukuran Target (KB)",
-format:"Format Output",
-quality:"Kualitas",
-filename:"Nama File",
-width:"Lebar (px)",
-height:"Tinggi (px)",
-aspect:"Kunci Rasio Aspek",
-adjustments:"🎨 Penyesuaian Gambar",
-grayscale:"Skala abu-abu",
-stamp:"Tambahkan nama & tanggal",
-border:"Tambahkan bingkai profesional",
-watermark:"Tambahkan watermark",
-process:"Proses gambar",
-download:"Unduh gambar",
-share:"Bagikan",
-reset:"Atur ulang"
-},
+  if(savedLanguage && translations[savedLanguage]){
+    $("languageSelect").value = savedLanguage;
+    applyLanguage(savedLanguage);
+  }
 
-ms:{
-name:"Bahasa Melayu",dir:"ltr",
-title:"Pemampat Imej & Pembuat Borang Lanjutan",
-subtitle:"Mampat, ubah saiz dan tambah nama, tarikh, sempadan serta tera air",
-uploadTitle:"Muat naik imej anda",
-uploadHint:"Seret, tampal atau pilih imej daripada peranti",
-choose:"Pilih imej",
-presetsTitle:"⚡ Pratetap Borang Pantas",
-compressionTitle:"🎯 Mampatan & Saiz",
-targetKB:"Saiz Sasaran (KB)",
-format:"Format Output",
-quality:"Kualiti",
-filename:"Nama Fail",
-width:"Lebar (px)",
-height:"Tinggi (px)",
-aspect:"Kunci Nisbah",
-adjustments:"🎨 Pelarasan Imej",
-grayscale:"Skala kelabu",
-stamp:"Tambah nama & tarikh",
-border:"Tambah sempadan profesional",
-watermark:"Tambah tera air",
-process:"Proses imej",
-download:"Muat turun imej",
-share:"Kongsi",
-reset:"Tetapkan semula"
-},
+});
 
-vi:{
-name:"Tiếng Việt",dir:"ltr",
-title:"Trình nén ảnh & tạo ảnh biểu mẫu nâng cao",
-subtitle:"Nén, thay đổi kích thước và thêm tên, ngày, viền và hình mờ",
-uploadTitle:"Tải ảnh của bạn",
-uploadHint:"Kéo thả, dán hoặc chọn ảnh từ thiết bị",
-choose:"Chọn ảnh",
-presetsTitle:"⚡ Cài đặt biểu mẫu nhanh",
-compressionTitle:"🎯 Nén & thay đổi kích thước",
-targetKB:"Kích thước mục tiêu (KB)",
-format:"Định dạng đầu ra",
-quality:"Chất lượng",
-filename:"Tên tệp",
-width:"Chiều rộng (px)",
-height:"Chiều cao (px)",
-aspect:"Khóa tỷ lệ",
-adjustments:"🎨 Điều chỉnh ảnh",
-grayscale:"Chuyển sang thang độ xám",
-stamp:"Thêm tên & ngày",
-border:"Thêm viền chuyên nghiệp",
-watermark:"Thêm hình mờ",
-process:"Xử lý ảnh",
-download:"Tải ảnh xuống",
-share:"Chia sẻ",
-reset:"Đặt lại"
-},
 
-th:{
-name:"ไทย",dir:"ltr",
-title:"เครื่องมือบีบอัดรูปภาพและสร้างฟอร์มขั้นสูง",
-subtitle:"บีบอัด ปรับขนาด และเพิ่มชื่อ วันที่ ขอบ และลายน้ำ",
-uploadTitle:"อัปโหลดรูปภาพ",
-uploadHint:"ลากวาง วางรูปภาพ หรือเลือกจากอุปกรณ์",
-choose:"เลือกรูปภาพ",
-presetsTitle:"⚡ ค่าฟอร์มด่วน",
-compressionTitle:"🎯 บีบอัดและปรับขนาด",
-targetKB:"ขนาดเป้าหมาย (KB)",
-format:"รูปแบบเอาต์พุต",
-quality:"คุณภาพ",
-filename:"ชื่อไฟล์",
-width:"ความกว้าง (px)",
-height:"ความสูง (px)",
-aspect:"ล็อกอัตราส่วน",
-adjustments:"🎨 ปรับแต่งรูปภาพ",
-grayscale:"โทนสีเทา",
-stamp:"เพิ่มชื่อและวันที่",
-border:"เพิ่มกรอบแบบมืออาชีพ",
-watermark:"เพิ่มลายน้ำ",
-process:"ประมวลผลรูปภาพ",
-download:"ดาวน์โหลดรูปภาพ",
-share:"แชร์",
-reset:"รีเซ็ต"
-},
+/* =========================================================
+   COUNTRY / LANGUAGE
+   ========================================================= */
 
-zh:{
-name:"中文",dir:"ltr",
-title:"高级图片压缩与表单照片制作工具",
-subtitle:"压缩、调整尺寸，并添加姓名、日期、边框和水印",
-uploadTitle:"上传图片",
-uploadHint:"拖放、粘贴图片或从设备中选择",
-choose:"选择图片",
-presetsTitle:"⚡ 快速表单预设",
-compressionTitle:"🎯 压缩与调整尺寸",
-targetKB:"目标大小 (KB)",
-format:"输出格式",
-quality:"质量",
-filename:"文件名",
-width:"宽度 (px)",
-height:"高度 (px)",
-aspect:"锁定宽高比",
-adjustments:"🎨 图片调整",
-grayscale:"转换为灰度",
-stamp:"添加姓名和日期",
-border:"添加专业边框",
-watermark:"添加水印",
-process:"处理图片",
-download:"下载图片",
-share:"分享",
-reset:"重置"
-},
+function populateCountries(){
 
-ja:{
-name:"日本語",dir:"ltr",
-title:"高度な画像圧縮・フォーム写真メーカー",
-subtitle:"画像を圧縮・リサイズし、名前、日付、枠線、透かしを追加",
-uploadTitle:"画像をアップロード",
-uploadHint:"ドラッグ＆ドロップ、貼り付け、または端末から選択",
-choose:"画像を選択",
-presetsTitle:"⚡ クイックフォーム設定",
-compressionTitle:"🎯 圧縮とリサイズ",
-targetKB:"目標サイズ (KB)",
-format:"出力形式",
-quality:"品質",
-filename:"ファイル名",
-width:"幅 (px)",
-height:"高さ (px)",
-aspect:"縦横比を固定",
-adjustments:"🎨 画像調整",
-grayscale:"グレースケール",
-stamp:"名前と日付を追加",
-border:"プロフェッショナルな枠線",
-watermark:"透かしを追加",
-process:"画像を処理",
-download:"画像をダウンロード",
-share:"共有",
-reset:"リセット"
-},
+  const select = $("countrySelect");
 
-ko:{
-name:"한국어",dir:"ltr",
-title:"고급 이미지 압축기 및 양식 사진 제작기",
-subtitle:"이미지를 압축하고 크기를 변경하며 이름, 날짜, 테두리와 워터마크를 추가하세요",
-uploadTitle:"이미지 업로드",
-uploadHint:"드래그 앤 드롭, 붙여넣기 또는 기기에서 선택",
-choose:"이미지 선택",
-presetsTitle:"⚡ 빠른 양식 프리셋",
-compressionTitle:"🎯 압축 및 크기 조정",
-targetKB:"목표 크기 (KB)",
-format:"출력 형식",
-quality:"품질",
-filename:"파일 이름",
-width:"너비 (px)",
-height:"높이 (px)",
-aspect:"가로세로 비율 잠금",
-adjustments:"🎨 이미지 조정",
-grayscale:"그레이스케일",
-stamp:"이름 및 날짜 추가",
-border:"전문 테두리 추가",
-watermark:"워터마크 추가",
-process:"이미지 처리",
-download:"이미지 다운로드",
-share:"공유",
-reset:"초기화"
-},
+  countries.forEach(country => {
 
-ru:{
-name:"Русский",dir:"ltr",
-title:"Продвинутый компрессор изображений и редактор форм",
-subtitle:"Сжимайте, изменяйте размер и добавляйте имя, дату, рамку и водяной знак",
-uploadTitle:"Загрузите изображение",
-uploadHint:"Перетащите, вставьте или выберите изображение",
-choose:"Выбрать изображение",
-presetsTitle:"⚡ Бы
+    const option = document.createElement("option");
+
+    option.value = country[2];
+    option.textContent = country[1];
+
+    select.appendChild(option);
+
+  });
+
+  try{
+
+    const browserLang =
+      (navigator.language || "en")
+      .toLowerCase()
+      .split("-")[0];
+
+    const exists =
+      languages.some(lang => lang[0] === browserLang);
+
+    if(exists){
+      select.value = browserLang;
+    }
+
+  }catch(error){}
+
+}
+
+
+function populateLanguages(){
+
+  const select = $("languageSelect");
+
+  languages.forEach(lang => {
+
+    const option = document.createElement("option");
+
+    option.value = lang[0];
+    option.textContent = lang[1];
+
+    select.appendChild(option);
+
+  });
+
+  select.value = "en";
+
+}
+
+
+function applyLanguage(lang){
+
+  const t = translations[lang] || translations.en;
+
+  $("heroTitle").textContent = t.hero;
+  $("heroSubtitle").textContent = t.subtitle;
+  $("uploadTitle").textContent = t.upload;
+  $("uploadText").textContent = t.uploadText;
+  $("chooseBtn").textContent = t.choose;
+
+  document.documentElement.lang = lang;
+
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+function setupEvents(){
+
+  $("themeBtn").addEventListener("click", toggleTheme);
+
+  $("languageSelect").addEventListener("change", event => {
+
+    const lang = event.target.value;
+
+    localStorage.setItem("piklyzo-language", lang);
+
+    applyLanguage(lang);
+
+  });
+
+
+  $("countrySelect").addEventListener("change", event => {
+
+    const selectedLang = event.target.value;
+
+    if(translations[selectedLang]){
+
+      $("languageSelect").value = selectedLang;
+
+      localStorage.setItem(
+        "piklyzo-language",
+        selectedLang
+      );
+
+      applyLanguage(selectedLang);
+
+    }
+
+  });
+
+
+  $("chooseBtn").addEventListener("click", () => {
+    $("fileInput").click();
+  });
+
+
+  $("fileInput").addEventListener("change", event => {
+
+    const file = event.target.files &&
+                 event.target.files[0];
+
+    if(file){
+      loadImageFile(file);
+    }
+
+  });
+
+
+  const uploadArea = $("uploadArea");
+
+
+  uploadArea.addEventListener("dragover", event => {
+
+    event.preventDefault();
+
+    uploadArea.classList.add("dragover");
+
+  });
+
+
+  uploadArea.addEventListener("dragleave", () => {
+
+    uploadArea.classList.remove("dragover");
+
+  });
+
+
+  uploadArea.addEventListener("drop", event => {
+
+    event.preventDefault();
+
+    uploadArea.classList.remove("dragover");
+
+    const file =
+      event.dataTransfer.files &&
+      event.dataTransfer.files[0];
+
+    if(file){
+      loadImageFile(file);
+    }
+
+  });
+
+
+  $("quality").addEventListener("input", event => {
+
+    $("qualityValue").textContent =
+      event.target.value + "%";
+
+  });
+
+
+  $("bgThreshold").addEventListener("input", event => {
+
+    $("thresholdValue").textContent =
+      event.target.value;
+
+  });
+
+
+  $("watermarkOpacity").addEventListener("input", event => {
+
+    $("watermarkOpacityValue").textContent =
+      event.target.value + "%";
+
+  });
+
+
+  $("bgRemoveToggle").addEventListener("change", event => {
+
+    $("bgOptions").style.display =
+      event.target.checked ? "block" : "none";
+
+  });
+
+
+  $("stampToggle").addEventListener("change", event => {
+
+    $("stampOptions").style.display =
+      event.target.checked ? "block" : "none";
+
+  });
+
+
+  $("borderToggle").addEventListener("change", event => {
+
+    $("borderOptions").style.display =
+      event.target.checked ? "block" : "none";
+
+  });
+
+
+  $("watermarkToggle").addEventListener("change", event => {
+
+    $("watermarkOptions").style.display =
+      event.target.checked ? "block" : "none";
+
+  });
+
+
+  $("aspectLock").addEventListener("change", () => {
+
+    if($("aspectLock").checked){
+      updateHeightFromWidth();
+    }
+
+  });
+
+
+  $("width").addEventListener("input", () => {
+
+    if($("aspectLock").checked){
+      updateHeightFromWidth();
+    }
+
+  });
+
+
+  $("height").addEventListener("input", () => {
+
+    if($("aspectLock").checked){
+      updateWidthFromHeight();
+    }
+
+  });
+
+
+  document.querySelectorAll("[data-preset-w]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const w = parseInt(button.dataset.presetW,10);
+      const h = parseInt(button.dataset.presetH,10);
+
+      $("width").value = w;
+      $("height").value = h;
+
+      if(originalImage){
+        processImage();
+      }
+
+    });
+
+  });
+
+
+  $("originalPreset").addEventListener("click", () => {
+
+    if(!originalImage) return;
+
+    $("width").value = originalWidth;
+    $("height").value = originalHeight;
+
+    processImage();
+
+  });
+
+
+  $("processBtn").addEventListener(
+    "click",
+    processImage
+  );
+
+
+  $("resetBtn").addEventListener(
+    "click",
+    resetAll
+  );
+
+
+  $("downloadBtn").addEventListener(
+    "click",
+    downloadImage
+  );
+
+
+  $("pdfBtn").addEventListener(
+    "click",
+    downloadPDF
+  );
+
+
+  $("shareBtn").addEventListener(
+    "click",
+    shareImage
+  );
+
+
+  $("copyBtn").addEventListener(
+    "click",
+    copyImage
+  );
+
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function toggleTheme(){
+
+  document.body.classList.toggle("dark");
+
+  const dark =
+    document.body.classList.contains("dark");
+
+  $("themeBtn").textContent =
+    dark ? "☀️" : "🌙";
+
+  localStorage.setItem(
+    "piklyzo-theme",
+    dark ? "dark" : "light"
+  );
+
+}
+
+
+/* =========================================================
+   LOAD IMAGE
+   ========================================================= */
+
+function loadImageFile(file){
+
+  if(!file.type.startsWith("image/")){
+
+    showToast("Please select a valid image file.");
+
+    return;
+
+  }
+
+
+  if(file.size > 50 * 1024 * 1024){
+
+    showToast("Image is too large. Maximum 50 MB.");
+
+    return;
+
+  }
+
+
+  const reader = new FileReader();
+
+
+  reader.onload = event => {
+
+    const img = new Image();
+
+    img.onload = () => {
+
+      originalImage = img;
+      originalFile = file;
+
+      originalWidth = img.naturalWidth;
+      originalHeight = img.naturalHeight;
+
+      $("width").value = originalWidth;
+      $("height").value = originalHeight;
+
+      $("controls").style.display = "block";
+      $("fileInfo").style.display = "block";
+
+      $("fileInfo").innerHTML =
+        "<strong>Loaded:</strong> " +
+        escapeHTML(file.name) +
+        "<br>" +
+        "<strong>Size:</strong> " +
+        formatBytes(file.size) +
+        "<br>" +
+        "<strong>Dimensions:</strong> " +
+        originalWidth +
+        " × " +
+        originalHeight +
+        " px";
+
+      $("originalSize").textContent =
+        formatBytes(file.size);
+
+      processImage();
+
+    };
+
+
+    img.onerror = () => {
+
+      showToast("Unable to read this image.");
+
+    };
+
+
+    img.src = event.target.result;
+
+  };
+
+
+  reader.onerror = () => {
+
+    showToast("Unable to load the selected file.");
+
+  };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   ASPECT RATIO
+   ========================================================= */
+
+function updateHeightFromWidth(){
+
+  if(!originalWidth || !originalHeight) return;
+
+  const width =
+    parseInt($("width").value,10);
+
+  if(!width || width < 1) return;
+
+  const ratio =
+    originalHeight / originalWidth;
+
+  $("height").value =
+    Math.max(1,Math.round(width * ratio));
+
+}
+
+
+function updateWidthFromHeight(){
+
+  if(!originalWidth || !originalHeight) return;
+
+  const height =
+    parseInt($("height").value,10);
+
+  if(!height || height < 1) return;
+
+  const ratio =
+    originalWidth / originalHeight;
+
+  $("width").value =
+    Math.max(1,Math.round(height * ratio));
+
+}
+
+
+/* =========================================================
+   CANVAS CREATION
+   ========================================================= */
+
+function createCanvas(){
+
+  if(!originalImage){
+    throw new Error("No image loaded.");
+  }
+
+
+  let w =
+    parseInt($("width").value,10);
+
+  let h =
+    parseInt($("height").value,10);
+
+
+  if(!Number.isFinite(w) || w < 1){
+    w = originalWidth;
+  }
+
+  if(!Number.isFinite(h) || h < 1){
+    h = originalHeight;
+  }
+
+
+  w = Math.min(w,10000);
+  h = Math.min(h,10000);
+
+
+  const canvas =
+    document.createElement("canvas");
+
+  canvas.width = w;
+  canvas.height = h;
+
+
+  const ctx =
+    canvas.getContext("2d",{
+      willReadFrequently:true
+    });
+
+
+  if(!ctx){
+    throw new Error("Canvas is not supported.");
+  }
+
+
+  /*
+   * White background for JPG because JPG
+   * does not support transparency.
+   */
+
+  if($("format").value === "image/jpeg"){
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0,0,w,h);
+
+  }
+
+
+  ctx.drawImage(
+    originalImage,
+    0,
+    0,
+    w,
+    h
+  );
+
+
+  return {
+    canvas,
+    ctx,
+    width:w,
+    height:h
+  };
+
+}
+
+
+/* =========================================================
+   BACKGROUND COLOR PROCESSING
+   ========================================================= */
+
+function processBackground(ctx,w,h){
+
+  if(!$("bgRemoveToggle").checked){
+    return;
+  }
+
+
+  const imageData =
+    ctx.getImageData(0,0,w,h);
+
+  const data =
+    imageData.data;
+
+
+  const threshold =
+    parseInt($("bgThreshold").value,10) || 40;
+
+
+  /*
+   * Sample several corner pixels instead of
+   * relying on only the first pixel.
+   */
+
+  const points = [
+
+    [0,0],
+    [w-1,0],
+    [0,h-1],
+    [w-1,h-1]
+
+  ];
+
+
+  let sr=0;
+  let sg=0;
+  let sb=0;
+
+
+  points.forEach(point => {
+
+    const x =
+      Math.max(0,Math.min(w-1,point[0]));
+
+    const y =
+      Math.max(0,Math.min(h-1,point[1]));
+
+    const index =
+      (y*w+x)*4;
+
+    sr += data[index];
+    sg += data[index+1];
+    sb += data[index+2];
+
+  });
+
+
+  const r0 = sr / points.length;
+  const g0 = sg / points.length;
+  const b0 = sb / points.length;
+
+
+  const bgType =
+    $("bgColorType").value;
+
+
+  for(let i=0;i<data.length;i+=4){
+
+    const r=data[i];
+    const g=data[i+1];
+    const b=data[i+2];
+
+
+    const distance =
+      Math.sqrt(
+        Math.pow(r-r0,2) +
+        Math.pow(g-g0,2) +
+        Math.pow(b-b0,2)
+      );
+
+
+    if(distance <= threshold){
+
+      if(bgType === "transparent"){
+
+        data[i+3] = 0;
+
+      }else if(bgType === "white"){
+
+        data[i] = 255;
+        data[i+1] = 255;
+        data[i+2] = 255;
+        data[i+3] = 255;
+
+      }else if(bgType === "blue"){
+
+        data[i] = 230;
+        data[i+1] = 242;
+        data[i+2] = 255;
+        data[i+3] = 255;
+
+      }
+
+    }
+
+  }
+
+
+  ctx.putImageData(
+    imageData,
+    0,
+    0
+  );
+
+}
+
+
+/* =========================================================
+   BORDER
+   ========================================================= */
+
+function addBorder(ctx,w,h){
+
+  if(!$("borderToggle").checked){
+    return;
+  }
+
+
+  let width =
+    parseInt($("borderWidth").value,10);
+
+  if(!Number.isFinite(width)){
+    width=5;
+  }
+
+
+  width =
+    Math.max(1,Math.min(width,100));
+
+
+  ctx.save();
+
+  ctx.strokeStyle =
+    $("borderColor").value;
+
+  ctx.lineWidth =
+    width*2;
+
+  ctx.strokeRect(
+    width,
+    width,
+    w-width*2,
+    h-width*2
+  );
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   NAME / DATE STAMP
+   ========================================================= */
+
+function addStamp(ctx,w,h){
+
+  if(!$("stampToggle").checked){
+    return;
+  }
+
+
+  const name =
+    $("fullName").value.trim();
+
+  const date =
+    $("stampDate").value.trim();
+
+  if(!name && !date){
+    return;
+  }
+
+
+  let size =
+    parseInt($("stampSize").value,10);
+
+  if(!Number.isFinite(size)){
+    size=26;
+  }
+
+
+  size =
+    Math.max(8,Math.min(size,200));
+
+
+  const text =
+    [name,date]
+    .filter(Boolean)
+    .join("  ");
+
+
+  ctx.save();
+
+  const boxHeight =
+    Math.max(
+      size*2.4,
+      45
+    );
+
+
+  ctx.fillStyle =
+    "rgba(255,255,255,.85)";
+
+  ctx.fillRect(
+    0,
+    h-boxHeight,
+    w,
+    boxHeight
+  );
+
+
+  ctx.fillStyle =
+    $("stampColor").value;
+
+  ctx.font =
+    "bold " + size + "px Arial";
+
+  ctx.textAlign =
+    "center";
+
+  ctx.textBaseline =
+    "middle";
+
+
+  ctx.fillText(
+    text,
+    w/2,
+    h-boxHeight/2
+  );
+
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   WATERMARK
+   ========================================================= */
+
+function addWatermark(ctx,w,h){
+
+  if(!$("watermarkToggle").checked){
+    return;
+  }
+
+
+  const text =
+    $("watermarkText").value.trim();
+
+  if(!text){
+    return;
+  }
+
+
+  let size =
+    parseInt($("watermarkSize").value,10);
+
+  if(!Number.isFinite(size)){
+    size=24;
+  }
+
+
+  size =
+    Math.max(8,Math.min(size,200));
+
+
+  const opacity =
+    (parseInt(
+      $("watermarkOpacity").value,
+      10
+    ) || 50)/100;
+
+
+  ctx.save();
+
+  ctx.globalAlpha =
+    opacity;
+
+  ctx.fillStyle =
+    $("watermarkColor").value;
+
+  ctx.font =
+    "bold " + size + "px Arial";
+
+  ctx.textAlign =
+    "right";
+
+  ctx.textBaseline =
+    "bottom";
+
+  ctx.fillText(
+    text,
+    w-15,
+    h-15
+  );
+
+  ctx.restore();
+
+}
+
+
+/* =========================================================
+   CANVAS TO BLOB
+   ========================================================= */
+
+function canvasToBlob(canvas,type,quality){
+
+  return new Promise((resolve,reject)=>{
+
+    canvas.toBlob(
+      blob => {
+
+        if(blob){
+          resolve(blob);
+        }else{
+          reject(
+            new Error(
+              "Browser could not create the image."
+            )
+          );
+        }
+
+      },
+      type,
+      quality
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   TARGET KB COMPRESSION
+   ========================================================= */
+
+async function compressToTarget(
+  canvas,
+  format,
+  requestedQuality,
+  targetKB
+){
+
+  const targetBytes =
+    targetKB * 1024;
+
+
+  /*
+   * PNG is lossless and quality does not normally
+   * control its size. We first try PNG.
+   */
+
+  if(format === "image/png"){
+
+    const blob =
+      await canvasToBlob(
+        canvas,
+        format,
+        1
+      );
+
+    return {
+      blob,
+      exact:false
+    };
+
+  }
+
+
+  /*
+   * First try requested quality.
+   */
+
+  let blob =
+    await canvasToBlob(
+      canvas,
+      format,
+      requestedQuality
+    );
+
+
+  if(blob.size <= targetBytes){
+
+    return {
+      blob,
+      exact:true
+    };
+
+  }
+
+
+  /*
+   * Binary search quality to get as close
+   * as possible to the requested target.
+   */
+
+  let low = 0.05;
+  let high = requestedQuality;
+
+  let best = blob;
+
+
+  for(let i=0;i<10;i++){
+
+    const mid =
+      (low+high)/2;
+
+
+    const candidate =
+      await canvasToBlob(
+        canvas,
+        format,
+        mid
+      );
+
+
+    if(candidate.size > targetBytes){
+
+      high = mid;
+
+    }else{
+
+      best = candidate;
+      low = mid;
+
+    }
+
+  }
+
+
+  /*
+   * If still larger than target, progressively
+   * reduce canvas dimensions.
+   */
+
+  if(best.size > targetBytes){
+
+    let currentCanvas =
+      canvas;
+
+    let scale = 0.90;
+
+
+    for(let round=0;round<12;round++){
+
+      const newW =
+        Math.max(
+          80,
+          Math.round(
+            currentCanvas.width*scale
+          )
+        );
+
+      const newH =
+        Math.max(
+          80,
+          Math.round(
+            currentCanvas.height*scale
+          )
+        );
+
+
+      const smaller =
+        document.createElement("canvas");
+
+      smaller.width =
+        newW;
+
+      smaller.height =
+        newH;
+
+
+      const sctx =
+        smaller.getContext("2d");
+
+
+      sctx.drawImage(
+        currentCanvas,
+        0,
+        0,
+        newW,
+        newH
+      );
+
+
+      const candidate =
+        await canvasToBlob(
+          smaller,
+          format,
+          0.60
+        );
+
+
+      if(candidate.size < best.size){
+
+        best =
+          candidate;
+
+        currentCanvas =
+          smaller;
+
+      }
+
+
+      if(best.size <= targetBytes){
+
+        return {
+          blob:best,
+          exact:true,
+          width:currentCanvas.width,
+          height:currentCanvas.height
+        };
+
+      }
+
+
+      scale -= 0.05;
+
+      if(scale <= 0.35){
+        break;
+      }
+
+    }
+
+  }
+
+
+  return {
+    blob:best,
+    exact:best.size <= targetBytes
+  };
+
+}
+
+
+/* =========================================================
+   MAIN PROCESS FUNCTION
+   ========================================================= */
+
+async function processImage(){
+
+  if(!originalImage){
+
+    showToast("Please upload an image first.");
+
+    return;
+
+  }
+
+
+  if(processing){
+    return;
+  }
+
+
+  processing=true;
+
+  $("processBtn").disabled=true;
+
+  showProgress(
+    10,
+    "Preparing image..."
+  );
+
+
+  try{
+
+    let format =
+      $("format").value;
+
+
+    /*
+     * Transparent background requires PNG.
+     */
+
+    if(
+      $("bgRemoveToggle").checked &&
+      $("bgColorType").value === "transparent"
+    ){
+
+      format =
+        "image/png";
+
+      $("format").value =
+        "image/png";
+
+    }
+
+
+    const targetKB =
+      Math.max(
+        5,
+        parseFloat($("targetKB").value) || 100
+      );
+
+
+    let quality =
+      parseInt(
+        $("quality").value,
+        10
+      )/100;
+
+
+    const result =
+      createCanvas();
+
+
+    showProgress(
+      25,
+      "Rendering image..."
+    );
+
+
+    processBackground(
+      result.ctx,
+      result.width,
+      result.height
+    );
+
+
+    showProgress(
+      45,
+      "Applying border and stamp..."
+    );
+
+
+    addBorder(
+      result.ctx,
+      result.width,
+      result.height
+    );
+
+
+    addStamp(
+      result.ctx,
+      result.width,
+      result.height
+    );
+
+
+    addWatermark(
+      result.ctx,
+      result.width,
+      result.height
+    );
+
+
+    showProgress(
+      65,
+      "Compressing..."
+    );
+
+
+    const compressed =
+      await compressToTarget(
+        result.canvas,
+        format,
+        quality,
+        targetKB
+      );
+
+
+    processedBlob =
+      compressed.blob;
+
+
+    if(processedURL){
+      URL.revokeObjectURL(processedURL);
+    }
+
+
+    processedURL =
+      URL.createObjectURL(
+        processedBlob
+      );
+
+
+    $("previewArea").innerHTML =
+      "";
+
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      processedURL;
+
+    img.alt =
+      "Piklyzo processed image";
+
+    $("previewArea").appendChild(img);
+
+
+    $("newSize").textContent =
+      formatBytes(
+        processedBlob.size
+      );
+
+
+    const originalBytes =
+      originalFile ?
+      originalFile.size :
+      0;
+
+
+    if(originalBytes > 0){
+
+      const reduction =
+        (
+          (
+            originalBytes -
+            processedBlob.size
+          ) /
+          originalBytes
+        )*100;
+
+
+      $("reduction").textContent =
+        Math.max(
+          0,
+          reduction
+        ).toFixed(1) + "%";
+
+    }
+
+
+    $("dimensions").textContent =
+      (
+        compressed.width ||
+        result.width
+      ) +
+      "×" +
+      (
+        compressed.height ||
+        result.height
+      ) +
+      "px";
+
+
+    $("outputFormat").textContent =
+      format
+        .split("/")[1]
+        .toUpperCase();
+
+
+    showProgress(
+      100,
+      compressed.exact ?
+      "Done — target size reached." :
+      "Done — closest possible size created."
+    );
+
+
+    setTimeout(
+      hideProgress,
+      900
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Piklyzo processing error:",
+      error
+    );
+
+    showToast(
+      "Processing failed: " +
+      (error.message || "Unknown error")
+    );
+
+    hideProgress();
+
+  }finally{
+
+    processing=false;
+
+    $("processBtn").disabled=false;
+
+  }
+
+}
+
+
+/* =========================================================
+   DOWNLOAD IMAGE
+   ========================================================= */
+
+function downloadImage(){
+
+  if(!processedBlob){
+
+    showToast(
+      "Please process an image first."
+    );
+
+    return;
+
+  }
+
+
+  const filename =
+    sanitizeFilename(
+      $("filename").value ||
+      "piklyzo-image"
+    );
+
+
+  const extension =
+    getExtension(
+      processedBlob.type
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      processedBlob
+    );
+
+
+  const link =
+    document.createElement("a");
+
+  link.href =
+    url;
+
+  link.download =
+    filename +
+    "." +
+    extension;
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+    () => URL.revokeObjectURL(url),
+    1000
+  );
+
+
+  showToast(
+    "Image downloaded successfully!"
+  );
+
+}
+
+
+/* =========================================================
+   PDF EXPORT
+   ========================================================= */
+
+async function downloadPDF(){
+
+  if(!processedBlob){
+
+    showToast(
+      "Please process an image first."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    showToast("Creating PDF...");
+
+
+    const jpegBlob =
+      await convertBlobToJPEG(
+        processedBlob
+      );
+
+
+    const arrayBuffer =
+      await jpegBlob.arrayBuffer();
+
+
+    const jpegBytes =
+      new Uint8Array(arrayBuffer);
+
+
+    const dimensions =
+      await getJPEGDimensions(
+        jpegBytes
+      );
+
+
+    if(!dimensions){
+
+      throw new Error(
+        "Unable to read image dimensions."
+      );
+
+    }
+
+
+    const pdfBytes =
+      createSimplePDF(
+        jpegBytes,
+        dimensions.width,
+        dimensions.height
+      );
+
+
+    const pdfBlob =
+      new Blob(
+        [pdfBytes],
+        {type:"application/pdf"}
+      );
+
+
+    const url =
+      URL.createObjectURL(pdfBlob);
+
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      url;
+
+    link.download =
+      sanitizeFilename(
+        $("filename").value ||
+        "piklyzo-image"
+      ) +
+      ".pdf";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+
+    setTimeout(
+      () => URL.revokeObjectURL(url),
+      1000
+    );
+
+
+    showToast(
+      "PDF downloaded successfully!"
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "PDF creation failed."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CONVERT ANY IMAGE TO JPEG
+   ========================================================= */
+
+async function convertBlobToJPEG(blob){
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  try{
+
+    const img =
+      await loadImageURL(url);
+
+
+    const canvas =
+      document.createElement("canvas");
+
+    canvas.width =
+      img.naturalWidth;
+
+    canvas.height =
+      img.naturalHeight;
+
+
+    const ctx =
+      canvas.getContext("2d");
+
+
+    ctx.fillStyle =
+      "#ffffff";
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    ctx.drawImage(
+      img,
+      0,
+      0
+    );
+
+
+    return await canvasToBlob(
+      canvas,
+      "image/jpeg",
+      0.95
+    );
+
+
+  }finally{
+
+    URL.revokeObjectURL(url);
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD IMAGE URL
+   ========================================================= */
+
+function loadImageURL(url){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const img =
+        new Image();
+
+      img.onload =
+        () => resolve(img);
+
+      img.onerror =
+        () => reject(
+          new Error(
+            "Unable to load image."
+          )
+        );
+
+      img.src =
+        url;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   JPEG DIMENSIONS
+   ========================================================= */
+
+async function getJPEGDimensions(bytes){
+
+  let offset=2;
+
+
+  while(offset < bytes.length){
+
+    if(bytes[offset] !== 0xFF){
+
+      offset++;
+      continue;
+
+    }
+
+
+    const marker =
+      bytes[offset+1];
+
+
+    /*
+     * SOF markers.
+     */
+
+    if(
+      marker >= 0xC0 &&
+      marker <= 0xC3
+    ){
+
+      const height =
+        (bytes[offset+5] << 8) |
+        bytes[offset+6];
+
+
+      const width =
+        (bytes[offset+7] << 8) |
+        bytes[offset+8];
+
+
+      return {
+        width,
+        height
+      };
+
+    }
+
+
+    if(marker === 0xD9){
+      break;
+    }
+
+
+    const length =
+      (bytes[offset+2] << 8) |
+      bytes[offset+3];
+
+
+    if(!length){
+      break;
+    }
+
+
+    offset +=
+      2 + length;
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =========================================================
+   SIMPLE JPEG PDF
+   ========================================================= */
+
+function createSimplePDF(
+  jpegBytes,
+  imgWidth,
+  imgHeight
+){
+
+  /*
+   * PDF uses points.
+   * A4 page = 595 x 842.
+   */
+
+  const pageW = 595;
+  const pageH = 842;
+
+
+  const scale =
+    Math.min(
+      pageW/imgWidth,
+      pageH/imgHeight
+    );
+
+
+  const drawW =
+    imgWidth*scale;
+
+  const drawH =
+    imgHeight*scale;
+
+
+  const x =
+    (pageW-drawW)/2;
+
+  const y =
+    (pageH-drawH)/2;
+
+
+  const encoder =
+    new TextEncoder();
+
+
+  const objects = [];
+
+
+  objects.push(
+    "<< /Type /Catalog /Pages 2 0 R >>"
+  );
+
+
+  objects.push(
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>"
+  );
+
+
+  objects.push(
+    "<< /Type /Page /Parent 2 0 R " +
+    "/MediaBox [0 0 595 842] " +
+    "/Resources << /XObject << /Im1 4 0 R >> " +
+    "/ProcSet [/PDF /ImageC] >> " +
+    "/Contents 5 0 R >>"
+  );
+
+
+  const imageObject =
+    concatUint8Arrays([
+
+      encoder.encode(
+        "<< /Type /XObject " +
+        "/Subtype /Image " +
+        "/Width " + imgWidth +
+        " /Height " + imgHeight +
+        " /ColorSpace /DeviceRGB " +
+        "/BitsPerComponent 8 " +
+        "/Filter /DCTDecode " +
+        "/Length " +
+        jpegBytes.length +
+        " >>\nstream\n"
+      ),
+
+      jpegBytes,
+
+      encoder.encode(
+        "\nendstream"
+      )
+
+    ]);
+
+
+  objects.push(imageObject);
+
+
+  const content =
+    "q\n" +
+    drawW.toFixed(2) +
+    " 0 0 " +
+    drawH.toFixed(2) +
+    " " +
+    x.toFixed(2) +
+    " " +
+    y.toFixed(2) +
+    " cm\n" +
+    "/Im1 Do\n" +
+    "Q\n";
+
+
+  const contentBytes =
+    encoder.encode(content);
+
+
+  const contentObject =
+    concatUint8Arrays([
+
+      encoder.encode(
+        "<< /Length " +
+        contentBytes.length +
+        " >>\nstream\n"
+      ),
+
+      contentBytes,
+
+      encoder.encode(
+        "endstream"
+      )
+
+    ]);
+
+
+  objects.push(contentObject);
+
+
+  /*
+   * Build PDF objects and xref.
+   */
+
+  const chunks = [];
+
+  const header =
+    encoder.encode(
+      "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"
+    );
+
+
+  chunks.push(header);
+
+
+  const offsets =
+    [0];
+
+
+  let position =
+    header.length;
+
+
+  for(let i=0;i<objects.length;i++){
+
+    offsets.push(position);
+
+
+    const objectHeader =
+      encoder.encode(
+        (i+1) +
+        " 0 obj\n"
+      );
+
+
+    const objectEnd =
+      encoder.encode(
+        "\nendobj\n"
+      );
+
+
+    const object =
+      typeof objects[i] === "string"
+      ?
+      encoder.encode(objects[i])
+      :
+      objects[i];
+
+
+    chunks.push(
+      objectHeader,
+      object,
+      objectEnd
+    );
+
+
+    position +=
+      objectHeader.length +
+      object.length +
+      objectEnd.length;
+
+  }
+
+
+  const xrefPosition =
+    position;
+
+
+  let xref =
+    "xref\n" +
+    "0 " +
+    (objects.length+1) +
+    "\n";
+
+
+  xref +=
+    "0000000000 65535 f \n";
+
+
+  for(let i=1;i<offsets.length;i++){
+
+    xref +=
+      String(
+        offsets[i]
+      ).padStart(10,"0") +
+      " 00000 n \n";
+
+  }
+
+
+  xref +=
+    "trailer\n" +
+    "<< /Size " +
+    (objects.length+1) +
+    " /Root 1 0 R >>\n" +
+    "startxref\n" +
+    xrefPosition +
+    "\n%%EOF";
+
+
+  chunks.push(
+    encoder.encode(xref)
+  );
+
+
+  return concatUint8Arrays(chunks);
+
+}
+
+
+/* =========================================================
+   SHARE
+   ========================================================= */
+
+async function shareImage(){
+
+  if(!processedBlob){
+
+    showToast(
+      "Please process an image first."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const filename =
+      sanitizeFilename(
+        $("filename").value ||
+        "piklyzo-image"
+      ) +
+      "." +
+      getExtension(
+        processedBlob.type
+      );
+
+
+    const file =
+      new File(
+        [processedBlob],
+        filename,
+        {
+          type:processedBlob.type
+        }
+      );
+
+
+    if(
+      navigator.share &&
+      (!navigator.canShare ||
+       navigator.canShare({files:[file]}))
+    ){
+
+      await navigator.share({
+        title:"Piklyzo",
+        text:"Image processed with Piklyzo.",
+        files:[file]
+      });
+
+
+      return;
+
+    }
+
+
+    showToast(
+      "File sharing is not supported here. Download the image instead."
+    );
+
+
+  }catch(error){
+
+    if(error.name === "AbortError"){
+      return;
+    }
+
+    console.error(error);
+
+    showToast(
+      "Sharing failed."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   COPY IMAGE
+   ========================================================= */
+
+async function copyImage(){
+
+  if(!processedBlob){
+
+    showToast(
+      "Please process an image first."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    if(
+      !navigator.clipboard ||
+      typeof ClipboardItem === "undefined"
+    ){
+
+      throw new Error(
+        "Clipboard image API unavailable."
+      );
+
+    }
+
+
+    const item =
+      new ClipboardItem({
+        [processedBlob.type]:
+          processedBlob
+      });
+
+
+    await navigator.clipboard.write([
+      item
+    ]);
+
+
+    showToast(
+      "Image copied to clipboard!"
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Copy is not supported by this browser."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetAll(){
+
+  /*
+   * Revoke processed URL.
+   */
+
+  if(processedURL){
+
+    URL.revokeObjectURL(
+      processedURL
+    );
+
+    processedURL=null;
+
+  }
+
+
+  originalImage=null;
+  originalFile=null;
+  processedBlob=null;
+
+  originalWidth=0;
+  originalHeight=0;
+
+
+  $("fileInput").value="";
+
+  $("controls").style.display="none";
+
+  $("fileInfo").style.display="none";
+
+  $("previewArea").innerHTML =
+    '<span style="color:var(--muted)">Your processed image will appear here.</span>';
+
+
+  $("originalSize").textContent="-";
+  $("newSize").textContent="-";
+  $("reduction").textContent="-";
+  $("dimensions").textContent="-";
+  $("outputFormat").textContent="-";
+
+
+  $("targetKB").value=100;
+  $("quality").value=85;
+  $("qualityValue").textContent="85%";
+
+
+  $("filename").value="piklyzo-image";
+
+
+  $("bgRemoveToggle").checked=false;
+  $("bgOptions").style.display="none";
+
+
+  $("stampToggle").checked=false;
+  $("stampOptions").style.display="none";
+
+
+  $("borderToggle").checked=false;
+  $("borderOptions").style.display="none";
+
+
+  $("watermarkToggle").checked=false;
+  $("watermarkOptions").style.display="none";
+
+
+  $("fullName").value="";
+  $("stampDate").value="";
+
+
+  $("borderWidth").value=5;
+
+
+  $("watermarkText").value="";
+
+
+  hideProgress();
+
+
+  showToast(
+    "All settings have been reset."
+  );
+
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+function showProgress(percent,text){
+
+  $("progressWrap").style.display="block";
+
+  $("progressFill").style.width =
+    Math.max(
+      0,
+      Math.min(100,percent)
+    ) +
+    "%";
+
+  $("progressText").textContent =
+    text;
+
+}
+
+
+function hideProgress(){
+
+  $("progressWrap").style.display="none";
+
+  $("progressFill").style.width="0%";
+
+}
+
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+function formatBytes(bytes){
+
+  if(!Number.isFinite(bytes)){
+    return "0 KB";
+  }
+
+
+  if(bytes < 1024){
+
+    return bytes.toFixed(0) +
+      " B";
+
+  }
+
+
+  if(bytes < 1024*1024){
+
+    return (
+      bytes/1024
+    ).toFixed(1) +
+      " KB";
+
+  }
+
+
+  return (
+    bytes/(1024*1024)
+  ).toFixed(2) +
+    " MB";
+
+}
+
+
+function getExtension(type){
+
+  if(type === "image/png"){
+    return "png";
+  }
+
+  if(type === "image/webp"){
+    return "webp";
+  }
+
+  return "jpg";
+
+}
+
+
+function sanitizeFilename(name){
+
+  return String(name)
+    .trim()
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[<>:"/\\|?*\x00-\x1F]/g,"-")
+    .replace(/\s+/g,"-")
+    .slice(0,100) ||
+    "piklyzo-image";
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function concatUint8Arrays(arrays){
+
+  let total=0;
+
+  arrays.forEach(arr => {
+    total += arr.length;
+  });
+
+
+  const result =
+    new Uint8Array(total);
+
+
+  let offset=0;
+
+
+  arrays.forEach(arr => {
+
+    result.set(
+      arr,
+      offset
+    );
+
+    offset +=
+      arr.length;
+
+  });
+
+
+  return result;
+
+}
+
+
+let toastTimer=null;
+
+
+function showToast(message){
+
+  let toast =
+    document.getElementById("toast");
+
+
+  if(!toast){
+
+    toast =
+      document.createElement("div");
+
+    toast.id="toast";
+
+    toast.className="toast";
+
+    document.body.appendChild(
+      toast
+    );
+
+  }
+
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+
+  if(toastTimer){
+    clearTimeout(toastTimer);
+  }
+
+
+  toastTimer =
+    setTimeout(
+      () => {
+        toast.classList.remove("show");
+      },
+      3000
+    );
+
+}
+</script>
+
+</body>
+</html>
