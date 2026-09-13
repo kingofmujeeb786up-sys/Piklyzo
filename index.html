@@ -1,869 +1,1260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Piklyzo - Free Image Resizer, Compressor & Form Photo Maker</title>
-
-<meta name="description" content="Piklyzo is a free online image compressor, resizer and form photo maker with background color removal, name/date stamps, borders, PDF export and sharing.">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#1266f1">
-
-<link rel="icon" href="logo.png">
-
-<style>
-:root{
-  --primary:#1266f1;
-  --primary2:#00a8ff;
-  --bg:#eef5ff;
-  --card:#ffffff;
-  --text:#172033;
-  --muted:#687386;
-  --border:#dce5f2;
-  --soft:#f4f8ff;
-  --danger:#dc3545;
-  --success:#16834b;
-  --shadow:0 12px 35px rgba(25,75,130,.12);
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#eef6ff,#f8fbff);
-  color:var(--text);
-  transition:.2s;
-}
-
-body.dark{
-  --bg:#101827;
-  --card:#172235;
-  --text:#f2f6ff;
-  --muted:#aeb9ca;
-  --border:#304057;
-  --soft:#111c2d;
-  background:#101827;
-}
-
-button,
-input,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-button:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-}
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--border);
-}
-
-.dark header{
-  background:rgba(16,24,39,.94);
-}
-
-.nav{
-  max-width:1250px;
-  margin:auto;
-  padding:12px 18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:24px;
-  font-weight:900;
-  color:var(--primary);
-  margin-right:auto;
-}
-
-.logo img{
-  width:34px;
-  height:34px;
-  object-fit:contain;
-  border-radius:8px;
-}
-
-.nav-actions{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-
-.nav select,
-.nav button{
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  padding:9px 11px;
-  border-radius:10px;
-}
-
-main{
-  max-width:1200px;
-  margin:25px auto 60px;
-  padding:0 15px;
-}
-
-.hero{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:clamp(30px,5vw,50px);
-  margin:15px 0 8px;
-  background:linear-gradient(90deg,var(--primary),var(--primary2));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  color:var(--muted);
-  font-size:18px;
-  margin:0 auto;
-  max-width:800px;
-  line-height:1.5;
-}
-
-.badges{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:18px 0;
-}
-
-.badge{
-  padding:8px 13px;
-  border-radius:999px;
-  background:#e7f0ff;
-  color:#155bc0;
-  font-weight:700;
-  font-size:13px;
-}
-
-.dark .badge{
-  background:#203453;
-  color:#9dc4ff;
-}
-
-.tool-card,
-.info-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  box-shadow:var(--shadow);
-  padding:20px;
-  margin-bottom:20px;
-}
-
-.upload-area{
-  border:2px dashed #80aef3;
-  background:linear-gradient(135deg,#f7fbff,#eef6ff);
-  min-height:230px;
-  border-radius:18px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:25px;
-  transition:.2s;
-}
-
-.upload-area.dragover{
-  border-color:var(--primary);
-  transform:scale(1.01);
-  background:#e4f0ff;
-}
-
-.dark .upload-area{
-  background:#142137;
-}
-
-.dark .upload-area.dragover{
-  background:#1b3152;
-}
-
-.upload-icon{
-  font-size:55px;
-}
-
-.primary-btn{
-  border:0;
-  color:white;
-  background:linear-gradient(90deg,var(--primary),var(--primary2));
-  padding:13px 20px;
-  border-radius:12px;
-  font-weight:800;
-  box-shadow:0 8px 18px rgba(18,102,241,.2);
-}
-
-.secondary-btn{
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  padding:11px 15px;
-  border-radius:11px;
-  font-weight:700;
-}
-
-.file-info{
-  display:none;
-  margin-top:15px;
-  padding:12px;
-  background:var(--soft);
-  border-radius:12px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.controls{
-  display:none;
-  margin-top:20px;
-}
-
-.section-title{
-  font-size:18px;
-  font-weight:900;
-  margin:20px 0 12px;
-  border-bottom:1px solid var(--border);
-  padding-bottom:8px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:13px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  font-weight:700;
-  font-size:14px;
-}
-
-.field input,
-.field select{
-  width:100%;
-  padding:11px;
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  border-radius:10px;
-  outline:none;
-}
-
-.field input:focus,
-.field select:focus{
-  border-color:var(--primary);
-}
-
-.check-row{
-  display:flex;
-  gap:9px;
-  align-items:center;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  margin-top:8px;
-}
-
-.check-row input{
-  width:18px;
-  height:18px;
-}
-
-.sub-options{
-  display:none;
-  padding:12px;
-  margin-top:5px;
-  border-left:3px solid var(--primary);
-  background:var(--soft);
-  border-radius:8px;
-}
-
-.preset-row,
-.action-buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
-.preset{
-  padding:9px 12px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:var(--card);
-  color:var(--text);
-  font-weight:700;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin:18px 0;
-}
-
-.stat{
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  text-align:center;
-  background:var(--card);
-}
-
-.stat small{
-  color:var(--muted);
-  display:block;
-  margin-bottom:4px;
-}
-
-.stat strong{
-  font-size:16px;
-  word-break:break-word;
-}
-
-.preview-area{
-  background:repeating-conic-gradient(#eee 0% 25%,#fff 0% 50%) 50%/20px 20px;
-  border-radius:16px;
-  min-height:300px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  overflow:hidden;
-}
-
-.dark .preview-area{
-  background:repeating-conic-gradient(#263245 0% 25%,#172235 0% 50%) 50%/20px 20px;
-}
-
-.preview-area img{
-  max-width:100%;
-  max-height:600px;
-  object-fit:contain;
-  border-radius:4px;
-  box-shadow:0 5px 20px rgba(0,0,0,.2);
-}
-
-.progress-wrap{
-  display:none;
-  margin-top:15px;
-}
-
-.progress-bar{
-  height:10px;
-  background:var(--border);
-  border-radius:999px;
-  overflow:hidden;
-}
-
-.progress-fill{
-  width:0;
-  height:100%;
-  background:linear-gradient(90deg,var(--primary),var(--primary2));
-  transition:width .15s;
-}
-
-.progress-text{
-  margin-top:7px;
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-}
-
-.toast{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%) translateY(100px);
-  z-index:5000;
-  background:#182333;
-  color:white;
-  padding:12px 18px;
-  border-radius:10px;
-  opacity:0;
-  transition:.3s;
-  pointer-events:none;
-  max-width:90%;
-  text-align:center;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-.error{
-  color:var(--danger);
-}
-
-.success{
-  color:var(--success);
-}
-
-.info-card h2{
-  margin-top:0;
-}
-
-.info-card p{
-  color:var(--muted);
-  line-height:1.7;
-}
-
-.hidden{
-  display:none!important;
-}
-
-@media(max-width:800px){
-  .nav{
-    flex-wrap:wrap;
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Piklyzo – Free Image Compressor, Resizer & Form Photo Maker</title>
+
+  <meta name="description"
+        content="Piklyzo is a free online image compressor, resizer and form photo maker. Reduce images to an exact KB size, resize, add name and date, borders, watermark and export to JPG or PDF.">
+
+  <meta name="keywords"
+        content="Piklyzo, image compressor, image resizer, photo compressor, reduce image size, resize image, exact KB image compressor, form photo maker, government form photo, add name date photo, photo border, image to PDF">
+
+  <meta name="author" content="Piklyzo">
+  <meta name="application-name" content="Piklyzo">
+  <meta name="generator" content="Piklyzo">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <meta name="robots"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+  <meta name="googlebot"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+  <meta name="theme-color" content="#1266f1">
+
+  <!-- Canonical -->
+  <link rel="canonical"
+        href="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
+
+  <!-- Favicon / Logo -->
+  <link rel="icon"
+        type="image/png"
+        href="logo.png">
+
+  <link rel="apple-touch-icon"
+        href="logo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Piklyzo">
+  <meta property="og:title"
+        content="Piklyzo – Free Image Compressor & Form Photo Maker">
+  <meta property="og:description"
+        content="Compress images to an exact KB size, resize photos, remove or change backgrounds, add name/date stamps, borders and watermarks. Free and no sign-up.">
+  <meta property="og:url"
+        content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
+  <meta property="og:image"
+        content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
+  <meta property="og:image:alt"
+        content="Piklyzo – Free Image Compressor and Form Photo Maker">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title"
+        content="Piklyzo – Free Image Compressor & Form Photo Maker">
+  <meta name="twitter:description"
+        content="Free online image compressor, resizer and form photo maker with exact KB compression, name/date, border and PDF tools.">
+  <meta name="twitter:image"
+        content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
+
+  <!-- WebSite Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Piklyzo",
+    "alternateName": [
+      "Piklyzo Image Compressor",
+      "Piklyzo Form Photo Maker"
+    ],
+    "url": "https://kingofmujeeb786up-sys.github.io/Piklyzo/"
   }
+  </script>
 
-  .logo{
-    width:100%;
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Piklyzo",
+    "url": "https://kingofmujeeb786up-sys.github.io/Piklyzo/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png"
+    }
   }
+  </script>
 
-  .nav-actions{
-    width:100%;
+  <!-- WebApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Piklyzo",
+    "url": "https://kingofmujeeb786up-sys.github.io/Piklyzo/",
+    "image": "https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png",
+    "description": "Free online image compressor, image resizer and form photo maker with exact KB compression, background tools, name and date stamp, border, watermark and PDF export.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript and a modern web browser",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
   }
+  </script>
 
-  .nav-actions select,
-  .nav-actions button{
-    flex:1;
-  }
+  <style>
+    :root {
+      --primary: #1266f1;
+      --primary-dark: #084db8;
+      --secondary: #6c63ff;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
 
-  .grid{
-    grid-template-columns:1fr;
-  }
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --border: #e4e9f2;
 
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
+      --shadow:
+        0 15px 45px rgba(24, 55, 95, .10);
 
-@media(max-width:500px){
-  main{
-    padding:0 10px;
-  }
+      --radius: 20px;
+    }
 
-  .tool-card,
-  .info-card{
-    padding:14px;
-    border-radius:17px;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .action-buttons button{
-    flex:1 1 45%;
-  }
-}
-</style>
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(circle at top left,
+        rgba(18,102,241,.08),
+        transparent 30%),
+        var(--bg);
+
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body.dark {
+      --bg: #0c1220;
+      --card: #111a2c;
+      --text: #f5f7fb;
+      --muted: #aab4c5;
+      --border: #26334a;
+
+      background:
+        radial-gradient(circle at top left,
+        rgba(18,102,241,.16),
+        transparent 35%),
+        #0c1220;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 28px));
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,.88);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.dark header {
+      background: rgba(12,18,32,.90);
+    }
+
+    .navbar {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 900;
+      font-size: 25px;
+      letter-spacing: -.5px;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .brand-text small {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      margin-top: 3px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .select,
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 12px;
+      min-height: 42px;
+    }
+
+    .select {
+      padding: 0 10px;
+      max-width: 170px;
+    }
+
+    .icon-btn {
+      width: 42px;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 52px 0 28px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      border-radius: 24px;
+      box-shadow: 0 12px 35px rgba(18,102,241,.20);
+      margin-bottom: 15px;
+    }
+
+    .hero-brand {
+      font-size: clamp(38px, 8vw, 68px);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -2.5px;
+
+      background:
+        linear-gradient(135deg,
+        #1266f1,
+        #6c63ff,
+        #1266f1);
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero h1 {
+      font-size: clamp(25px, 4vw, 42px);
+      margin-top: 15px;
+      font-weight: 850;
+      letter-spacing: -.8px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .badges {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .badge {
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0,0,0,.04);
+    }
+
+    /* MAIN CARD */
+
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin: 20px auto 30px;
+    }
+
+    /* UPLOAD */
+
+    .upload {
+      border: 2px dashed #8db5f8;
+      border-radius: 18px;
+      padding: 34px 20px;
+      text-align: center;
+      background:
+        linear-gradient(135deg,
+        rgba(18,102,241,.05),
+        rgba(108,99,255,.04));
+
+      transition: .2s ease;
+    }
+
+    .upload.dragging {
+      transform: scale(1.01);
+      border-color: var(--primary);
+      background: rgba(18,102,241,.10);
+    }
+
+    .upload-icon {
+      font-size: 46px;
+      margin-bottom: 8px;
+    }
+
+    .upload h2 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .upload p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 12px 17px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .primary-btn {
+      color: white;
+      background:
+        linear-gradient(135deg,
+        var(--primary),
+        var(--secondary));
+      box-shadow: 0 8px 20px rgba(18,102,241,.22);
+    }
+
+    .secondary-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .danger-btn {
+      color: white;
+      background: var(--danger);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .danger-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .paste-note {
+      margin-top: 9px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* PRESETS */
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 850;
+      margin: 26px 0 12px;
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .preset {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 12px;
+      border-radius: 13px;
+      font-weight: 750;
+    }
+
+    .preset:hover {
+      border-color: var(--primary);
+    }
+
+    /* CONTROLS */
+
+    .control-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .control {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      background: rgba(127,127,127,.025);
+    }
+
+    .control.full {
+      grid-column: 1 / -1;
+    }
+
+    .control label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .control small {
+      display: block;
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    .input,
+    .control input[type="number"],
+    .control input[type="text"],
+    .control input[type="date"],
+    .control input[type="color"],
+    .control select {
+      width: 100%;
+      min-height: 43px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 9px 11px;
+      outline: none;
+    }
+
+    .control input:focus,
+    .control select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(18,102,241,.10);
+    }
+
+    .inline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .check {
+      display: flex !important;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    .range-line {
+      display: grid;
+      grid-template-columns: 1fr 70px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .range-value {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 7px;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    /* TOOLBAR */
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    .toolbar button {
+      flex: 1 1 130px;
+    }
+
+    /* STATUS */
+
+    .status {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: rgba(127,127,127,.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background:
+        linear-gradient(90deg,
+        var(--primary),
+        var(--secondary));
+      transition: width .2s ease;
+    }
+
+    .status-text {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px;
+      text-align: center;
+      background: rgba(127,127,127,.025);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* PREVIEW */
+
+    .preview-wrap {
+      margin-top: 25px;
+      display: none;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .preview-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      overflow: hidden;
+      background:
+        repeating-conic-gradient(
+          rgba(127,127,127,.08) 0% 25%,
+          transparent 0% 50%
+        ) 50% / 20px 20px;
+    }
+
+    .preview-card h3 {
+      background: var(--card);
+      border-radius: 9px;
+      padding: 7px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .preview-card img {
+      display: block;
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    /* COMPARE */
+
+    .compare {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      min-height: 260px;
+      display: none;
+      background: #ddd;
+    }
+
+    .compare img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .compare-after {
+      clip-path: inset(0 0 0 50%);
+    }
+
+    .compare-slider {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+
+    .compare-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: white;
+      box-shadow: 0 0 8px rgba(0,0,0,.5);
+      pointer-events: none;
+    }
+
+    /* INFO */
+
+    .info-section {
+      margin: 35px auto 60px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .info-section h3 {
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
+
+    .info-section p {
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .feature-list div {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 9px 11px;
+      font-size: 13px;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform:
+        translate(-50%, 120px);
+
+      background: #111827;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      z-index: 9999;
+      opacity: 0;
+      transition: .3s ease;
+      max-width: calc(100% - 30px);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      transform:
+        translate(-50%, 0);
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 25px 15px 35px;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .control-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .control.full {
+        grid-column: auto;
+      }
+
+      .stats {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .stats .stat:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .presets {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        min-height: 66px;
+      }
+
+      .brand {
+        font-size: 21px;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .brand-text small {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 5px;
+      }
+
+      .select {
+        max-width: 110px;
+      }
+
+      .hero {
+        padding-top: 35px;
+      }
+
+      .hero-logo {
+        width: 70px;
+        height: 70px;
+      }
+
+      .hero-brand {
+        font-size: 47px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .tool-card {
+        padding: 13px;
+        border-radius: 16px;
+      }
+
+      .upload {
+        padding: 27px 12px;
+      }
+
+      .toolbar button {
+        flex-basis: 100%;
+      }
+
+      .inline {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-<nav class="nav">
+  <div class="container navbar">
 
-  <div class="logo">
-    <img src="logo.png" alt="Piklyzo Logo"
-         onerror="this.style.display='none'">
-    <span>Piklyzo</span>
+    <a class="brand"
+       href="#top"
+       aria-label="Piklyzo Home">
+
+      <img
+        src="logo.png"
+        width="44"
+        height="44"
+        alt="Piklyzo logo"
+        decoding="async">
+
+      <span class="brand-text">
+        Piklyzo
+        <small>Free Image Tools</small>
+      </span>
+    </a>
+
+    <div class="nav-actions">
+
+      <select
+        id="countrySelect"
+        class="select"
+        aria-label="Select country">
+      </select>
+
+      <select
+        id="languageSelect"
+        class="select"
+        aria-label="Select language">
+      </select>
+
+      <button
+        id="themeBtn"
+        class="icon-btn"
+        type="button"
+        aria-label="Toggle dark mode">
+        🌙
+      </button>
+
+    </div>
   </div>
-
-  <div class="nav-actions">
-
-    <select id="countrySelect" title="Country"></select>
-
-    <select id="languageSelect" title="Language"></select>
-
-    <button id="themeBtn" type="button" aria-label="Toggle dark mode">
-      🌙
-    </button>
-
-  </div>
-
-</nav>
 </header>
 
+<main id="top">
 
-<main>
+  <!-- HERO -->
 
-<section class="hero">
+  <section class="hero container">
 
-  <h1 id="heroTitle">
-    Advanced Image Compressor & Form Maker
-  </h1>
+    <img
+      class="hero-logo"
+      src="logo.png"
+      width="88"
+      height="88"
+      alt="Piklyzo free image compressor logo"
+      loading="eager"
+      decoding="async">
 
-  <p id="heroSubtitle">
-    Compress, Resize, Remove Background, Add Name/Date Stamp, Border & Watermark instantly
-  </p>
+    <div class="hero-brand">
+      Piklyzo
+    </div>
 
-  <div class="badges">
-    <span class="badge">✓ Background Tool</span>
-    <span class="badge">✓ Exact KB Target</span>
-    <span class="badge">✓ 100% Free</span>
-    <span class="badge">✓ No Sign-Up</span>
-    <span class="badge">✓ Client-Side Processing</span>
-  </div>
+    <h1>
+      Free Image Compressor, Resizer & Form Photo Maker
+    </h1>
 
-</section>
+    <p>
+      Compress images to an exact KB size, resize photos,
+      change backgrounds, add name and date stamps,
+      borders and watermarks — directly in your browser.
+    </p>
 
+    <div class="badges">
+      <span class="badge">⚡ Exact KB Target</span>
+      <span class="badge">🖼️ Image Resizer</span>
+      <span class="badge">🎨 Background Tool</span>
+      <span class="badge">✍️ Name & Date</span>
+      <span class="badge">📄 JPG / PDF</span>
+      <span class="badge">🔒 Client-Side Processing</span>
+      <span class="badge">💯 100% Free</span>
+      <span class="badge">🚫 No Sign-Up</span>
+    </div>
 
-<section class="tool-card">
+  </section>
 
-  <div id="uploadArea" class="upload-area">
+  <!-- TOOL -->
 
-    <div class="upload-content">
+  <section class="container tool-card">
 
-      <div class="upload-icon">📸</div>
+    <div
+      id="uploadArea"
+      class="upload">
 
-      <h2 id="uploadTitle">Upload Your Image</h2>
+      <div class="upload-icon">📷</div>
 
-      <p id="uploadText">
-        Drag & drop an image here or choose from your device
+      <h2>Select an Image</h2>
+
+      <p>
+        Upload JPG, JPEG, PNG or WebP up to 50 MB.
       </p>
 
       <input
         id="fileInput"
         type="file"
-        accept="image/*"
-        hidden
-      >
+        accept="image/jpeg,image/png,image/webp,image/*">
 
       <button
-        id="chooseBtn"
         class="primary-btn"
+        id="chooseBtn"
         type="button">
-        Choose Image
+        📁 Choose Image
       </button>
+
+      <div class="paste-note">
+        Tip: You can also drag & drop or paste an image from your clipboard.
+      </div>
 
     </div>
 
-  </div>
+    <!-- PRESETS -->
 
+    <h2 class="section-title">
+      Quick Resize Presets
+    </h2>
 
-  <div id="fileInfo" class="file-info"></div>
+    <div class="presets">
 
-
-  <div id="controls" class="controls">
-
-    <!-- QUICK PRESETS -->
-
-    <div class="section-title">
-      ⚡ Quick Form Presets
-    </div>
-
-    <div class="preset-row">
-
-      <button class="preset" type="button"
-              data-preset-w="200"
-              data-preset-h="230">
-        200×230
+      <button
+        class="preset"
+        data-w="200"
+        data-h="230">
+        200 × 230
       </button>
 
-      <button class="preset" type="button"
-              data-preset-w="300"
-              data-preset-h="400">
-        300×400
+      <button
+        class="preset"
+        data-w="300"
+        data-h="400">
+        300 × 400
       </button>
 
-      <button class="preset" type="button"
-              data-preset-w="600"
-              data-preset-h="800">
-        600×800
+      <button
+        class="preset"
+        data-w="600"
+        data-h="800">
+        600 × 800
       </button>
 
-      <button class="preset" type="button"
-              id="originalPreset">
+      <button
+        class="preset"
+        data-w="0"
+        data-h="0">
         Original
       </button>
 
     </div>
 
+    <!-- CONTROLS -->
 
-    <!-- BACKGROUND -->
+    <h2 class="section-title">
+      Advanced Image Settings
+    </h2>
 
-    <div class="section-title">
-      ✨ Background Tool
-    </div>
+    <div class="control-grid">
 
-    <label class="check-row">
+      <!-- KB -->
 
-      <input
-        id="bgRemoveToggle"
-        type="checkbox">
-
-      <span>
-        Remove / Replace Similar Background Color
-      </span>
-
-    </label>
-
-
-    <div id="bgOptions" class="sub-options">
-
-      <div class="grid">
-
-        <div class="field">
-
-          <label for="bgColorType">
-            Background Style
-          </label>
-
-          <select id="bgColorType">
-
-            <option value="white">
-              Solid White
-            </option>
-
-            <option value="transparent">
-              Transparent PNG
-            </option>
-
-            <option value="blue">
-              Light Blue
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="bgThreshold">
-            Color Threshold:
-            <span id="thresholdValue">40</span>
-          </label>
-
-          <input
-            id="bgThreshold"
-            type="range"
-            min="5"
-            max="150"
-            value="40">
-
-        </div>
-
-      </div>
-
-      <p style="color:var(--muted);font-size:13px">
-        This is a color-based remover. It works best when the background
-        has a relatively uniform color.
-      </p>
-
-    </div>
-
-
-    <!-- COMPRESSION -->
-
-    <div class="section-title">
-      🎯 Compression & Resize
-    </div>
-
-    <div class="grid">
-
-      <div class="field">
-
+      <div class="control">
         <label for="targetKB">
-          Target Size (KB)
+          🎯 Target File Size (KB)
         </label>
 
         <input
           id="targetKB"
           type="number"
           min="5"
-          max="50000"
-          value="100">
+          max="10000"
+          placeholder="Example: 50">
 
+        <small>
+          Automatically optimizes quality and dimensions.
+        </small>
       </div>
 
+      <!-- FORMAT -->
 
-      <div class="field">
-
+      <div class="control">
         <label for="format">
-          Output Format
+          📦 Output Format
         </label>
 
         <select id="format">
-
-          <option value="image/jpeg">
-            JPG
-          </option>
-
-          <option value="image/webp">
-            WebP
-          </option>
-
-          <option value="image/png">
-            PNG
-          </option>
-
+          <option value="image/jpeg">JPG</option>
+          <option value="image/webp">WebP</option>
+          <option value="image/png">PNG</option>
         </select>
-
       </div>
 
+      <!-- QUALITY -->
 
-      <div class="field">
-
-        <label for="quality">
-          Quality:
-          <span id="qualityValue">85%</span>
+      <div class="control">
+        <label>
+          ⭐ Image Quality
         </label>
 
-        <input
-          id="quality"
-          type="range"
-          min="10"
-          max="100"
-          value="85">
+        <div class="range-line">
+
+          <input
+            id="quality"
+            type="range"
+            min="10"
+            max="100"
+            value="85">
+
+          <div
+            class="range-value"
+            id="qualityValue">
+            85%
+          </div>
+
+        </div>
 
       </div>
 
+      <!-- FILENAME -->
 
-      <div class="field">
-
+      <div class="control">
         <label for="filename">
-          File Name
+          📝 File Name
         </label>
 
         <input
           id="filename"
           type="text"
           value="piklyzo-image"
-          maxlength="100">
+          placeholder="File name">
 
       </div>
 
+      <!-- DIMENSIONS -->
 
-      <div class="field">
+      <div class="control full">
 
-        <label for="width">
-          Width (px)
+        <label>
+          📐 Custom Dimensions
         </label>
 
-        <input
-          id="width"
-          type="number"
-          min="1">
-
-      </div>
-
-
-      <div class="field">
-
-        <label for="height">
-          Height (px)
-        </label>
-
-        <input
-          id="height"
-          type="number"
-          min="1">
-
-      </div>
-
-    </div>
-
-
-    <label class="check-row">
-
-      <input
-        id="aspectLock"
-        type="checkbox"
-        checked>
-
-      <span>
-        🔒 Lock Aspect Ratio
-      </span>
-
-    </label>
-
-
-    <!-- STAMP -->
-
-    <div class="section-title">
-      📝 Government Form Name & Date Stamp
-    </div>
-
-    <label class="check-row">
-
-      <input
-        id="stampToggle"
-        type="checkbox">
-
-      <span>
-        Add Name & Date Stamp
-      </span>
-
-    </label>
-
-
-    <div id="stampOptions" class="sub-options">
-
-      <div class="grid">
-
-        <div class="field">
-
-          <label for="fullName">
-            Full Name
-          </label>
+        <div class="inline">
 
           <input
-            id="fullName"
-            type="text"
-            placeholder="Your Name">
+            id="width"
+            type="number"
+            min="1"
+            placeholder="Width px">
+
+          <input
+            id="height"
+            type="number"
+            min="1"
+            placeholder="Height px">
 
         </div>
 
+        <label
+          class="check"
+          style="margin-top:10px;">
 
-        <div class="field">
+          <input
+            id="aspectLock"
+            type="checkbox"
+            checked>
 
-          <label for="stampDate">
-            Date
-          </label>
+          Lock aspect ratio
+
+        </label>
+
+      </div>
+
+      <!-- BACKGROUND -->
+
+      <div class="control full">
+
+        <label
+          class="check">
+
+          <input
+            id="removeBackground"
+            type="checkbox">
+
+          🎨 Remove / Replace Background
+
+        </label>
+
+        <small>
+          Works best when the background is reasonably uniform.
+        </small>
+
+        <div class="inline"
+             style="margin-top:10px;">
+
+          <select id="backgroundMode">
+            <option value="white">
+              White Background
+            </option>
+
+            <option value="transparent">
+              Transparent Background
+            </option>
+
+            <option value="lightblue">
+              Light Blue Background
+            </option>
+
+            <option value="custom">
+              Custom Color
+            </option>
+          </select>
+
+          <input
+            id="backgroundColor"
+            type="color"
+            value="#ffffff">
+
+        </div>
+
+        <label style="margin-top:10px;">
+          Background Sensitivity
+        </label>
+
+        <div class="range-line">
+
+          <input
+            id="bgThreshold"
+            type="range"
+            min="5"
+            max="120"
+            value="45">
+
+          <div
+            class="range-value"
+            id="bgThresholdValue">
+            45
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- NAME DATE -->
+
+      <div class="control full">
+
+        <label
+          class="check">
+
+          <input
+            id="addStamp"
+            type="checkbox">
+
+          ✍️ Add Name & Date Stamp
+
+        </label>
+
+        <div class="inline"
+             style="margin-top:10px;">
+
+          <input
+            id="stampName"
+            type="text"
+            placeholder="Full Name">
 
           <input
             id="stampDate"
@@ -872,85 +1263,51 @@ main{
 
         </div>
 
-
-        <div class="field">
-
-          <label for="stampColor">
-            Text Color
-          </label>
+        <div class="inline"
+             style="margin-top:10px;">
 
           <input
             id="stampColor"
             type="color"
             value="#000000">
 
-        </div>
-
-
-        <div class="field">
-
-          <label for="stampSize">
-            Text Size
-          </label>
-
           <input
             id="stampSize"
             type="number"
             min="8"
             max="200"
-            value="26">
+            value="28"
+            placeholder="Text size">
 
         </div>
 
       </div>
 
-    </div>
+      <!-- BORDER -->
 
+      <div class="control">
 
-    <!-- BORDER -->
+        <label
+          class="check">
 
-    <div class="section-title">
-      🖼️ Professional Border
-    </div>
+          <input
+            id="addBorder"
+            type="checkbox">
 
-    <label class="check-row">
+          🖼️ Add Clean Border
 
-      <input
-        id="borderToggle"
-        type="checkbox">
+        </label>
 
-      <span>
-        Add Professional Border
-      </span>
-
-    </label>
-
-
-    <div id="borderOptions" class="sub-options">
-
-      <div class="grid">
-
-        <div class="field">
-
-          <label for="borderWidth">
-            Border Width
-          </label>
+        <div class="inline"
+             style="margin-top:10px;">
 
           <input
             id="borderWidth"
             type="number"
             min="1"
             max="100"
-            value="5">
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="borderColor">
-            Border Color
-          </label>
+            value="4"
+            placeholder="Width">
 
           <input
             id="borderColor"
@@ -961,65 +1318,34 @@ main{
 
       </div>
 
-    </div>
+      <!-- WATERMARK -->
 
+      <div class="control">
 
-    <!-- WATERMARK -->
-
-    <div class="section-title">
-      💧 Watermark
-    </div>
-
-    <label class="check-row">
-
-      <input
-        id="watermarkToggle"
-        type="checkbox">
-
-      <span>
-        Add Text Watermark
-      </span>
-
-    </label>
-
-
-    <div id="watermarkOptions" class="sub-options">
-
-      <div class="grid">
-
-        <div class="field">
-
-          <label for="watermarkText">
-            Watermark Text
-          </label>
+        <label
+          class="check">
 
           <input
-            id="watermarkText"
-            type="text"
-            placeholder="Piklyzo">
+            id="addWatermark"
+            type="checkbox">
 
-        </div>
+          💧 Text Watermark
 
+        </label>
 
-        <div class="field">
+        <input
+          id="watermarkText"
+          type="text"
+          placeholder="Watermark text"
+          style="margin-top:10px;">
 
-          <label for="watermarkColor">
-            Color
-          </label>
+        <div class="inline"
+             style="margin-top:10px;">
 
           <input
             id="watermarkColor"
             type="color"
-            value="#ffffff">
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="watermarkSize">
-            Size
-          </label>
+            value="#000000">
 
           <input
             id="watermarkSize"
@@ -1030,1960 +1356,1942 @@ main{
 
         </div>
 
+        <label style="margin-top:10px;">
+          Opacity
+        </label>
 
-        <div class="field">
-
-          <label for="watermarkOpacity">
-            Opacity:
-            <span id="watermarkOpacityValue">50%</span>
-          </label>
+        <div class="range-line">
 
           <input
             id="watermarkOpacity"
             type="range"
             min="5"
             max="100"
-            value="50">
+            value="35">
+
+          <div
+            class="range-value"
+            id="watermarkOpacityValue">
+            35%
+          </div>
 
         </div>
 
       </div>
 
-    </div>
+      <!-- ADJUSTMENTS -->
 
+      <div class="control full">
 
-    <!-- STATS -->
+        <label>
+          🎛️ Image Adjustments
+        </label>
 
-    <div class="section-title">
-      📊 Image Information
-    </div>
+        <label>Brightness</label>
 
-    <div class="stats">
+        <div class="range-line">
+          <input
+            id="brightness"
+            type="range"
+            min="-100"
+            max="100"
+            value="0">
 
-      <div class="stat">
-        <small>Original</small>
-        <strong id="originalSize">-</strong>
-      </div>
-
-      <div class="stat">
-        <small>Output</small>
-        <strong id="newSize">-</strong>
-      </div>
-
-      <div class="stat">
-        <small>Reduction</small>
-        <strong id="reduction">-</strong>
-      </div>
-
-      <div class="stat">
-        <small>Dimensions</small>
-        <strong id="dimensions">-</strong>
-      </div>
-
-      <div class="stat">
-        <small>Format</small>
-        <strong id="outputFormat">-</strong>
-      </div>
-
-    </div>
-
-
-    <!-- PROGRESS -->
-
-    <div id="progressWrap" class="progress-wrap">
-
-      <div class="progress-bar">
-
-        <div
-          id="progressFill"
-          class="progress-fill">
+          <div
+            class="range-value"
+            id="brightnessValue">
+            0
+          </div>
         </div>
 
-      </div>
+        <label style="margin-top:10px;">
+          Contrast
+        </label>
 
-      <div
-        id="progressText"
-        class="progress-text">
-        Processing...
+        <div class="range-line">
+          <input
+            id="contrast"
+            type="range"
+            min="-100"
+            max="100"
+            value="0">
+
+          <div
+            class="range-value"
+            id="contrastValue">
+            0
+          </div>
+        </div>
+
+        <label style="margin-top:10px;">
+          Saturation
+        </label>
+
+        <div class="range-line">
+          <input
+            id="saturation"
+            type="range"
+            min="-100"
+            max="100"
+            value="0">
+
+          <div
+            class="range-value"
+            id="saturationValue">
+            0
+          </div>
+        </div>
+
+        <label
+          class="check"
+          style="margin-top:12px;">
+
+          <input
+            id="grayscale"
+            type="checkbox">
+
+          Grayscale
+
+        </label>
+
       </div>
 
     </div>
 
+    <!-- TRANSFORM -->
+
+    <h2 class="section-title">
+      Rotate & Flip
+    </h2>
+
+    <div class="toolbar">
+
+      <button
+        id="rotateLeft"
+        class="secondary-btn"
+        type="button">
+        ↶ Rotate Left
+      </button>
+
+      <button
+        id="rotateRight"
+        class="secondary-btn"
+        type="button">
+        ↷ Rotate Right
+      </button>
+
+      <button
+        id="flipH"
+        class="secondary-btn"
+        type="button">
+        ↔ Flip Horizontal
+      </button>
+
+      <button
+        id="flipV"
+        class="secondary-btn"
+        type="button">
+        ↕ Flip Vertical
+      </button>
+
+    </div>
 
     <!-- ACTIONS -->
 
-    <div class="action-buttons">
+    <div class="toolbar">
 
       <button
         id="processBtn"
         class="primary-btn"
         type="button">
-        ⚡ Process Image
+        🚀 Process Image
       </button>
 
       <button
         id="resetBtn"
-        class="secondary-btn"
+        class="danger-btn"
         type="button">
-        🔄 Reset
+        ♻️ Reset
       </button>
 
     </div>
 
+    <!-- PROGRESS -->
+
+    <div
+      id="status"
+      class="status">
+
+      <div class="progress-track">
+        <div
+          id="progress"
+          class="progress">
+        </div>
+      </div>
+
+      <div
+        id="statusText"
+        class="status-text">
+        Processing...
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong id="originalSize">—</strong>
+        <span>Original Size</span>
+      </div>
+
+      <div class="stat">
+        <strong id="newSize">—</strong>
+        <span>New Size</span>
+      </div>
+
+      <div class="stat">
+        <strong id="reduction">—</strong>
+        <span>Reduction</span>
+      </div>
+
+      <div class="stat">
+        <strong id="dimensions">—</strong>
+        <span>Dimensions</span>
+      </div>
+
+      <div class="stat">
+        <strong id="outputFormat">—</strong>
+        <span>Format</span>
+      </div>
+
+    </div>
 
     <!-- PREVIEW -->
 
-    <div class="section-title">
-      👁️ Preview
-    </div>
-
     <div
-      id="previewArea"
-      class="preview-area">
+      id="previewWrap"
+      class="preview-wrap">
 
-      <span style="color:var(--muted)">
-        Your processed image will appear here.
-      </span>
+      <h2 class="section-title">
+        Preview
+      </h2>
+
+      <div class="preview-grid">
+
+        <div class="preview-card">
+
+          <h3>
+            Original Image
+          </h3>
+
+          <img
+            id="originalPreview"
+            alt="Original uploaded image preview">
+
+        </div>
+
+        <div class="preview-card">
+
+          <h3>
+            Processed Image
+          </h3>
+
+          <img
+            id="processedPreview"
+            alt="Processed Piklyzo image preview">
+
+        </div>
+
+      </div>
+
+      <!-- BEFORE / AFTER -->
+
+      <h2 class="section-title">
+        Before / After Comparison
+      </h2>
+
+      <div
+        id="compare"
+        class="compare">
+
+        <img
+          id="compareBefore"
+          alt="Before image">
+
+        <img
+          id="compareAfter"
+          class="compare-after"
+          alt="After image">
+
+        <div
+          id="compareLine"
+          class="compare-line">
+        </div>
+
+        <input
+          id="compareSlider"
+          class="compare-slider"
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="Before after comparison">
+
+      </div>
+
+      <!-- DOWNLOAD BUTTONS -->
+
+      <div class="toolbar">
+
+        <button
+          id="downloadBtn"
+          class="primary-btn"
+          type="button">
+          ⬇️ Download Image
+        </button>
+
+        <button
+          id="pdfBtn"
+          class="secondary-btn"
+          type="button">
+          📄 Download PDF
+        </button>
+
+        <button
+          id="shareBtn"
+          class="secondary-btn"
+          type="button">
+          📤 Share
+        </button>
+
+        <button
+          id="copyBtn"
+          class="secondary-btn"
+          type="button">
+          📋 Copy Image
+        </button>
+
+      </div>
 
     </div>
 
+  </section>
 
-    <!-- DOWNLOAD -->
+  <!-- SEO CONTENT -->
 
-    <div class="action-buttons">
+  <section class="container info-section">
 
-      <button
-        id="downloadBtn"
-        class="primary-btn"
-        type="button">
-        📥 Download Image
-      </button>
+    <h2>
+      About Piklyzo Image Compressor & Form Photo Maker
+    </h2>
 
-      <button
-        id="pdfBtn"
-        class="secondary-btn"
-        type="button">
-        📄 PDF
-      </button>
+    <p>
+      <strong>Piklyzo</strong> is a free online image compressor,
+      image resizer and form photo maker designed for students,
+      job applicants, creators and anyone who needs to quickly
+      prepare images for online applications.
+    </p>
 
-      <button
-        id="shareBtn"
-        class="secondary-btn"
-        type="button">
-        📤 Share
-      </button>
+    <p>
+      You can reduce an image to a target KB size, resize its
+      dimensions, change or remove a simple background, add a
+      name and date stamp, create a clean border, add a watermark,
+      adjust the image and export the result as an image or PDF.
+    </p>
 
-      <button
-        id="copyBtn"
-        class="secondary-btn"
-        type="button">
-        📋 Copy
-      </button>
+    <h3>
+      Why use Piklyzo?
+    </h3>
+
+    <div class="feature-list">
+
+      <div>⚡ Exact target KB optimization</div>
+      <div>📐 Custom width and height</div>
+      <div>🔒 Browser-based image processing</div>
+      <div>🎨 Background replacement</div>
+      <div>✍️ Name and date stamp</div>
+      <div>🖼️ Official-document style border</div>
+      <div>💧 Text watermark</div>
+      <div>🔄 Rotate and flip images</div>
+      <div>🎛️ Brightness and contrast</div>
+      <div>🌈 Saturation adjustment</div>
+      <div>⚫ Grayscale mode</div>
+      <div>📄 PDF export</div>
+      <div>📤 Image sharing</div>
+      <div>📋 Copy processed image</div>
+      <div>📱 Mobile-friendly design</div>
+      <div>🌍 International country selection</div>
 
     </div>
 
-  </div>
+    <h3>
+      Privacy
+    </h3>
 
-</section>
+    <p>
+      Image processing is performed in the browser using
+      JavaScript and Canvas APIs. The website does not intentionally
+      upload the selected image to a Piklyzo server for processing.
+    </p>
 
+    <h3>
+      Important note for application forms
+    </h3>
 
-<section class="info-card">
+    <p>
+      Different exams, organizations and application portals can
+      have different image size, dimension, format and background
+      requirements. Always check the instructions of the specific
+      application before submitting your final image.
+    </p>
 
-  <h2>
-    About Piklyzo Image Optimizer
-  </h2>
-
-  <p>
-    Piklyzo is a free browser-based image compressor and resizer
-    designed for photos used in online applications, forms,
-    documents and everyday image optimization.
-  </p>
-
-  <p>
-    Image processing is performed locally in your browser.
-    The selected image is not intentionally uploaded to a Piklyzo
-    server by this page.
-  </p>
-
-</section>
+  </section>
 
 </main>
 
+<footer>
+  © <span id="year"></span> Piklyzo · Free Image Tools
+</footer>
+
+<div
+  id="toast"
+  class="toast"
+  role="status"
+  aria-live="polite">
+</div>
 
 <script>
 "use strict";
 
 /* =========================================================
-   PIKLYZO ADVANCED IMAGE TOOL
-   ========================================================= */
+   PIKLYZO
+   Image Compressor + Form Photo Maker
+   No advertising / AdSense code
+========================================================= */
 
-const countries = [
-  ["IN","🇮🇳 India","hi"],
-  ["US","🇺🇸 United States","en"],
-  ["GB","🇬🇧 United Kingdom","en"],
-  ["CA","🇨🇦 Canada","en"],
-  ["AU","🇦🇺 Australia","en"],
-  ["NZ","🇳🇿 New Zealand","en"],
-  ["PK","🇵🇰 Pakistan","ur"],
-  ["BD","🇧🇩 Bangladesh","bn"],
-  ["LK","🇱🇰 Sri Lanka","si"],
-  ["NP","🇳🇵 Nepal","ne"],
-  ["AE","🇦🇪 United Arab Emirates","ar"],
-  ["SA","🇸🇦 Saudi Arabia","ar"],
-  ["QA","🇶🇦 Qatar","ar"],
-  ["KW","🇰🇼 Kuwait","ar"],
-  ["OM","🇴🇲 Oman","ar"],
-  ["ID","🇮🇩 Indonesia","id"],
-  ["MY","🇲🇾 Malaysia","ms"],
-  ["SG","🇸🇬 Singapore","en"],
-  ["PH","🇵🇭 Philippines","en"],
-  ["TH","🇹🇭 Thailand","th"],
-  ["VN","🇻🇳 Vietnam","vi"],
-  ["JP","🇯🇵 Japan","ja"],
-  ["KR","🇰🇷 South Korea","ko"],
-  ["CN","🇨🇳 China","zh"],
-  ["DE","🇩🇪 Germany","de"],
-  ["FR","🇫🇷 France","fr"],
-  ["ES","🇪🇸 Spain","es"],
-  ["IT","🇮🇹 Italy","it"],
-  ["PT","🇵🇹 Portugal","pt"],
-  ["NL","🇳🇱 Netherlands","nl"],
-  ["BE","🇧🇪 Belgium","nl"],
-  ["CH","🇨🇭 Switzerland","de"],
-  ["AT","🇦🇹 Austria","de"],
-  ["SE","🇸🇪 Sweden","sv"],
-  ["NO","🇳🇴 Norway","no"],
-  ["DK","🇩🇰 Denmark","da"],
-  ["FI","🇫🇮 Finland","fi"],
-  ["PL","🇵🇱 Poland","pl"],
-  ["TR","🇹🇷 Türkiye","tr"],
-  ["GR","🇬🇷 Greece","el"],
-  ["BR","🇧🇷 Brazil","pt"],
-  ["MX","🇲🇽 Mexico","es"],
-  ["AR","🇦🇷 Argentina","es"],
-  ["CL","🇨🇱 Chile","es"],
-  ["CO","🇨🇴 Colombia","es"],
-  ["ZA","🇿🇦 South Africa","en"],
-  ["NG","🇳🇬 Nigeria","en"],
-  ["KE","🇰🇪 Kenya","en"],
-  ["EG","🇪🇬 Egypt","ar"],
-  ["MA","🇲🇦 Morocco","ar"],
-  ["IL","🇮🇱 Israel","he"],
-  ["UA","🇺🇦 Ukraine","uk"],
-  ["RU","🇷🇺 Russia","ru"]
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const fileInput = $("fileInput");
+const chooseBtn = $("chooseBtn");
+const uploadArea = $("uploadArea");
+
+const targetKB = $("targetKB");
+const format = $("format");
+const quality = $("quality");
+const qualityValue = $("qualityValue");
+
+const filename = $("filename");
+const widthInput = $("width");
+const heightInput = $("height");
+const aspectLock = $("aspectLock");
+
+const removeBackground = $("removeBackground");
+const backgroundMode = $("backgroundMode");
+const backgroundColor = $("backgroundColor");
+const bgThreshold = $("bgThreshold");
+const bgThresholdValue = $("bgThresholdValue");
+
+const addStamp = $("addStamp");
+const stampName = $("stampName");
+const stampDate = $("stampDate");
+const stampColor = $("stampColor");
+const stampSize = $("stampSize");
+
+const addBorder = $("addBorder");
+const borderWidth = $("borderWidth");
+const borderColor = $("borderColor");
+
+const addWatermark = $("addWatermark");
+const watermarkText = $("watermarkText");
+const watermarkColor = $("watermarkColor");
+const watermarkSize = $("watermarkSize");
+const watermarkOpacity = $("watermarkOpacity");
+const watermarkOpacityValue = $("watermarkOpacityValue");
+
+const brightness = $("brightness");
+const contrast = $("contrast");
+const saturation = $("saturation");
+const grayscale = $("grayscale");
+
+const processBtn = $("processBtn");
+const resetBtn = $("resetBtn");
+
+const rotateLeft = $("rotateLeft");
+const rotateRight = $("rotateRight");
+const flipH = $("flipH");
+const flipV = $("flipV");
+
+const status = $("status");
+const progress = $("progress");
+const statusText = $("statusText");
+
+const originalSize = $("originalSize");
+const newSize = $("newSize");
+const reduction = $("reduction");
+const dimensions = $("dimensions");
+const outputFormat = $("outputFormat");
+
+const previewWrap = $("previewWrap");
+const originalPreview = $("originalPreview");
+const processedPreview = $("processedPreview");
+
+const compare = $("compare");
+const compareBefore = $("compareBefore");
+const compareAfter = $("compareAfter");
+const compareSlider = $("compareSlider");
+const compareLine = $("compareLine");
+
+const downloadBtn = $("downloadBtn");
+const pdfBtn = $("pdfBtn");
+const shareBtn = $("shareBtn");
+const copyBtn = $("copyBtn");
+
+const toast = $("toast");
+
+const themeBtn = $("themeBtn");
+const countrySelect = $("countrySelect");
+const languageSelect = $("languageSelect");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let originalFile = null;
+let originalImage = null;
+let processedBlob = null;
+let processedURL = null;
+let originalURL = null;
+
+let rotation = 0;
+let flipX = 1;
+let flipY = 1;
+
+let originalWidth = 0;
+let originalHeight = 0;
+let aspectRatio = 1;
+
+
+/* =========================================================
+   COUNTRY DATA
+   ISO 3166-1 alpha-2 list
+========================================================= */
+
+const countryCodes = [
+"AF","AL","DZ","AD","AO","AG","AR","AM","AU","AT",
+"AZ","BS","BH","BD","BB","BY","BE","BZ","BJ","BT",
+"BO","BA","BW","BR","BN","BG","BF","BI","CV","KH",
+"CM","CA","CF","TD","CL","CN","CO","KM","CG","CD",
+"CR","CI","HR","CU","CY","CZ","DK","DJ","DM","DO",
+"EC","EG","SV","GQ","ER","EE","SZ","ET","FJ","FI",
+"FR","GA","GM","GE","DE","GH","GR","GD","GT","GN",
+"GW","GY","HT","HN","HU","IS","IN","ID","IR","IQ",
+"IE","IL","IT","JM","JP","JO","KZ","KE","KI","KP",
+"KR","KW","KG","LA","LV","LB","LS","LR","LY","LI",
+"LT","LU","MG","MW","MY","MV","ML","MT","MH","MR",
+"MU","MX","FM","MD","MC","MN","ME","MA","MZ","MM",
+"NA","NR","NP","NL","NZ","NI","NE","NG","MK","NO",
+"OM","PK","PW","PA","PG","PY","PE","PH","PL","PT",
+"QA","RO","RU","RW","KN","LC","VC","WS","SM","ST",
+"SA","SN","RS","SC","SL","SG","SK","SI","SB","SO",
+"ZA","SS","ES","LK","SD","SR","SE","CH","SY","TJ",
+"TZ","TH","TL","TG","TO","TT","TN","TR","TM","TV",
+"UG","UA","AE","GB","US","UY","UZ","VU","VA","VE",
+"VN","YE","ZM","ZW"
 ];
 
-const languages = [
-  ["en","English"],
-  ["hi","हिन्दी"],
-  ["ur","اردو"],
-  ["bn","বাংলা"],
-  ["ar","العربية"],
-  ["id","Bahasa Indonesia"],
-  ["ms","Bahasa Melayu"],
-  ["pt","Português"],
-  ["es","Español"],
-  ["de","Deutsch"],
-  ["fr","Français"],
-  ["it","Italiano"],
-  ["ja","日本語"],
-  ["ko","한국어"],
-  ["zh","中文"],
-  ["tr","Türkçe"],
-  ["th","ไทย"],
-  ["vi","Tiếng Việt"],
-  ["nl","Nederlands"],
-  ["ru","Русский"]
-];
+
+/* =========================================================
+   COUNTRY -> DEFAULT UI LANGUAGE
+========================================================= */
+
+const countryLanguage = {
+  IN:"hi", PK:"ur", BD:"bn", NP:"ne",
+  LK:"si", CN:"zh", JP:"ja", KR:"ko",
+  FR:"fr", DE:"de", ES:"es", PT:"pt",
+  BR:"pt", RU:"ru", UA:"uk",
+  SA:"ar", AE:"ar", QA:"ar", KW:"ar",
+  EG:"ar", MA:"ar", DZ:"ar", TN:"ar",
+  TR:"tr", IR:"fa", IL:"he",
+  TH:"th", VN:"vi", ID:"id",
+  MY:"ms", GB:"en", US:"en",
+  CA:"en", AU:"en", NZ:"en",
+  IE:"en", SG:"en",
+  IT:"it", NL:"nl",
+  SE:"sv", NO:"no", DK:"da",
+  FI:"fi", PL:"pl", CZ:"cs",
+  GR:"el", RO:"ro", HU:"hu"
+};
+
+
+/* =========================================================
+   SUPPORTED LANGUAGES
+========================================================= */
+
+const languages = {
+  en:"English",
+  hi:"हिन्दी",
+  ur:"اردو",
+  ar:"العربية",
+  bn:"বাংলা",
+  ne:"नेपाली",
+  mr:"मराठी",
+  gu:"ગુજરાતી",
+  pa:"ਪੰਜਾਬੀ",
+  ta:"தமிழ்",
+  te:"తెలుగు",
+  kn:"ಕನ್ನಡ",
+  ml:"മലയാളം",
+  es:"Español",
+  fr:"Français",
+  de:"Deutsch",
+  pt:"Português",
+  it:"Italiano",
+  nl:"Nederlands",
+  ru:"Русский",
+  uk:"Українська",
+  tr:"Türkçe",
+  fa:"فارسی",
+  he:"עברית",
+  ja:"日本語",
+  zh:"中文",
+  ko:"한국어",
+  th:"ไทย",
+  vi:"Tiếng Việt",
+  id:"Bahasa Indonesia",
+  ms:"Bahasa Melayu"
+};
+
+
+/* =========================================================
+   BASIC TRANSLATIONS
+========================================================= */
 
 const translations = {
-  en:{
-    hero:"Advanced Image Compressor & Form Maker",
-    subtitle:"Compress, Resize, Remove Background, Add Name/Date Stamp, Border & Watermark instantly",
-    upload:"Upload Your Image",
-    uploadText:"Drag & drop an image here or choose from your device",
-    choose:"Choose Image"
+
+  en: {
+    select:"Select an Image",
+    upload:"Upload JPG, JPEG, PNG or WebP up to 50 MB.",
+    choose:"📁 Choose Image",
+    process:"🚀 Process Image",
+    reset:"♻️ Reset"
   },
-  hi:{
-    hero:"एडवांस्ड इमेज कंप्रेसर और फॉर्म मेकर",
-    subtitle:"इमेज को Compress, Resize करें और Background, Name/Date Stamp, Border व Watermark जोड़ें",
-    upload:"अपनी इमेज अपलोड करें",
-    uploadText:"इमेज यहाँ Drag & Drop करें या अपने डिवाइस से चुनें",
-    choose:"इमेज चुनें"
+
+  hi: {
+    select:"इमेज चुनें",
+    upload:"50 MB तक JPG, JPEG, PNG या WebP अपलोड करें।",
+    choose:"📁 इमेज चुनें",
+    process:"🚀 इमेज प्रोसेस करें",
+    reset:"♻️ रीसेट"
   },
-  ur:{
-    hero:"ایڈوانسڈ امیج کمپریسر اور فارم میکر",
-    subtitle:"تصویر کو کمپریس اور ریسائز کریں اور بیک گراؤنڈ، نام، تاریخ اور بارڈر شامل کریں",
-    upload:"اپنی تصویر اپ لوڈ کریں",
-    uploadText:"تصویر یہاں Drag & Drop کریں یا اپنے ڈیوائس سے منتخب کریں",
-    choose:"تصویر منتخب کریں"
+
+  ur: {
+    select:"تصویر منتخب کریں",
+    upload:"50 MB تک JPG، JPEG، PNG یا WebP اپ لوڈ کریں۔",
+    choose:"📁 تصویر منتخب کریں",
+    process:"🚀 تصویر پروسیس کریں",
+    reset:"♻️ ری سیٹ"
   },
-  ar:{
-    hero:"ضاغط الصور المتقدم وصانع النماذج",
-    subtitle:"ضغط وتغيير حجم الصور وإزالة الخلفية وإضافة الاسم والتاريخ والحدود والعلامة المائية",
-    upload:"ارفع صورتك",
-    uploadText:"اسحب الصورة وأفلتها هنا أو اخترها من جهازك",
-    choose:"اختيار صورة"
+
+  ar: {
+    select:"اختر صورة",
+    upload:"قم برفع JPG أو JPEG أو PNG أو WebP حتى 50 MB.",
+    choose:"📁 اختيار صورة",
+    process:"🚀 معالجة الصورة",
+    reset:"♻️ إعادة ضبط"
   },
-  es:{
-    hero:"Compresor de Imágenes y Creador de Formularios",
-    subtitle:"Comprime, cambia el tamaño, elimina fondos y añade nombre, fecha, borde y marca de agua",
-    upload:"Sube tu imagen",
-    uploadText:"Arrastra una imagen aquí o selecciónala desde tu dispositivo",
-    choose:"Elegir imagen"
+
+  es: {
+    select:"Seleccionar imagen",
+    upload:"Sube JPG, JPEG, PNG o WebP de hasta 50 MB.",
+    choose:"📁 Elegir imagen",
+    process:"🚀 Procesar imagen",
+    reset:"♻️ Restablecer"
   },
-  de:{
-    hero:"Erweiterter Bildkompressor und Formular-Maker",
-    subtitle:"Bilder komprimieren, Größe ändern, Hintergrund entfernen und Name, Datum, Rahmen und Wasserzeichen hinzufügen",
-    upload:"Bild hochladen",
-    uploadText:"Bild hierher ziehen oder vom Gerät auswählen",
-    choose:"Bild auswählen"
+
+  fr: {
+    select:"Sélectionner une image",
+    upload:"Téléchargez JPG, JPEG, PNG ou WebP jusqu'à 50 MB.",
+    choose:"📁 Choisir une image",
+    process:"🚀 Traiter l'image",
+    reset:"♻️ Réinitialiser"
   },
-  fr:{
-    hero:"Compresseur d'images avancé et créateur de formulaires",
-    subtitle:"Compressez, redimensionnez, supprimez l'arrière-plan et ajoutez nom, date, bordure et filigrane",
-    upload:"Téléchargez votre image",
-    uploadText:"Glissez-déposez une image ici ou choisissez-la sur votre appareil",
-    choose:"Choisir une image"
+
+  de: {
+    select:"Bild auswählen",
+    upload:"JPG, JPEG, PNG oder WebP bis 50 MB hochladen.",
+    choose:"📁 Bild auswählen",
+    process:"🚀 Bild verarbeiten",
+    reset:"♻️ Zurücksetzen"
   },
-  pt:{
-    hero:"Compressor de Imagens Avançado e Criador de Formulários",
-    subtitle:"Comprima, redimensione, remova o fundo e adicione nome, data, borda e marca d'água",
-    upload:"Envie sua imagem",
-    uploadText:"Arraste uma imagem aqui ou escolha no seu dispositivo",
-    choose:"Escolher imagem"
+
+  pt: {
+    select:"Selecionar imagem",
+    upload:"Envie JPG, JPEG, PNG ou WebP de até 50 MB.",
+    choose:"📁 Escolher imagem",
+    process:"🚀 Processar imagem",
+    reset:"♻️ Redefinir"
   },
-  ja:{
-    hero:"高度な画像圧縮・リサイズツール",
-    subtitle:"画像の圧縮、サイズ変更、背景処理、名前・日付・枠線・透かしを追加できます",
-    upload:"画像をアップロード",
-    uploadText:"ここに画像をドラッグ＆ドロップするか、端末から選択してください",
-    choose:"画像を選択"
+
+  ja: {
+    select:"画像を選択",
+    upload:"50 MBまでのJPG、JPEG、PNG、WebPをアップロードできます。",
+    choose:"📁 画像を選択",
+    process:"🚀 画像を処理",
+    reset:"♻️ リセット"
   },
-  zh:{
-    hero:"高级图片压缩与表单制作工具",
-    subtitle:"压缩、调整图片尺寸、处理背景，并添加姓名、日期、边框和水印",
-    upload:"上传图片",
-    uploadText:"将图片拖放到这里，或从设备中选择",
-    choose:"选择图片"
+
+  zh: {
+    select:"选择图片",
+    upload:"上传最大 50 MB 的 JPG、JPEG、PNG 或 WebP。",
+    choose:"📁 选择图片",
+    process:"🚀 处理图片",
+    reset:"♻️ 重置"
   },
-  ko:{
-    hero:"고급 이미지 압축 및 폼 제작기",
-    subtitle:"이미지 압축, 크기 조정, 배경 처리, 이름·날짜·테두리·워터마크 추가",
-    upload:"이미지 업로드",
-    uploadText:"이미지를 여기에 드래그하거나 기기에서 선택하세요",
-    choose:"이미지 선택"
+
+  ko: {
+    select:"이미지 선택",
+    upload:"최대 50 MB JPG, JPEG, PNG 또는 WebP를 업로드하세요.",
+    choose:"📁 이미지 선택",
+    process:"🚀 이미지 처리",
+    reset:"♻️ 초기화"
   }
 };
 
 
 /* =========================================================
-   STATE
-   ========================================================= */
+   COUNTRY NAME
+========================================================= */
 
-let originalImage = null;
-let originalFile = null;
-let processedBlob = null;
-let processedURL = null;
-let originalWidth = 0;
-let originalHeight = 0;
-let processing = false;
+function countryName(code) {
 
+  try {
 
-/* =========================================================
-   ELEMENT HELPER
-   ========================================================= */
+    const display = new Intl.DisplayNames(
+      ["en"],
+      { type:"region" }
+    );
 
-const $ = id => document.getElementById(id);
+    return display.of(code) || code;
 
+  } catch(e) {
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  populateCountries();
-  populateLanguages();
-
-  setupEvents();
-
-  const savedTheme = localStorage.getItem("piklyzo-theme");
-
-  if(savedTheme === "dark"){
-    document.body.classList.add("dark");
-    $("themeBtn").textContent = "☀️";
+    return code;
   }
+}
 
-  const savedLanguage = localStorage.getItem("piklyzo-language");
 
-  if(savedLanguage && translations[savedLanguage]){
-    $("languageSelect").value = savedLanguage;
-    applyLanguage(savedLanguage);
-  }
+function flag(code) {
 
-});
+  return code
+    .toUpperCase()
+    .split("")
+    .map(c =>
+      String.fromCodePoint(
+        127397 + c.charCodeAt(0)
+      )
+    )
+    .join("");
+}
 
 
 /* =========================================================
-   COUNTRY / LANGUAGE
-   ========================================================= */
+   POPULATE COUNTRY SELECT
+========================================================= */
 
-function populateCountries(){
+function populateCountries() {
 
-  const select = $("countrySelect");
+  countrySelect.innerHTML = "";
 
-  countries.forEach(country => {
+  countryCodes.forEach(code => {
 
     const option = document.createElement("option");
 
-    option.value = country[2];
-    option.textContent = country[1];
+    option.value = code;
 
-    select.appendChild(option);
+    option.textContent =
+      flag(code) + " " + countryName(code);
 
+    countrySelect.appendChild(option);
   });
+}
 
-  try{
 
-    const browserLang =
-      (navigator.language || "en")
-      .toLowerCase()
-      .split("-")[0];
+/* =========================================================
+   POPULATE LANGUAGE SELECT
+========================================================= */
 
-    const exists =
-      languages.some(lang => lang[0] === browserLang);
+function populateLanguages() {
 
-    if(exists){
-      select.value = browserLang;
+  languageSelect.innerHTML = "";
+
+  Object.entries(languages).forEach(
+    ([code,name]) => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = code;
+      option.textContent = name;
+
+      languageSelect.appendChild(option);
     }
-
-  }catch(error){}
-
+  );
 }
 
 
-function populateLanguages(){
+/* =========================================================
+   BROWSER LANGUAGE
+========================================================= */
 
-  const select = $("languageSelect");
+function detectLanguage() {
 
-  languages.forEach(lang => {
+  const browser =
+    (navigator.language || "en")
+    .split("-")[0]
+    .toLowerCase();
 
-    const option = document.createElement("option");
+  if (languages[browser]) {
+    return browser;
+  }
 
-    option.value = lang[0];
-    option.textContent = lang[1];
-
-    select.appendChild(option);
-
-  });
-
-  select.value = "en";
-
+  return "en";
 }
 
 
-function applyLanguage(lang){
+/* =========================================================
+   TRANSLATION
+========================================================= */
 
-  const t = translations[lang] || translations.en;
+function applyLanguage(lang) {
 
-  $("heroTitle").textContent = t.hero;
-  $("heroSubtitle").textContent = t.subtitle;
-  $("uploadTitle").textContent = t.upload;
-  $("uploadText").textContent = t.uploadText;
-  $("chooseBtn").textContent = t.choose;
+  const t =
+    translations[lang] ||
+    translations.en;
+
+  const uploadTitle =
+    document.querySelector(".upload h2");
+
+  const uploadText =
+    document.querySelector(".upload p");
+
+  if (uploadTitle)
+    uploadTitle.textContent = t.select;
+
+  if (uploadText)
+    uploadText.textContent = t.upload;
+
+  chooseBtn.textContent = t.choose;
+  processBtn.textContent = t.process;
+  resetBtn.textContent = t.reset;
 
   document.documentElement.lang = lang;
 
-}
-
-
-/* =========================================================
-   EVENTS
-   ========================================================= */
-
-function setupEvents(){
-
-  $("themeBtn").addEventListener("click", toggleTheme);
-
-  $("languageSelect").addEventListener("change", event => {
-
-    const lang = event.target.value;
-
-    localStorage.setItem("piklyzo-language", lang);
-
-    applyLanguage(lang);
-
-  });
-
-
-  $("countrySelect").addEventListener("change", event => {
-
-    const selectedLang = event.target.value;
-
-    if(translations[selectedLang]){
-
-      $("languageSelect").value = selectedLang;
-
-      localStorage.setItem(
-        "piklyzo-language",
-        selectedLang
-      );
-
-      applyLanguage(selectedLang);
-
-    }
-
-  });
-
-
-  $("chooseBtn").addEventListener("click", () => {
-    $("fileInput").click();
-  });
-
-
-  $("fileInput").addEventListener("change", event => {
-
-    const file = event.target.files &&
-                 event.target.files[0];
-
-    if(file){
-      loadImageFile(file);
-    }
-
-  });
-
-
-  const uploadArea = $("uploadArea");
-
-
-  uploadArea.addEventListener("dragover", event => {
-
-    event.preventDefault();
-
-    uploadArea.classList.add("dragover");
-
-  });
-
-
-  uploadArea.addEventListener("dragleave", () => {
-
-    uploadArea.classList.remove("dragover");
-
-  });
-
-
-  uploadArea.addEventListener("drop", event => {
-
-    event.preventDefault();
-
-    uploadArea.classList.remove("dragover");
-
-    const file =
-      event.dataTransfer.files &&
-      event.dataTransfer.files[0];
-
-    if(file){
-      loadImageFile(file);
-    }
-
-  });
-
-
-  $("quality").addEventListener("input", event => {
-
-    $("qualityValue").textContent =
-      event.target.value + "%";
-
-  });
-
-
-  $("bgThreshold").addEventListener("input", event => {
-
-    $("thresholdValue").textContent =
-      event.target.value;
-
-  });
-
-
-  $("watermarkOpacity").addEventListener("input", event => {
-
-    $("watermarkOpacityValue").textContent =
-      event.target.value + "%";
-
-  });
-
-
-  $("bgRemoveToggle").addEventListener("change", event => {
-
-    $("bgOptions").style.display =
-      event.target.checked ? "block" : "none";
-
-  });
-
-
-  $("stampToggle").addEventListener("change", event => {
-
-    $("stampOptions").style.display =
-      event.target.checked ? "block" : "none";
-
-  });
-
-
-  $("borderToggle").addEventListener("change", event => {
-
-    $("borderOptions").style.display =
-      event.target.checked ? "block" : "none";
-
-  });
-
-
-  $("watermarkToggle").addEventListener("change", event => {
-
-    $("watermarkOptions").style.display =
-      event.target.checked ? "block" : "none";
-
-  });
-
-
-  $("aspectLock").addEventListener("change", () => {
-
-    if($("aspectLock").checked){
-      updateHeightFromWidth();
-    }
-
-  });
-
-
-  $("width").addEventListener("input", () => {
-
-    if($("aspectLock").checked){
-      updateHeightFromWidth();
-    }
-
-  });
-
-
-  $("height").addEventListener("input", () => {
-
-    if($("aspectLock").checked){
-      updateWidthFromHeight();
-    }
-
-  });
-
-
-  document.querySelectorAll("[data-preset-w]").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const w = parseInt(button.dataset.presetW,10);
-      const h = parseInt(button.dataset.presetH,10);
-
-      $("width").value = w;
-      $("height").value = h;
-
-      if(originalImage){
-        processImage();
-      }
-
-    });
-
-  });
-
-
-  $("originalPreset").addEventListener("click", () => {
-
-    if(!originalImage) return;
-
-    $("width").value = originalWidth;
-    $("height").value = originalHeight;
-
-    processImage();
-
-  });
-
-
-  $("processBtn").addEventListener(
-    "click",
-    processImage
+  localStorage.setItem(
+    "piklyzo-language",
+    lang
   );
-
-
-  $("resetBtn").addEventListener(
-    "click",
-    resetAll
-  );
-
-
-  $("downloadBtn").addEventListener(
-    "click",
-    downloadImage
-  );
-
-
-  $("pdfBtn").addEventListener(
-    "click",
-    downloadPDF
-  );
-
-
-  $("shareBtn").addEventListener(
-    "click",
-    shareImage
-  );
-
-
-  $("copyBtn").addEventListener(
-    "click",
-    copyImage
-  );
-
 }
 
 
 /* =========================================================
    THEME
-   ========================================================= */
+========================================================= */
 
-function toggleTheme(){
+function loadTheme() {
 
-  document.body.classList.toggle("dark");
+  const saved =
+    localStorage.getItem("piklyzo-theme");
 
-  const dark =
-    document.body.classList.contains("dark");
+  if (saved === "dark") {
 
-  $("themeBtn").textContent =
-    dark ? "☀️" : "🌙";
+    document.body.classList.add("dark");
+    themeBtn.textContent = "☀️";
 
-  localStorage.setItem(
-    "piklyzo-theme",
-    dark ? "dark" : "light"
-  );
+  } else {
 
+    themeBtn.textContent = "🌙";
+  }
+}
+
+
+themeBtn.addEventListener(
+  "click",
+  () => {
+
+    document.body.classList.toggle("dark");
+
+    const dark =
+      document.body.classList.contains("dark");
+
+    themeBtn.textContent =
+      dark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+      "piklyzo-theme",
+      dark ? "dark" : "light"
+    );
+  }
+);
+
+
+/* =========================================================
+   INITIAL COUNTRY / LANGUAGE
+========================================================= */
+
+populateCountries();
+populateLanguages();
+loadTheme();
+
+const detectedLanguage =
+  localStorage.getItem("piklyzo-language") ||
+  detectLanguage();
+
+if (languages[detectedLanguage]) {
+
+  languageSelect.value =
+    detectedLanguage;
+
+} else {
+
+  languageSelect.value = "en";
+}
+
+applyLanguage(languageSelect.value);
+
+const detectedCountry =
+  localStorage.getItem("piklyzo-country");
+
+if (
+  detectedCountry &&
+  countryCodes.includes(detectedCountry)
+) {
+
+  countrySelect.value =
+    detectedCountry;
+
+} else {
+
+  const browserCountry =
+    (navigator.language || "")
+    .split("-")[1];
+
+  if (
+    browserCountry &&
+    countryCodes.includes(
+      browserCountry.toUpperCase()
+    )
+  ) {
+
+    countrySelect.value =
+      browserCountry.toUpperCase();
+
+  } else {
+
+    countrySelect.value = "IN";
+  }
 }
 
 
 /* =========================================================
-   LOAD IMAGE
-   ========================================================= */
+   COUNTRY CHANGE
+========================================================= */
 
-function loadImageFile(file){
+countrySelect.addEventListener(
+  "change",
+  () => {
 
-  if(!file.type.startsWith("image/")){
+    const code =
+      countrySelect.value;
 
-    showToast("Please select a valid image file.");
+    localStorage.setItem(
+      "piklyzo-country",
+      code
+    );
+
+    const lang =
+      countryLanguage[code];
+
+    if (
+      lang &&
+      languages[lang]
+    ) {
+
+      languageSelect.value = lang;
+      applyLanguage(lang);
+    }
+  }
+);
+
+
+/* =========================================================
+   LANGUAGE CHANGE
+========================================================= */
+
+languageSelect.addEventListener(
+  "change",
+  () => {
+
+    applyLanguage(
+      languageSelect.value
+    );
+  }
+);
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(
+      () =>
+        toast.classList.remove("show"),
+      3000
+    );
+}
+
+
+/* =========================================================
+   FILE SELECTION
+========================================================= */
+
+chooseBtn.addEventListener(
+  "click",
+  () => fileInput.click()
+);
+
+fileInput.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      fileInput.files[0];
+
+    if (file)
+      loadFile(file);
+  }
+);
+
+
+/* =========================================================
+   DRAG DROP
+========================================================= */
+
+["dragenter","dragover"].forEach(
+  eventName => {
+
+    uploadArea.addEventListener(
+      eventName,
+      event => {
+
+        event.preventDefault();
+
+        uploadArea.classList.add(
+          "dragging"
+        );
+      }
+    );
+  }
+);
+
+["dragleave","drop"].forEach(
+  eventName => {
+
+    uploadArea.addEventListener(
+      eventName,
+      event => {
+
+        event.preventDefault();
+
+        uploadArea.classList.remove(
+          "dragging"
+        );
+      }
+    );
+  }
+);
+
+uploadArea.addEventListener(
+  "drop",
+  event => {
+
+    const file =
+      event.dataTransfer.files[0];
+
+    if (file)
+      loadFile(file);
+  }
+);
+
+
+/* =========================================================
+   CLIPBOARD PASTE
+========================================================= */
+
+document.addEventListener(
+  "paste",
+  event => {
+
+    const items =
+      event.clipboardData?.items;
+
+    if (!items)
+      return;
+
+    for (const item of items) {
+
+      if (
+        item.type.startsWith("image/")
+      ) {
+
+        const file =
+          item.getAsFile();
+
+        if (file)
+          loadFile(file);
+
+        break;
+      }
+    }
+  }
+);
+
+
+/* =========================================================
+   LOAD FILE
+========================================================= */
+
+function loadFile(file) {
+
+  if (!file.type.startsWith("image/")) {
+
+    showToast(
+      "Please select a valid image file."
+    );
 
     return;
-
   }
 
+  if (file.size > 50 * 1024 * 1024) {
 
-  if(file.size > 50 * 1024 * 1024){
-
-    showToast("Image is too large. Maximum 50 MB.");
+    showToast(
+      "Maximum file size is 50 MB."
+    );
 
     return;
-
   }
 
+  originalFile = file;
 
-  const reader = new FileReader();
+  if (originalURL)
+    URL.revokeObjectURL(
+      originalURL
+    );
 
+  originalURL =
+    URL.createObjectURL(file);
 
-  reader.onload = event => {
+  originalPreview.src =
+    originalURL;
 
-    const img = new Image();
+  const img =
+    new Image();
 
-    img.onload = () => {
+  img.onload = () => {
 
-      originalImage = img;
-      originalFile = file;
+    originalImage = img;
 
-      originalWidth = img.naturalWidth;
-      originalHeight = img.naturalHeight;
+    originalWidth =
+      img.naturalWidth;
 
-      $("width").value = originalWidth;
-      $("height").value = originalHeight;
+    originalHeight =
+      img.naturalHeight;
 
-      $("controls").style.display = "block";
-      $("fileInfo").style.display = "block";
+    aspectRatio =
+      originalWidth /
+      originalHeight;
 
-      $("fileInfo").innerHTML =
-        "<strong>Loaded:</strong> " +
-        escapeHTML(file.name) +
-        "<br>" +
-        "<strong>Size:</strong> " +
-        formatBytes(file.size) +
-        "<br>" +
-        "<strong>Dimensions:</strong> " +
-        originalWidth +
-        " × " +
-        originalHeight +
-        " px";
+    widthInput.value =
+      originalWidth;
 
-      $("originalSize").textContent =
-        formatBytes(file.size);
+    heightInput.value =
+      originalHeight;
 
-      processImage();
+    filename.value =
+      cleanFileName(
+        file.name
+          .replace(/\.[^/.]+$/, "")
+      ) || "piklyzo-image";
 
-    };
+    originalSize.textContent =
+      formatBytes(file.size);
 
+    newSize.textContent = "—";
+    reduction.textContent = "—";
 
-    img.onerror = () => {
+    dimensions.textContent =
+      originalWidth +
+      " × " +
+      originalHeight;
 
-      showToast("Unable to read this image.");
+    outputFormat.textContent = "—";
 
-    };
+    previewWrap.style.display =
+      "block";
 
+    compare.style.display =
+      "none";
 
-    img.src = event.target.result;
-
+    showToast(
+      "Image loaded successfully."
+    );
   };
 
+  img.onerror = () => {
 
-  reader.onerror = () => {
-
-    showToast("Unable to load the selected file.");
-
+    showToast(
+      "Unable to read this image."
+    );
   };
 
-
-  reader.readAsDataURL(file);
-
+  img.src = originalURL;
 }
 
 
 /* =========================================================
    ASPECT RATIO
-   ========================================================= */
+========================================================= */
 
-function updateHeightFromWidth(){
+widthInput.addEventListener(
+  "input",
+  () => {
 
-  if(!originalWidth || !originalHeight) return;
+    if (
+      aspectLock.checked &&
+      originalImage &&
+      widthInput.value
+    ) {
 
-  const width =
-    parseInt($("width").value,10);
+      heightInput.value =
+        Math.round(
+          Number(widthInput.value) /
+          aspectRatio
+        );
+    }
+  }
+);
 
-  if(!width || width < 1) return;
+heightInput.addEventListener(
+  "input",
+  () => {
 
-  const ratio =
-    originalHeight / originalWidth;
+    if (
+      aspectLock.checked &&
+      originalImage &&
+      heightInput.value
+    ) {
 
-  $("height").value =
-    Math.max(1,Math.round(width * ratio));
-
-}
-
-
-function updateWidthFromHeight(){
-
-  if(!originalWidth || !originalHeight) return;
-
-  const height =
-    parseInt($("height").value,10);
-
-  if(!height || height < 1) return;
-
-  const ratio =
-    originalWidth / originalHeight;
-
-  $("width").value =
-    Math.max(1,Math.round(height * ratio));
-
-}
+      widthInput.value =
+        Math.round(
+          Number(heightInput.value) *
+          aspectRatio
+        );
+    }
+  }
+);
 
 
 /* =========================================================
-   CANVAS CREATION
-   ========================================================= */
+   RANGE UI
+========================================================= */
 
-function createCanvas(){
+quality.addEventListener(
+  "input",
+  () => {
 
-  if(!originalImage){
-    throw new Error("No image loaded.");
+    qualityValue.textContent =
+      quality.value + "%";
   }
+);
 
+bgThreshold.addEventListener(
+  "input",
+  () => {
 
-  let w =
-    parseInt($("width").value,10);
-
-  let h =
-    parseInt($("height").value,10);
-
-
-  if(!Number.isFinite(w) || w < 1){
-    w = originalWidth;
+    bgThresholdValue.textContent =
+      bgThreshold.value;
   }
+);
 
-  if(!Number.isFinite(h) || h < 1){
-    h = originalHeight;
+watermarkOpacity.addEventListener(
+  "input",
+  () => {
+
+    watermarkOpacityValue.textContent =
+      watermarkOpacity.value + "%";
   }
+);
+
+function bindRange(input, output) {
+
+  input.addEventListener(
+    "input",
+    () => {
+
+      output.textContent =
+        input.value;
+    }
+  );
+}
+
+bindRange(
+  brightness,
+  $("brightnessValue")
+);
+
+bindRange(
+  contrast,
+  $("contrastValue")
+);
+
+bindRange(
+  saturation,
+  $("saturationValue")
+);
 
 
-  w = Math.min(w,10000);
-  h = Math.min(h,10000);
+/* =========================================================
+   PRESETS
+========================================================= */
 
+document.querySelectorAll(
+  ".preset"
+).forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const w =
+        Number(button.dataset.w);
+
+      const h =
+        Number(button.dataset.h);
+
+      if (w === 0 || h === 0) {
+
+        if (originalImage) {
+
+          widthInput.value =
+            originalWidth;
+
+          heightInput.value =
+            originalHeight;
+        }
+
+        return;
+      }
+
+      widthInput.value = w;
+      heightInput.value = h;
+
+      aspectLock.checked = false;
+    }
+  );
+});
+
+
+/* =========================================================
+   ROTATE / FLIP
+========================================================= */
+
+rotateLeft.addEventListener(
+  "click",
+  () => {
+
+    rotation =
+      (rotation - 90 + 360) % 360;
+
+    showToast(
+      "Rotation updated."
+    );
+  }
+);
+
+rotateRight.addEventListener(
+  "click",
+  () => {
+
+    rotation =
+      (rotation + 90) % 360;
+
+    showToast(
+      "Rotation updated."
+    );
+  }
+);
+
+flipH.addEventListener(
+  "click",
+  () => {
+
+    flipX *= -1;
+
+    showToast(
+      "Horizontal flip updated."
+    );
+  }
+);
+
+flipV.addEventListener(
+  "click",
+  () => {
+
+    flipY *= -1;
+
+    showToast(
+      "Vertical flip updated."
+    );
+  }
+);
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+function createCanvas(
+  w,
+  h
+) {
 
   const canvas =
-    document.createElement("canvas");
+    document.createElement(
+      "canvas"
+    );
 
   canvas.width = w;
   canvas.height = h;
 
-
-  const ctx =
-    canvas.getContext("2d",{
-      willReadFrequently:true
-    });
-
-
-  if(!ctx){
-    throw new Error("Canvas is not supported.");
-  }
-
-
-  /*
-   * White background for JPG because JPG
-   * does not support transparency.
-   */
-
-  if($("format").value === "image/jpeg"){
-
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0,0,w,h);
-
-  }
-
-
-  ctx.drawImage(
-    originalImage,
-    0,
-    0,
-    w,
-    h
-  );
-
-
-  return {
-    canvas,
-    ctx,
-    width:w,
-    height:h
-  };
-
+  return canvas;
 }
 
 
 /* =========================================================
-   BACKGROUND COLOR PROCESSING
-   ========================================================= */
+   DRAW IMAGE
+========================================================= */
 
-function processBackground(ctx,w,h){
+function drawBaseImage(
+  canvas,
+  w,
+  h
+) {
 
-  if(!$("bgRemoveToggle").checked){
-    return;
+  const ctx =
+    canvas.getContext(
+      "2d",
+      { willReadFrequently:true }
+    );
+
+  ctx.save();
+
+  ctx.translate(
+    w / 2,
+    h / 2
+  );
+
+  ctx.rotate(
+    rotation *
+    Math.PI /
+    180
+  );
+
+  ctx.scale(
+    flipX,
+    flipY
+  );
+
+  let drawW = w;
+  let drawH = h;
+
+  if (
+    rotation === 90 ||
+    rotation === 270
+  ) {
+
+    drawW = h;
+    drawH = w;
   }
 
+  ctx.drawImage(
+    originalImage,
+    -drawW / 2,
+    -drawH / 2,
+    drawW,
+    drawH
+  );
 
-  const imageData =
-    ctx.getImageData(0,0,w,h);
+  ctx.restore();
+
+  return ctx;
+}
+
+
+/* =========================================================
+   BACKGROUND PROCESSING
+========================================================= */
+
+function processBackground(
+  ctx,
+  canvas
+) {
+
+  if (!removeBackground.checked)
+    return;
+
+  const w = canvas.width;
+  const h = canvas.height;
+
+  let imageData;
+
+  try {
+
+    imageData =
+      ctx.getImageData(
+        0,
+        0,
+        w,
+        h
+      );
+
+  } catch(e) {
+
+    return;
+  }
 
   const data =
     imageData.data;
 
-
-  const threshold =
-    parseInt($("bgThreshold").value,10) || 40;
-
-
-  /*
-   * Sample several corner pixels instead of
-   * relying on only the first pixel.
-   */
-
   const points = [
-
     [0,0],
     [w-1,0],
     [0,h-1],
     [w-1,h-1]
-
   ];
 
+  let rr = 0;
+  let gg = 0;
+  let bb = 0;
 
-  let sr=0;
-  let sg=0;
-  let sb=0;
+  points.forEach(
+    ([x,y]) => {
 
+      const i =
+        (y * w + x) * 4;
 
-  points.forEach(point => {
+      rr += data[i];
+      gg += data[i+1];
+      bb += data[i+2];
+    }
+  );
 
-    const x =
-      Math.max(0,Math.min(w-1,point[0]));
+  rr /= 4;
+  gg /= 4;
+  bb /= 4;
 
-    const y =
-      Math.max(0,Math.min(h-1,point[1]));
+  const threshold =
+    Number(bgThreshold.value);
 
-    const index =
-      (y*w+x)*4;
+  let replacement = null;
 
-    sr += data[index];
-    sg += data[index+1];
-    sb += data[index+2];
+  if (
+    backgroundMode.value ===
+    "white"
+  ) {
 
-  });
+    replacement = [
+      255,255,255
+    ];
 
+  } else if (
+    backgroundMode.value ===
+    "lightblue"
+  ) {
 
-  const r0 = sr / points.length;
-  const g0 = sg / points.length;
-  const b0 = sb / points.length;
+    replacement = [
+      210,235,255
+    ];
 
+  } else if (
+    backgroundMode.value ===
+    "custom"
+  ) {
 
-  const bgType =
-    $("bgColorType").value;
+    replacement =
+      hexToRgb(
+        backgroundColor.value
+      );
+  }
 
+  for (
+    let i = 0;
+    i < data.length;
+    i += 4
+  ) {
 
-  for(let i=0;i<data.length;i+=4){
-
-    const r=data[i];
-    const g=data[i+1];
-    const b=data[i+2];
-
+    const r = data[i];
+    const g = data[i+1];
+    const b = data[i+2];
 
     const distance =
       Math.sqrt(
-        Math.pow(r-r0,2) +
-        Math.pow(g-g0,2) +
-        Math.pow(b-b0,2)
+        Math.pow(r - rr, 2) +
+        Math.pow(g - gg, 2) +
+        Math.pow(b - bb, 2)
       );
 
+    if (
+      distance <= threshold * 2
+    ) {
 
-    if(distance <= threshold){
-
-      if(bgType === "transparent"){
+      if (
+        backgroundMode.value ===
+        "transparent"
+      ) {
 
         data[i+3] = 0;
 
-      }else if(bgType === "white"){
+      } else if (replacement) {
 
-        data[i] = 255;
-        data[i+1] = 255;
-        data[i+2] = 255;
+        data[i] =
+          replacement[0];
+
+        data[i+1] =
+          replacement[1];
+
+        data[i+2] =
+          replacement[2];
+
         data[i+3] = 255;
-
-      }else if(bgType === "blue"){
-
-        data[i] = 230;
-        data[i+1] = 242;
-        data[i+2] = 255;
-        data[i+3] = 255;
-
       }
-
     }
-
   }
-
 
   ctx.putImageData(
     imageData,
     0,
     0
   );
-
 }
 
 
 /* =========================================================
-   BORDER
-   ========================================================= */
+   DRAW STAMP
+========================================================= */
 
-function addBorder(ctx,w,h){
+function drawStampOnCanvas(
+  ctx,
+  w,
+  h
+) {
 
-  if(!$("borderToggle").checked){
+  if (!addStamp.checked)
     return;
-  }
+
+  const name =
+    stampName.value.trim();
+
+  const date =
+    stampDate.value.trim();
+
+  if (!name && !date)
+    return;
+
+  const size =
+    Math.max(
+      8,
+      Number(stampSize.value) || 28
+    );
+
+  const text =
+    [name,date]
+      .filter(Boolean)
+      .join(" | ");
+
+  ctx.save();
+
+  ctx.fillStyle =
+    stampColor.value;
+
+  ctx.font =
+    `700 ${size}px Arial, sans-serif`;
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+
+  ctx.fillText(
+    text,
+    w / 2,
+    h - Math.max(10, size * .5)
+  );
+
+  ctx.restore();
+}
 
 
-  let width =
-    parseInt($("borderWidth").value,10);
+/* =========================================================
+   DRAW BORDER
+========================================================= */
 
-  if(!Number.isFinite(width)){
-    width=5;
-  }
+function drawBorderOnCanvas(
+  ctx,
+  w,
+  h
+) {
 
+  if (!addBorder.checked)
+    return;
 
-  width =
-    Math.max(1,Math.min(width,100));
-
+  const bw =
+    Math.max(
+      1,
+      Number(borderWidth.value) || 4
+    );
 
   ctx.save();
 
   ctx.strokeStyle =
-    $("borderColor").value;
+    borderColor.value;
 
   ctx.lineWidth =
-    width*2;
+    bw * 2;
 
   ctx.strokeRect(
-    width,
-    width,
-    w-width*2,
-    h-width*2
+    bw,
+    bw,
+    w - bw * 2,
+    h - bw * 2
   );
 
   ctx.restore();
-
-}
-
-
-/* =========================================================
-   NAME / DATE STAMP
-   ========================================================= */
-
-function addStamp(ctx,w,h){
-
-  if(!$("stampToggle").checked){
-    return;
-  }
-
-
-  const name =
-    $("fullName").value.trim();
-
-  const date =
-    $("stampDate").value.trim();
-
-  if(!name && !date){
-    return;
-  }
-
-
-  let size =
-    parseInt($("stampSize").value,10);
-
-  if(!Number.isFinite(size)){
-    size=26;
-  }
-
-
-  size =
-    Math.max(8,Math.min(size,200));
-
-
-  const text =
-    [name,date]
-    .filter(Boolean)
-    .join("  ");
-
-
-  ctx.save();
-
-  const boxHeight =
-    Math.max(
-      size*2.4,
-      45
-    );
-
-
-  ctx.fillStyle =
-    "rgba(255,255,255,.85)";
-
-  ctx.fillRect(
-    0,
-    h-boxHeight,
-    w,
-    boxHeight
-  );
-
-
-  ctx.fillStyle =
-    $("stampColor").value;
-
-  ctx.font =
-    "bold " + size + "px Arial";
-
-  ctx.textAlign =
-    "center";
-
-  ctx.textBaseline =
-    "middle";
-
-
-  ctx.fillText(
-    text,
-    w/2,
-    h-boxHeight/2
-  );
-
-
-  ctx.restore();
-
 }
 
 
 /* =========================================================
    WATERMARK
-   ========================================================= */
+========================================================= */
 
-function addWatermark(ctx,w,h){
+function drawWatermark(
+  ctx,
+  w,
+  h
+) {
 
-  if(!$("watermarkToggle").checked){
+  if (
+    !addWatermark.checked ||
+    !watermarkText.value.trim()
+  )
     return;
-  }
 
-
-  const text =
-    $("watermarkText").value.trim();
-
-  if(!text){
-    return;
-  }
-
-
-  let size =
-    parseInt($("watermarkSize").value,10);
-
-  if(!Number.isFinite(size)){
-    size=24;
-  }
-
-
-  size =
-    Math.max(8,Math.min(size,200));
-
-
-  const opacity =
-    (parseInt(
-      $("watermarkOpacity").value,
-      10
-    ) || 50)/100;
-
+  const size =
+    Math.max(
+      8,
+      Number(watermarkSize.value) || 24
+    );
 
   ctx.save();
 
   ctx.globalAlpha =
-    opacity;
+    Number(
+      watermarkOpacity.value
+    ) / 100;
 
   ctx.fillStyle =
-    $("watermarkColor").value;
+    watermarkColor.value;
 
   ctx.font =
-    "bold " + size + "px Arial";
+    `700 ${size}px Arial, sans-serif`;
 
-  ctx.textAlign =
-    "right";
-
-  ctx.textBaseline =
-    "bottom";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
   ctx.fillText(
-    text,
-    w-15,
-    h-15
+    watermarkText.value.trim(),
+    w / 2,
+    h / 2
   );
 
   ctx.restore();
-
 }
 
 
 /* =========================================================
-   CANVAS TO BLOB
-   ========================================================= */
-
-function canvasToBlob(canvas,type,quality){
-
-  return new Promise((resolve,reject)=>{
-
-    canvas.toBlob(
-      blob => {
-
-        if(blob){
-          resolve(blob);
-        }else{
-          reject(
-            new Error(
-              "Browser could not create the image."
-            )
-          );
-        }
-
-      },
-      type,
-      quality
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   TARGET KB COMPRESSION
-   ========================================================= */
-
-async function compressToTarget(
-  canvas,
-  format,
-  requestedQuality,
-  targetKB
-){
-
-  const targetBytes =
-    targetKB * 1024;
-
-
-  /*
-   * PNG is lossless and quality does not normally
-   * control its size. We first try PNG.
-   */
-
-  if(format === "image/png"){
-
-    const blob =
-      await canvasToBlob(
-        canvas,
-        format,
-        1
-      );
-
-    return {
-      blob,
-      exact:false
-    };
-
-  }
-
-
-  /*
-   * First try requested quality.
-   */
-
-  let blob =
-    await canvasToBlob(
-      canvas,
-      format,
-      requestedQuality
-    );
-
-
-  if(blob.size <= targetBytes){
-
-    return {
-      blob,
-      exact:true
-    };
-
-  }
-
-
-  /*
-   * Binary search quality to get as close
-   * as possible to the requested target.
-   */
-
-  let low = 0.05;
-  let high = requestedQuality;
-
-  let best = blob;
-
-
-  for(let i=0;i<10;i++){
-
-    const mid =
-      (low+high)/2;
-
-
-    const candidate =
-      await canvasToBlob(
-        canvas,
-        format,
-        mid
-      );
-
-
-    if(candidate.size > targetBytes){
-
-      high = mid;
-
-    }else{
-
-      best = candidate;
-      low = mid;
-
-    }
-
-  }
-
-
-  /*
-   * If still larger than target, progressively
-   * reduce canvas dimensions.
-   */
-
-  if(best.size > targetBytes){
-
-    let currentCanvas =
-      canvas;
-
-    let scale = 0.90;
-
-
-    for(let round=0;round<12;round++){
-
-      const newW =
-        Math.max(
-          80,
-          Math.round(
-            currentCanvas.width*scale
-          )
-        );
-
-      const newH =
-        Math.max(
-          80,
-          Math.round(
-            currentCanvas.height*scale
-          )
-        );
-
-
-      const smaller =
-        document.createElement("canvas");
-
-      smaller.width =
-        newW;
-
-      smaller.height =
-        newH;
-
-
-      const sctx =
-        smaller.getContext("2d");
-
-
-      sctx.drawImage(
-        currentCanvas,
-        0,
-        0,
-        newW,
-        newH
-      );
-
-
-      const candidate =
-        await canvasToBlob(
-          smaller,
-          format,
-          0.60
-        );
-
-
-      if(candidate.size < best.size){
-
-        best =
-          candidate;
-
-        currentCanvas =
-          smaller;
-
-      }
-
-
-      if(best.size <= targetBytes){
-
-        return {
-          blob:best,
-          exact:true,
-          width:currentCanvas.width,
-          height:currentCanvas.height
-        };
-
-      }
-
-
-      scale -= 0.05;
-
-      if(scale <= 0.35){
-        break;
-      }
-
-    }
-
-  }
-
-
-  return {
-    blob:best,
-    exact:best.size <= targetBytes
-  };
-
-}
-
-
-/* =========================================================
-   MAIN PROCESS FUNCTION
-   ========================================================= */
-
-async function processImage(){
-
-  if(!originalImage){
-
-    showToast("Please upload an image first.");
-
+   IMAGE FILTER
+========================================================= */
+
+function applyFilters(
+  ctx,
+  canvas
+) {
+
+  const b =
+    Number(brightness.value);
+
+  const c =
+    Number(contrast.value);
+
+  const s =
+    Number(saturation.value);
+
+  if (
+    b === 0 &&
+    c === 0 &&
+    s === 0 &&
+    !grayscale.checked
+  )
     return;
 
+  const imageData =
+    ctx.getImageData(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+  const data =
+    imageData.data;
+
+  const brightnessFactor =
+    b * 2.55;
+
+  const contrastFactor =
+    (259 * (c + 255)) /
+    (255 * (259 - c));
+
+  const saturationFactor =
+    (s + 100) / 100;
+
+  for (
+    let i = 0;
+    i < data.length;
+    i += 4
+  ) {
+
+    let r =
+      data[i] +
+      brightnessFactor;
+
+    let g =
+      data[i+1] +
+      brightnessFactor;
+
+    let bl =
+      data[i+2] +
+      brightnessFactor;
+
+    r =
+      contrastFactor *
+      (r - 128) + 128;
+
+    g =
+      contrastFactor *
+      (g - 128) + 128;
+
+    bl =
+      contrastFactor *
+      (bl - 128) + 128;
+
+    if (grayscale.checked) {
+
+      const gray =
+        0.299 * r +
+        0.587 * g +
+        0.114 * bl;
+
+      r = gray;
+      g = gray;
+      bl = gray;
+
+    } else if (s !== 0) {
+
+      const avg =
+        (r + g + bl) / 3;
+
+      r =
+        avg +
+        (r - avg) *
+        saturationFactor;
+
+      g =
+        avg +
+        (g - avg) *
+        saturationFactor;
+
+      bl =
+        avg +
+        (bl - avg) *
+        saturationFactor;
+    }
+
+    data[i] =
+      clamp(r);
+
+    data[i+1] =
+      clamp(g);
+
+    data[i+2] =
+      clamp(bl);
   }
 
-
-  if(processing){
-    return;
-  }
-
-
-  processing=true;
-
-  $("processBtn").disabled=true;
-
-  showProgress(
-    10,
-    "Preparing image..."
+  ctx.putImageData(
+    imageData,
+    0,
+    0
   );
-
-
-  try{
-
-    let format =
-      $("format").value;
-
-
-    /*
-     * Transparent background requires PNG.
-     */
-
-    if(
-      $("bgRemoveToggle").checked &&
-      $("bgColorType").value === "transparent"
-    ){
-
-      format =
-        "image/png";
-
-      $("format").value =
-        "image/png";
-
-    }
-
-
-    const targetKB =
-      Math.max(
-        5,
-        parseFloat($("targetKB").value) || 100
-      );
-
-
-    let quality =
-      parseInt(
-        $("quality").value,
-        10
-      )/100;
-
-
-    const result =
-      createCanvas();
-
-
-    showProgress(
-      25,
-      "Rendering image..."
-    );
-
-
-    processBackground(
-      result.ctx,
-      result.width,
-      result.height
-    );
-
-
-    showProgress(
-      45,
-      "Applying border and stamp..."
-    );
-
-
-    addBorder(
-      result.ctx,
-      result.width,
-      result.height
-    );
-
-
-    addStamp(
-      result.ctx,
-      result.width,
-      result.height
-    );
-
-
-    addWatermark(
-      result.ctx,
-      result.width,
-      result.height
-    );
-
-
-    showProgress(
-      65,
-      "Compressing..."
-    );
-
-
-    const compressed =
-      await compressToTarget(
-        result.canvas,
-        format,
-        quality,
-        targetKB
-      );
-
-
-    processedBlob =
-      compressed.blob;
-
-
-    if(processedURL){
-      URL.revokeObjectURL(processedURL);
-    }
-
-
-    processedURL =
-      URL.createObjectURL(
-        processedBlob
-      );
-
-
-    $("previewArea").innerHTML =
-      "";
-
-
-    const img =
-      document.createElement("img");
-
-    img.src =
-      processedURL;
-
-    img.alt =
-      "Piklyzo processed image";
-
-    $("previewArea").appendChild(img);
-
-
-    $("newSize").textContent =
-      formatBytes(
-        processedBlob.size
-      );
-
-
-    const originalBytes =
-      originalFile ?
-      originalFile.size :
-      0;
-
-
-    if(originalBytes > 0){
-
-      const reduction =
-        (
-          (
-            originalBytes -
-            processedBlob.size
-          ) /
-          originalBytes
-        )*100;
-
-
-      $("reduction").textContent =
-        Math.max(
-          0,
-          reduction
-        ).toFixed(1) + "%";
-
-    }
-
-
-    $("dimensions").textContent =
-      (
-        compressed.width ||
-        result.width
-      ) +
-      "×" +
-      (
-        compressed.height ||
-        result.height
-      ) +
-      "px";
-
-
-    $("outputFormat").textContent =
-      format
-        .split("/")[1]
-        .toUpperCase();
-
-
-    showProgress(
-      100,
-      compressed.exact ?
-      "Done — target size reached." :
-      "Done — closest possible size created."
-    );
-
-
-    setTimeout(
-      hideProgress,
-      900
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Piklyzo processing error:",
-      error
-    );
-
-    showToast(
-      "Processing failed: " +
-      (error.message || "Unknown error")
-    );
-
-    hideProgress();
-
-  }finally{
-
-    processing=false;
-
-    $("processBtn").disabled=false;
-
-  }
-
 }
 
 
 /* =========================================================
-   DOWNLOAD IMAGE
-   ========================================================= */
+   MAIN CANVAS RENDER
+========================================================= */
 
-function downloadImage(){
+function renderCanvas(
+  w,
+  h
+) {
 
-  if(!processedBlob){
+  const canvas =
+    createCanvas(w,h);
 
-    showToast(
-      "Please process an image first."
+  const ctx =
+    canvas.getContext(
+      "2d",
+      { willReadFrequently:true }
     );
 
-    return;
-
-  }
-
-
-  const filename =
-    sanitizeFilename(
-      $("filename").value ||
-      "piklyzo-image"
-    );
-
-
-  const extension =
-    getExtension(
-      processedBlob.type
-    );
-
-
-  const url =
-    URL.createObjectURL(
-      processedBlob
-    );
-
-
-  const link =
-    document.createElement("a");
-
-  link.href =
-    url;
-
-  link.download =
-    filename +
-    "." +
-    extension;
-
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-
-  setTimeout(
-    () => URL.revokeObjectURL(url),
-    1000
-  );
-
-
-  showToast(
-    "Image downloaded successfully!"
-  );
-
-}
-
-
-/* =========================================================
-   PDF EXPORT
-   ========================================================= */
-
-async function downloadPDF(){
-
-  if(!processedBlob){
-
-    showToast(
-      "Please process an image first."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    showToast("Creating PDF...");
-
-
-    const jpegBlob =
-      await convertBlobToJPEG(
-        processedBlob
-      );
-
-
-    const arrayBuffer =
-      await jpegBlob.arrayBuffer();
-
-
-    const jpegBytes =
-      new Uint8Array(arrayBuffer);
-
-
-    const dimensions =
-      await getJPEGDimensions(
-        jpegBytes
-      );
-
-
-    if(!dimensions){
-
-      throw new Error(
-        "Unable to read image dimensions."
-      );
-
-    }
-
-
-    const pdfBytes =
-      createSimplePDF(
-        jpegBytes,
-        dimensions.width,
-        dimensions.height
-      );
-
-
-    const pdfBlob =
-      new Blob(
-        [pdfBytes],
-        {type:"application/pdf"}
-      );
-
-
-    const url =
-      URL.createObjectURL(pdfBlob);
-
-
-    const link =
-      document.createElement("a");
-
-    link.href =
-      url;
-
-    link.download =
-      sanitizeFilename(
-        $("filename").value ||
-        "piklyzo-image"
-      ) +
-      ".pdf";
-
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-
-    setTimeout(
-      () => URL.revokeObjectURL(url),
-      1000
-    );
-
-
-    showToast(
-      "PDF downloaded successfully!"
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "PDF creation failed."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CONVERT ANY IMAGE TO JPEG
-   ========================================================= */
-
-async function convertBlobToJPEG(blob){
-
-  const url =
-    URL.createObjectURL(blob);
-
-
-  try{
-
-    const img =
-      await loadImageURL(url);
-
-
-    const canvas =
-      document.createElement("canvas");
-
-    canvas.width =
-      img.naturalWidth;
-
-    canvas.height =
-      img.naturalHeight;
-
-
-    const ctx =
-      canvas.getContext("2d");
-
+  if (
+    format.value ===
+    "image/jpeg"
+  ) {
 
     ctx.fillStyle =
       "#ffffff";
@@ -2991,801 +3299,1417 @@ async function convertBlobToJPEG(blob){
     ctx.fillRect(
       0,
       0,
-      canvas.width,
-      canvas.height
+      w,
+      h
     );
-
-
-    ctx.drawImage(
-      img,
-      0,
-      0
-    );
-
-
-    return await canvasToBlob(
-      canvas,
-      "image/jpeg",
-      0.95
-    );
-
-
-  }finally{
-
-    URL.revokeObjectURL(url);
-
   }
 
+  drawBaseImage(
+    canvas,
+    w,
+    h
+  );
+
+  processBackground(
+    ctx,
+    canvas
+  );
+
+  applyFilters(
+    ctx,
+    canvas
+  );
+
+  drawBorderOnCanvas(
+    ctx,
+    w,
+    h
+  );
+
+  drawStampOnCanvas(
+    ctx,
+    w,
+    h
+  );
+
+  drawWatermark(
+    ctx,
+    w,
+    h
+  );
+
+  return canvas;
 }
 
 
 /* =========================================================
-   LOAD IMAGE URL
-   ========================================================= */
+   BLOB HELPER
+========================================================= */
 
-function loadImageURL(url){
+function canvasBlob(
+  canvas,
+  type,
+  q
+) {
 
   return new Promise(
-    (resolve,reject)=>{
+    resolve => {
+
+      canvas.toBlob(
+        blob =>
+          resolve(blob),
+        type,
+        q
+      );
+
+    }
+  );
+}
+
+
+/* =========================================================
+   TARGET KB OPTIMIZATION
+========================================================= */
+
+async function optimizeTargetKB(
+  baseW,
+  baseH,
+  type,
+  initialQuality,
+  targetBytes
+) {
+
+  let w = baseW;
+  let h = baseH;
+
+  let bestBlob = null;
+  let bestCanvas = null;
+
+  for (
+    let dimensionRound = 0;
+    dimensionRound < 8;
+    dimensionRound++
+  ) {
+
+    let low = 0.05;
+    let high =
+      Math.max(
+        .1,
+        Math.min(
+          1,
+          initialQuality / 100
+        )
+      );
+
+    let localBest = null;
+    let localCanvas = null;
+
+    for (
+      let i = 0;
+      i < 8;
+      i++
+    ) {
+
+      const q =
+        (low + high) / 2;
+
+      const canvas =
+        renderCanvas(w,h);
+
+      const blob =
+        await canvasBlob(
+          canvas,
+          type,
+          q
+        );
+
+      if (!blob)
+        continue;
+
+      if (
+        blob.size <= targetBytes
+      ) {
+
+        localBest = blob;
+        localCanvas = canvas;
+
+        low = q;
+
+      } else {
+
+        high = q;
+      }
+    }
+
+    if (localBest) {
+
+      bestBlob = localBest;
+      bestCanvas = localCanvas;
+
+      if (
+        localBest.size <= targetBytes
+      ) {
+
+        break;
+      }
+    }
+
+    w =
+      Math.max(
+        100,
+        Math.round(w * .85)
+      );
+
+    h =
+      Math.max(
+        100,
+        Math.round(h * .85)
+      );
+  }
+
+  if (!bestBlob) {
+
+    const canvas =
+      renderCanvas(w,h);
+
+    bestCanvas = canvas;
+
+    bestBlob =
+      await canvasBlob(
+        canvas,
+        type,
+        Math.max(
+          .1,
+          Math.min(
+            1,
+            initialQuality / 100
+          )
+        )
+      );
+  }
+
+  return {
+    blob: bestBlob,
+    canvas: bestCanvas,
+    width: w,
+    height: h
+  };
+}
+
+
+/* =========================================================
+   PROCESS IMAGE
+========================================================= */
+
+processBtn.addEventListener(
+  "click",
+  async () => {
+
+    if (!originalImage) {
+
+      showToast(
+        "Please select an image first."
+      );
+
+      return;
+    }
+
+    try {
+
+      status.style.display =
+        "block";
+
+      setProgress(
+        10,
+        "Preparing image..."
+      );
+
+      let w =
+        Math.max(
+          1,
+          Number(widthInput.value) ||
+          originalWidth
+        );
+
+      let h =
+        Math.max(
+          1,
+          Number(heightInput.value) ||
+          originalHeight
+        );
+
+      /*
+        PNG + transparent background
+        is required for transparency.
+      */
+
+      let type =
+        format.value;
+
+      if (
+        removeBackground.checked &&
+        backgroundMode.value ===
+        "transparent"
+      ) {
+
+        type =
+          "image/png";
+
+        format.value =
+          "image/png";
+      }
+
+      const target =
+        Number(targetKB.value);
+
+      const q =
+        Number(quality.value);
+
+      let result;
+
+      if (
+        target &&
+        target >= 5
+      ) {
+
+        setProgress(
+          30,
+          "Optimizing toward target KB..."
+        );
+
+        result =
+          await optimizeTargetKB(
+            w,
+            h,
+            type,
+            q,
+            target * 1024
+          );
+
+      } else {
+
+        setProgress(
+          45,
+          "Rendering image..."
+        );
+
+        const canvas =
+          renderCanvas(w,h);
+
+        const blob =
+          await canvasBlob(
+            canvas,
+            type,
+            q / 100
+          );
+
+        result = {
+          blob,
+          canvas,
+          width:w,
+          height:h
+        };
+      }
+
+      if (
+        !result ||
+        !result.blob
+      ) {
+
+        throw new Error(
+          "Unable to create output."
+        );
+      }
+
+      processedBlob =
+        result.blob;
+
+      if (processedURL)
+        URL.revokeObjectURL(
+          processedURL
+        );
+
+      processedURL =
+        URL.createObjectURL(
+          processedBlob
+        );
+
+      processedPreview.src =
+        processedURL;
+
+      compareBefore.src =
+        originalURL;
+
+      compareAfter.src =
+        processedURL;
+
+      compare.style.display =
+        "block";
+
+      previewWrap.style.display =
+        "block";
+
+      originalSize.textContent =
+        formatBytes(
+          originalFile.size
+        );
+
+      newSize.textContent =
+        formatBytes(
+          processedBlob.size
+        );
+
+      const percent =
+        (
+          1 -
+          processedBlob.size /
+          originalFile.size
+        ) * 100;
+
+      reduction.textContent =
+        Math.max(
+          0,
+          percent
+        ).toFixed(1) + "%";
+
+      dimensions.textContent =
+        result.width +
+        " × " +
+        result.height;
+
+      outputFormat.textContent =
+        mimeLabel(type);
+
+      setProgress(
+        100,
+        "Image ready!"
+      );
+
+      showToast(
+        "Image processed successfully."
+      );
+
+    } catch(error) {
+
+      console.error(error);
+
+      showToast(
+        "Something went wrong while processing the image."
+      );
+
+      setProgress(
+        0,
+        "Processing failed."
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function setProgress(
+  value,
+  text
+) {
+
+  progress.style.width =
+    Math.max(
+      0,
+      Math.min(
+        100,
+        value
+      )
+    ) + "%";
+
+  statusText.textContent =
+    text;
+}
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+downloadBtn.addEventListener(
+  "click",
+  () => {
+
+    if (!processedBlob) {
+
+      showToast(
+        "Please process an image first."
+      );
+
+      return;
+    }
+
+    const url =
+      URL.createObjectURL(
+        processedBlob
+      );
+
+    const extension =
+      mimeExtension(
+        processedBlob.type
+      );
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+      cleanFileName(
+        filename.value ||
+        "piklyzo-image"
+      ) +
+      "." +
+      extension;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    setTimeout(
+      () => URL.revokeObjectURL(url),
+      1000
+    );
+  }
+);
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+shareBtn.addEventListener(
+  "click",
+  async () => {
+
+    if (!processedBlob) {
+
+      showToast(
+        "Please process an image first."
+      );
+
+      return;
+    }
+
+    try {
+
+      const file =
+        new File(
+          [
+            processedBlob
+          ],
+          "piklyzo-image." +
+          mimeExtension(
+            processedBlob.type
+          ),
+          {
+            type:
+              processedBlob.type
+          }
+        );
+
+      if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare({
+          files:[file]
+        })
+      ) {
+
+        await navigator.share({
+          title:"Piklyzo",
+          text:
+            "Image processed with Piklyzo.",
+          files:[file]
+        });
+
+      } else if (
+        navigator.share
+      ) {
+
+        await navigator.share({
+          title:"Piklyzo",
+          text:
+            "Image processed with Piklyzo."
+        });
+
+      } else {
+
+        showToast(
+          "Sharing is not supported on this browser."
+        );
+      }
+
+    } catch(e) {
+
+      if (
+        e.name !==
+        "AbortError"
+      ) {
+
+        showToast(
+          "Unable to share the image."
+        );
+      }
+    }
+  }
+);
+
+
+/* =========================================================
+   COPY IMAGE
+========================================================= */
+
+copyBtn.addEventListener(
+  "click",
+  async () => {
+
+    if (!processedBlob) {
+
+      showToast(
+        "Please process an image first."
+      );
+
+      return;
+    }
+
+    try {
+
+      if (
+        navigator.clipboard &&
+        window.ClipboardItem
+      ) {
+
+        const item =
+          new ClipboardItem({
+            [processedBlob.type]:
+              processedBlob
+          });
+
+        await navigator.clipboard.write([
+          item
+        ]);
+
+        showToast(
+          "Image copied to clipboard."
+        );
+
+      } else {
+
+        showToast(
+          "Copy image is not supported in this browser."
+        );
+      }
+
+    } catch(e) {
+
+      showToast(
+        "Unable to copy image."
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   PDF EXPORT
+========================================================= */
+
+pdfBtn.addEventListener(
+  "click",
+  async () => {
+
+    if (!processedBlob) {
+
+      showToast(
+        "Please process an image first."
+      );
+
+      return;
+    }
+
+    if (
+      processedBlob.type !==
+      "image/jpeg"
+    ) {
+
+      /*
+        PDF helper uses JPEG.
+        Convert processed image to JPEG
+        before embedding.
+      */
 
       const img =
         new Image();
 
       img.onload =
-        () => resolve(img);
+        async () => {
 
-      img.onerror =
-        () => reject(
-          new Error(
-            "Unable to load image."
-          )
-        );
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+          canvas.width =
+            img.naturalWidth;
+
+          canvas.height =
+            img.naturalHeight;
+
+          const ctx =
+            canvas.getContext("2d");
+
+          ctx.fillStyle =
+            "#ffffff";
+
+          ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+
+          ctx.drawImage(
+            img,
+            0,
+            0
+          );
+
+          const jpeg =
+            await canvasBlob(
+              canvas,
+              "image/jpeg",
+              .92
+            );
+
+          createPDF(
+            jpeg,
+            canvas.width,
+            canvas.height
+          );
+        };
 
       img.src =
-        url;
+        URL.createObjectURL(
+          processedBlob
+        );
 
-    }
-  );
+    } else {
 
-}
+      const img =
+        new Image();
 
+      img.onload = () => {
 
-/* =========================================================
-   JPEG DIMENSIONS
-   ========================================================= */
-
-async function getJPEGDimensions(bytes){
-
-  let offset=2;
-
-
-  while(offset < bytes.length){
-
-    if(bytes[offset] !== 0xFF){
-
-      offset++;
-      continue;
-
-    }
-
-
-    const marker =
-      bytes[offset+1];
-
-
-    /*
-     * SOF markers.
-     */
-
-    if(
-      marker >= 0xC0 &&
-      marker <= 0xC3
-    ){
-
-      const height =
-        (bytes[offset+5] << 8) |
-        bytes[offset+6];
-
-
-      const width =
-        (bytes[offset+7] << 8) |
-        bytes[offset+8];
-
-
-      return {
-        width,
-        height
+        createPDF(
+          processedBlob,
+          img.naturalWidth,
+          img.naturalHeight
+        );
       };
 
+      img.src =
+        processedURL;
     }
-
-
-    if(marker === 0xD9){
-      break;
-    }
-
-
-    const length =
-      (bytes[offset+2] << 8) |
-      bytes[offset+3];
-
-
-    if(!length){
-      break;
-    }
-
-
-    offset +=
-      2 + length;
-
   }
-
-
-  return null;
-
-}
+);
 
 
 /* =========================================================
-   SIMPLE JPEG PDF
-   ========================================================= */
+   SIMPLE PDF GENERATOR
+========================================================= */
 
-function createSimplePDF(
-  jpegBytes,
-  imgWidth,
-  imgHeight
-){
+async function createPDF(
+  blob,
+  imgW,
+  imgH
+) {
 
-  /*
-   * PDF uses points.
-   * A4 page = 595 x 842.
-   */
+  try {
 
-  const pageW = 595;
-  const pageH = 842;
+    const arrayBuffer =
+      await blob.arrayBuffer();
 
+    const binary =
+      new Uint8Array(
+        arrayBuffer
+      );
 
-  const scale =
-    Math.min(
-      pageW/imgWidth,
-      pageH/imgHeight
+    const jpegData =
+      binaryToString(binary);
+
+    const pageW = 595.28;
+    const pageH = 841.89;
+
+    const margin = 25;
+
+    const scale =
+      Math.min(
+        (pageW - margin * 2) /
+          imgW,
+        (pageH - margin * 2) /
+          imgH
+      );
+
+    const drawW =
+      imgW * scale;
+
+    const drawH =
+      imgH * scale;
+
+    const x =
+      (pageW - drawW) / 2;
+
+    const y =
+      (pageH - drawH) / 2;
+
+    const objects = [];
+
+    objects[1] =
+      `<< /Type /Catalog /Pages 2 0 R >>`;
+
+    objects[2] =
+      `<< /Type /Pages /Kids [3 0 R] /Count 1 >>`;
+
+    objects[3] =
+      `<< /Type /Page /Parent 2 0 R
+         /MediaBox [0 0 ${pageW} ${pageH}]
+         /Resources <<
+           /ProcSet [/PDF /ImageC]
+           /XObject << /Im0 4 0 R >>
+         >>
+         /Contents 5 0 R
+       >>`;
+
+    objects[4] =
+      `<< /Type /XObject
+         /Subtype /Image
+         /Width ${imgW}
+         /Height ${imgH}
+         /ColorSpace /DeviceRGB
+         /BitsPerComponent 8
+         /Filter /DCTDecode
+         /Length ${jpegData.length}
+       >>
+       stream
+       ${jpegData}
+       endstream`;
+
+    const content =
+      `q
+       ${drawW} 0 0 ${drawH} ${x} ${y} cm
+       /Im0 Do
+       Q`;
+
+    objects[5] =
+      `<< /Length ${content.length} >>
+       stream
+       ${content}
+       endstream`;
+
+    let pdf =
+      "%PDF-1.4\n";
+
+    const offsets = [0];
+
+    for (
+      let i = 1;
+      i < objects.length;
+      i++
+    ) {
+
+      offsets[i] =
+        pdf.length;
+
+      pdf +=
+        `${i} 0 obj\n` +
+        objects[i] +
+        `\nendobj\n`;
+    }
+
+    const xref =
+      pdf.length;
+
+    pdf +=
+      `xref\n0 ${objects.length}\n`;
+
+    pdf +=
+      "0000000000 65535 f \n";
+
+    for (
+      let i = 1;
+      i < objects.length;
+      i++
+    ) {
+
+      pdf +=
+        String(
+          offsets[i]
+        ).padStart(10,"0") +
+        " 00000 n \n";
+    }
+
+    pdf +=
+      `trailer
+       << /Size ${objects.length}
+          /Root 1 0 R >>
+       startxref
+       ${xref}
+       %%EOF`;
+
+    const pdfBytes =
+      new TextEncoder()
+        .encode(pdf);
+
+    /*
+      Replace embedded JPEG placeholder
+      with binary-safe PDF construction.
+    */
+
+    const encoder =
+      new TextEncoder();
+
+    const header =
+      encoder.encode(
+        "%PDF-1.4\n"
+      );
+
+    const objectParts = [];
+
+    objectParts.push(
+      header
     );
 
+    const objectOffsets = [0];
 
-  const drawW =
-    imgWidth*scale;
+    let position =
+      header.length;
 
-  const drawH =
-    imgHeight*scale;
+    function addBytes(bytes) {
 
+      objectParts.push(bytes);
 
-  const x =
-    (pageW-drawW)/2;
+      position += bytes.length;
+    }
 
-  const y =
-    (pageH-drawH)/2;
+    function ascii(text) {
 
+      return encoder.encode(text);
+    }
 
-  const encoder =
-    new TextEncoder();
+    objectOffsets[1] =
+      position;
 
-
-  const objects = [];
-
-
-  objects.push(
-    "<< /Type /Catalog /Pages 2 0 R >>"
-  );
-
-
-  objects.push(
-    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>"
-  );
-
-
-  objects.push(
-    "<< /Type /Page /Parent 2 0 R " +
-    "/MediaBox [0 0 595 842] " +
-    "/Resources << /XObject << /Im1 4 0 R >> " +
-    "/ProcSet [/PDF /ImageC] >> " +
-    "/Contents 5 0 R >>"
-  );
-
-
-  const imageObject =
-    concatUint8Arrays([
-
-      encoder.encode(
-        "<< /Type /XObject " +
-        "/Subtype /Image " +
-        "/Width " + imgWidth +
-        " /Height " + imgHeight +
-        " /ColorSpace /DeviceRGB " +
-        "/BitsPerComponent 8 " +
-        "/Filter /DCTDecode " +
-        "/Length " +
-        jpegBytes.length +
-        " >>\nstream\n"
-      ),
-
-      jpegBytes,
-
-      encoder.encode(
-        "\nendstream"
+    addBytes(
+      ascii(
+        "1 0 obj\n" +
+        "<< /Type /Catalog /Pages 2 0 R >>\n" +
+        "endobj\n"
       )
+    );
 
-    ]);
+    objectOffsets[2] =
+      position;
 
-
-  objects.push(imageObject);
-
-
-  const content =
-    "q\n" +
-    drawW.toFixed(2) +
-    " 0 0 " +
-    drawH.toFixed(2) +
-    " " +
-    x.toFixed(2) +
-    " " +
-    y.toFixed(2) +
-    " cm\n" +
-    "/Im1 Do\n" +
-    "Q\n";
-
-
-  const contentBytes =
-    encoder.encode(content);
-
-
-  const contentObject =
-    concatUint8Arrays([
-
-      encoder.encode(
-        "<< /Length " +
-        contentBytes.length +
-        " >>\nstream\n"
-      ),
-
-      contentBytes,
-
-      encoder.encode(
-        "endstream"
+    addBytes(
+      ascii(
+        "2 0 obj\n" +
+        "<< /Type /Pages /Kids [3 0 R] /Count 1 >>\n" +
+        "endobj\n"
       )
-
-    ]);
-
-
-  objects.push(contentObject);
-
-
-  /*
-   * Build PDF objects and xref.
-   */
-
-  const chunks = [];
-
-  const header =
-    encoder.encode(
-      "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"
     );
 
+    objectOffsets[3] =
+      position;
 
-  chunks.push(header);
-
-
-  const offsets =
-    [0];
-
-
-  let position =
-    header.length;
-
-
-  for(let i=0;i<objects.length;i++){
-
-    offsets.push(position);
-
-
-    const objectHeader =
-      encoder.encode(
-        (i+1) +
-        " 0 obj\n"
-      );
-
-
-    const objectEnd =
-      encoder.encode(
-        "\nendobj\n"
-      );
-
-
-    const object =
-      typeof objects[i] === "string"
-      ?
-      encoder.encode(objects[i])
-      :
-      objects[i];
-
-
-    chunks.push(
-      objectHeader,
-      object,
-      objectEnd
+    addBytes(
+      ascii(
+        "3 0 obj\n" +
+        `<< /Type /Page /Parent 2 0 R
+           /MediaBox [0 0 ${pageW} ${pageH}]
+           /Resources << /XObject << /Im0 4 0 R >> >>
+           /Contents 5 0 R >>
+         \nendobj\n`
+      )
     );
 
+    objectOffsets[4] =
+      position;
 
-    position +=
-      objectHeader.length +
-      object.length +
-      objectEnd.length;
-
-  }
-
-
-  const xrefPosition =
-    position;
-
-
-  let xref =
-    "xref\n" +
-    "0 " +
-    (objects.length+1) +
-    "\n";
-
-
-  xref +=
-    "0000000000 65535 f \n";
-
-
-  for(let i=1;i<offsets.length;i++){
-
-    xref +=
-      String(
-        offsets[i]
-      ).padStart(10,"0") +
-      " 00000 n \n";
-
-  }
-
-
-  xref +=
-    "trailer\n" +
-    "<< /Size " +
-    (objects.length+1) +
-    " /Root 1 0 R >>\n" +
-    "startxref\n" +
-    xrefPosition +
-    "\n%%EOF";
-
-
-  chunks.push(
-    encoder.encode(xref)
-  );
-
-
-  return concatUint8Arrays(chunks);
-
-}
-
-
-/* =========================================================
-   SHARE
-   ========================================================= */
-
-async function shareImage(){
-
-  if(!processedBlob){
-
-    showToast(
-      "Please process an image first."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const filename =
-      sanitizeFilename(
-        $("filename").value ||
-        "piklyzo-image"
-      ) +
-      "." +
-      getExtension(
-        processedBlob.type
+    const imageHeader =
+      ascii(
+        "4 0 obj\n" +
+        `<< /Type /XObject
+           /Subtype /Image
+           /Width ${imgW}
+           /Height ${imgH}
+           /ColorSpace /DeviceRGB
+           /BitsPerComponent 8
+           /Filter /DCTDecode
+           /Length ${binary.length} >>
+         \nstream\n`
       );
 
+    const imageFooter =
+      ascii(
+        "\nendstream\nendobj\n"
+      );
 
-    const file =
-      new File(
-        [processedBlob],
-        filename,
+    addBytes(imageHeader);
+    addBytes(binary);
+    addBytes(imageFooter);
+
+    objectOffsets[5] =
+      position;
+
+    const contentBytes =
+      ascii(
+        `q\n${drawW} 0 0 ${drawH} ${x} ${y} cm\n/Im0 Do\nQ\n`
+      );
+
+    addBytes(
+      ascii(
+        "5 0 obj\n" +
+        `<< /Length ${contentBytes.length} >>\nstream\n`
+      )
+    );
+
+    addBytes(
+      contentBytes
+    );
+
+    addBytes(
+      ascii(
+        "endstream\nendobj\n"
+      )
+    );
+
+    const xrefPosition =
+      position;
+
+    let xrefText =
+      `xref\n0 6\n`;
+
+    xrefText +=
+      "0000000000 65535 f \n";
+
+    for (
+      let i = 1;
+      i <= 5;
+      i++
+    ) {
+
+      xrefText +=
+        String(
+          objectOffsets[i]
+        ).padStart(
+          10,
+          "0"
+        ) +
+        " 00000 n \n";
+    }
+
+    xrefText +=
+      `trailer
+       << /Size 6 /Root 1 0 R >>
+       startxref
+       ${xrefPosition}
+       %%EOF`;
+
+    addBytes(
+      ascii(xrefText)
+    );
+
+    const totalLength =
+      objectParts.reduce(
+        (sum,part) =>
+          sum + part.length,
+        0
+      );
+
+    const finalBytes =
+      new Uint8Array(
+        totalLength
+      );
+
+    let offset = 0;
+
+    objectParts.forEach(
+      part => {
+
+        finalBytes.set(
+          part,
+          offset
+        );
+
+        offset +=
+          part.length;
+      }
+    );
+
+    const pdfBlob =
+      new Blob(
+        [finalBytes],
         {
-          type:processedBlob.type
+          type:
+            "application/pdf"
         }
       );
 
+    const url =
+      URL.createObjectURL(
+        pdfBlob
+      );
 
-    if(
-      navigator.share &&
-      (!navigator.canShare ||
-       navigator.canShare({files:[file]}))
-    ){
+    const a =
+      document.createElement("a");
 
-      await navigator.share({
-        title:"Piklyzo",
-        text:"Image processed with Piklyzo.",
-        files:[file]
-      });
+    a.href = url;
 
+    a.download =
+      cleanFileName(
+        filename.value ||
+        "piklyzo-image"
+      ) +
+      ".pdf";
 
-      return;
+    document.body.appendChild(a);
 
-    }
+    a.click();
 
+    a.remove();
 
-    showToast(
-      "File sharing is not supported here. Download the image instead."
+    setTimeout(
+      () =>
+        URL.revokeObjectURL(url),
+      1000
     );
 
-
-  }catch(error){
-
-    if(error.name === "AbortError"){
-      return;
-    }
-
-    console.error(error);
-
     showToast(
-      "Sharing failed."
+      "PDF created successfully."
     );
 
+  } catch(e) {
+
+    console.error(e);
+
+    showToast(
+      "Unable to create PDF."
+    );
   }
-
 }
 
 
 /* =========================================================
-   COPY IMAGE
-   ========================================================= */
+   BEFORE / AFTER SLIDER
+========================================================= */
 
-async function copyImage(){
+compareSlider.addEventListener(
+  "input",
+  () => {
 
-  if(!processedBlob){
-
-    showToast(
-      "Please process an image first."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    if(
-      !navigator.clipboard ||
-      typeof ClipboardItem === "undefined"
-    ){
-
-      throw new Error(
-        "Clipboard image API unavailable."
+    const value =
+      Number(
+        compareSlider.value
       );
 
-    }
+    compareAfter.style.clipPath =
+      `inset(0 0 0 ${value}%)`;
 
-
-    const item =
-      new ClipboardItem({
-        [processedBlob.type]:
-          processedBlob
-      });
-
-
-    await navigator.clipboard.write([
-      item
-    ]);
-
-
-    showToast(
-      "Image copied to clipboard!"
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "Copy is not supported by this browser."
-    );
-
+    compareLine.style.left =
+      value + "%";
   }
-
-}
+);
 
 
 /* =========================================================
    RESET
-   ========================================================= */
+========================================================= */
 
-function resetAll(){
+resetBtn.addEventListener(
+  "click",
+  () => {
 
-  /*
-   * Revoke processed URL.
-   */
+    originalFile = null;
+    originalImage = null;
+    processedBlob = null;
 
-  if(processedURL){
+    if (originalURL) {
 
-    URL.revokeObjectURL(
-      processedURL
+      URL.revokeObjectURL(
+        originalURL
+      );
+
+      originalURL = null;
+    }
+
+    if (processedURL) {
+
+      URL.revokeObjectURL(
+        processedURL
+      );
+
+      processedURL = null;
+    }
+
+    fileInput.value = "";
+
+    widthInput.value = "";
+    heightInput.value = "";
+
+    targetKB.value = "";
+
+    filename.value =
+      "piklyzo-image";
+
+    originalPreview.removeAttribute(
+      "src"
     );
 
-    processedURL=null;
+    processedPreview.removeAttribute(
+      "src"
+    );
 
+    compareBefore.removeAttribute(
+      "src"
+    );
+
+    compareAfter.removeAttribute(
+      "src"
+    );
+
+    previewWrap.style.display =
+      "none";
+
+    compare.style.display =
+      "none";
+
+    status.style.display =
+      "none";
+
+    progress.style.width =
+      "0%";
+
+    rotation = 0;
+    flipX = 1;
+    flipY = 1;
+
+    originalSize.textContent =
+      "—";
+
+    newSize.textContent =
+      "—";
+
+    reduction.textContent =
+      "—";
+
+    dimensions.textContent =
+      "—";
+
+    outputFormat.textContent =
+      "—";
+
+    showToast(
+      "Piklyzo has been reset."
+    );
   }
+);
 
 
-  originalImage=null;
-  originalFile=null;
-  processedBlob=null;
+/* =========================================================
+   HELPERS
+========================================================= */
 
-  originalWidth=0;
-  originalHeight=0;
+function clamp(value) {
 
-
-  $("fileInput").value="";
-
-  $("controls").style.display="none";
-
-  $("fileInfo").style.display="none";
-
-  $("previewArea").innerHTML =
-    '<span style="color:var(--muted)">Your processed image will appear here.</span>';
-
-
-  $("originalSize").textContent="-";
-  $("newSize").textContent="-";
-  $("reduction").textContent="-";
-  $("dimensions").textContent="-";
-  $("outputFormat").textContent="-";
-
-
-  $("targetKB").value=100;
-  $("quality").value=85;
-  $("qualityValue").textContent="85%";
-
-
-  $("filename").value="piklyzo-image";
-
-
-  $("bgRemoveToggle").checked=false;
-  $("bgOptions").style.display="none";
-
-
-  $("stampToggle").checked=false;
-  $("stampOptions").style.display="none";
-
-
-  $("borderToggle").checked=false;
-  $("borderOptions").style.display="none";
-
-
-  $("watermarkToggle").checked=false;
-  $("watermarkOptions").style.display="none";
-
-
-  $("fullName").value="";
-  $("stampDate").value="";
-
-
-  $("borderWidth").value=5;
-
-
-  $("watermarkText").value="";
-
-
-  hideProgress();
-
-
-  showToast(
-    "All settings have been reset."
+  return Math.max(
+    0,
+    Math.min(
+      255,
+      Math.round(value)
+    )
   );
-
 }
 
 
-/* =========================================================
-   PROGRESS
-   ========================================================= */
+function formatBytes(bytes) {
 
-function showProgress(percent,text){
+  if (!bytes)
+    return "0 B";
 
-  $("progressWrap").style.display="block";
+  const units =
+    [
+      "B",
+      "KB",
+      "MB",
+      "GB"
+    ];
 
-  $("progressFill").style.width =
-    Math.max(
-      0,
-      Math.min(100,percent)
-    ) +
-    "%";
+  const index =
+    Math.floor(
+      Math.log(bytes) /
+      Math.log(1024)
+    );
 
-  $("progressText").textContent =
-    text;
-
-}
-
-
-function hideProgress(){
-
-  $("progressWrap").style.display="none";
-
-  $("progressFill").style.width="0%";
-
-}
-
-
-/* =========================================================
-   UTILITIES
-   ========================================================= */
-
-function formatBytes(bytes){
-
-  if(!Number.isFinite(bytes)){
-    return "0 KB";
-  }
-
-
-  if(bytes < 1024){
-
-    return bytes.toFixed(0) +
-      " B";
-
-  }
-
-
-  if(bytes < 1024*1024){
-
-    return (
-      bytes/1024
-    ).toFixed(1) +
-      " KB";
-
-  }
-
+  const safeIndex =
+    Math.min(
+      index,
+      units.length - 1
+    );
 
   return (
-    bytes/(1024*1024)
-  ).toFixed(2) +
-    " MB";
-
+    bytes /
+    Math.pow(
+      1024,
+      safeIndex
+    )
+  ).toFixed(
+    safeIndex === 0 ? 0 : 2
+  ) +
+  " " +
+  units[safeIndex];
 }
 
 
-function getExtension(type){
+function mimeLabel(type) {
 
-  if(type === "image/png"){
+  if (type === "image/jpeg")
+    return "JPG";
+
+  if (type === "image/png")
+    return "PNG";
+
+  if (type === "image/webp")
+    return "WebP";
+
+  return type;
+}
+
+
+function mimeExtension(type) {
+
+  if (type === "image/jpeg")
+    return "jpg";
+
+  if (type === "image/png")
     return "png";
-  }
 
-  if(type === "image/webp"){
+  if (type === "image/webp")
     return "webp";
-  }
 
   return "jpg";
-
 }
 
 
-function sanitizeFilename(name){
+function cleanFileName(name) {
 
   return String(name)
     .trim()
-    .replace(/\.[^/.]+$/,"")
-    .replace(/[<>:"/\\|?*\x00-\x1F]/g,"-")
-    .replace(/\s+/g,"-")
-    .slice(0,100) ||
-    "piklyzo-image";
-
+    .replace(
+      /[<>:"/\\|?*\x00-\x1F]/g,
+      "_"
+    )
+    .replace(
+      /\s+/g,
+      "-"
+    )
+    .slice(
+      0,
+      100
+    );
 }
 
 
-function escapeHTML(value){
+function hexToRgb(hex) {
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function concatUint8Arrays(arrays){
-
-  let total=0;
-
-  arrays.forEach(arr => {
-    total += arr.length;
-  });
-
-
-  const result =
-    new Uint8Array(total);
-
-
-  let offset=0;
-
-
-  arrays.forEach(arr => {
-
-    result.set(
-      arr,
-      offset
+  const clean =
+    hex.replace(
+      "#",
+      ""
     );
 
-    offset +=
-      arr.length;
+  return [
+    parseInt(
+      clean.substring(0,2),
+      16
+    ),
+    parseInt(
+      clean.substring(2,4),
+      16
+    ),
+    parseInt(
+      clean.substring(4,6),
+      16
+    )
+  ];
+}
 
-  });
 
+function binaryToString(bytes) {
+
+  let result = "";
+
+  const chunk = 0x8000;
+
+  for (
+    let i = 0;
+    i < bytes.length;
+    i += chunk
+  ) {
+
+    result +=
+      String.fromCharCode(
+        ...bytes.subarray(
+          i,
+          Math.min(
+            i + chunk,
+            bytes.length
+          )
+        )
+      );
+  }
 
   return result;
-
 }
 
 
-let toastTimer=null;
+/* =========================================================
+   YEAR
+========================================================= */
+
+$("year").textContent =
+  new Date().getFullYear();
 
 
-function showToast(message){
+/* =========================================================
+   CLEANUP
+========================================================= */
 
-  let toast =
-    document.getElementById("toast");
+window.addEventListener(
+  "beforeunload",
+  () => {
 
+    if (originalURL)
+      URL.revokeObjectURL(
+        originalURL
+      );
 
-  if(!toast){
-
-    toast =
-      document.createElement("div");
-
-    toast.id="toast";
-
-    toast.className="toast";
-
-    document.body.appendChild(
-      toast
-    );
-
+    if (processedURL)
+      URL.revokeObjectURL(
+        processedURL
+      );
   }
+);
 
-
-  toast.textContent =
-    message;
-
-  toast.classList.add("show");
-
-
-  if(toastTimer){
-    clearTimeout(toastTimer);
-  }
-
-
-  toastTimer =
-    setTimeout(
-      () => {
-        toast.classList.remove("show");
-      },
-      3000
-    );
-
-}
 </script>
 
 </body>
