@@ -2,23 +2,23 @@
 <html lang="en-US">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#2563eb">
 
 <title>Piklyzo – Free Image Compressor, Resizer & Form Photo Maker</title>
 
-<meta name="description" content="Piklyzo is a free browser-based image compressor, resizer and form photo maker. Compress images to a target KB size, resize photos, add name and date stamps, borders and simple background cleanup. No sign-up required.">
+<meta name="description" content="Piklyzo is a free browser-based image compressor, resizer and form photo maker. Resize photos, reduce JPG and WebP file sizes, add name and date stamps, borders, and simple background cleanup.">
 
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
 <link rel="canonical" href="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
 
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Piklyzo">
 <meta property="og:title" content="Piklyzo – Free Image Compressor, Resizer & Form Photo Maker">
 <meta property="og:description" content="Compress, resize and edit images directly in your browser. Add name, date, borders and simple background cleanup.">
 <meta property="og:url" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
 <meta property="og:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
-<meta property="og:site_name" content="Piklyzo">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Piklyzo – Free Image Compressor, Resizer & Form Photo Maker">
@@ -65,8 +65,8 @@
   --primary-dark:#1d4ed8;
   --soft:#eff6ff;
   --danger:#dc2626;
-  --shadow:0 12px 35px rgba(0,0,0,.08);
-  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,.07);
+  --radius:16px;
 }
 
 [data-theme="dark"]{
@@ -76,7 +76,7 @@
   --muted:#9aa8bf;
   --line:#29364c;
   --soft:#13233e;
-  --shadow:0 12px 35px rgba(0,0,0,.3);
+  --shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 *{
@@ -95,9 +95,7 @@ body{
   line-height:1.55;
 }
 
-button,
-input,
-select{
+button,input,select{
   font:inherit;
 }
 
@@ -115,7 +113,7 @@ a{
 }
 
 .container{
-  width:min(1120px,92%);
+  width:min(1100px,92%);
   margin:auto;
 }
 
@@ -124,48 +122,48 @@ a{
 header{
   position:sticky;
   top:0;
-  z-index:20;
+  z-index:30;
   background:var(--card);
   border-bottom:1px solid var(--line);
 }
 
 .nav{
-  min-height:68px;
+  min-height:64px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  gap:12px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:9px;
   color:var(--text);
-  font-size:21px;
+  font-size:20px;
   font-weight:800;
 }
 
 .brand img{
-  width:40px;
-  height:40px;
-  border-radius:10px;
+  width:38px;
+  height:38px;
+  border-radius:9px;
   object-fit:cover;
 }
 
 .navlinks{
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:5px;
 }
 
 .navlinks a,
 .theme{
-  padding:8px 11px;
+  padding:8px 10px;
   border:0;
-  border-radius:10px;
-  background:transparent;
+  border-radius:9px;
   color:var(--muted);
+  background:transparent;
 }
 
 .navlinks a:hover,
@@ -178,20 +176,20 @@ header{
 
 .hero{
   text-align:center;
-  padding:55px 0 30px;
+  padding:45px 0 25px;
 }
 
 .hero h1{
   max-width:850px;
-  margin:0 auto 15px;
-  font-size:clamp(30px,5vw,52px);
+  margin:0 auto 14px;
+  font-size:clamp(30px,5vw,50px);
   line-height:1.08;
-  letter-spacing:-1.5px;
+  letter-spacing:-1.4px;
 }
 
 .hero p{
-  max-width:760px;
-  margin:0 auto 20px;
+  max-width:750px;
+  margin:0 auto 18px;
   color:var(--muted);
   font-size:17px;
 }
@@ -200,29 +198,29 @@ header{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
-  gap:8px;
+  gap:7px;
 }
 
 .badge{
-  padding:6px 11px;
+  padding:5px 10px;
   border-radius:999px;
   background:var(--soft);
-  border:1px solid #bfdbfe;
   color:var(--primary);
-  font-size:13px;
+  border:1px solid #bfdbfe;
+  font-size:12px;
   font-weight:700;
 }
 
-/* AD AREA */
+/* ADS */
 
-.ad{
-  min-height:55px;
+.ad-space{
+  min-height:40px;
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--muted);
-  font-size:11px;
-  margin:15px auto;
+  font-size:10px;
+  margin:10px auto;
 }
 
 /* APP */
@@ -230,7 +228,7 @@ header{
 .app{
   display:grid;
   grid-template-columns:1.25fr .75fr;
-  gap:20px;
+  gap:18px;
   align-items:start;
 }
 
@@ -242,16 +240,16 @@ header{
 }
 
 .card-body{
-  padding:20px;
+  padding:18px;
 }
 
 /* UPLOAD */
 
 .drop{
-  padding:30px 18px;
+  padding:28px 15px;
   text-align:center;
   border:2px dashed #9db5d9;
-  border-radius:16px;
+  border-radius:14px;
   background:var(--soft);
   transition:.2s;
 }
@@ -263,22 +261,22 @@ header{
 
 .drop strong{
   display:block;
-  margin-bottom:6px;
-  font-size:19px;
+  margin-bottom:5px;
+  font-size:18px;
 }
 
 .drop small{
   color:var(--muted);
 }
 
-.file-button{
+.file-btn{
   display:inline-block;
-  margin-top:15px;
-  padding:11px 16px;
-  border-radius:11px;
+  margin-top:14px;
+  padding:10px 15px;
+  border-radius:10px;
   background:var(--primary);
-  color:#fff;
-  font-weight:750;
+  color:white;
+  font-weight:700;
   cursor:pointer;
 }
 
@@ -287,14 +285,14 @@ header{
 .controls{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:13px;
-  margin-top:18px;
+  gap:12px;
+  margin-top:16px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
 }
 
 .full{
@@ -303,7 +301,7 @@ header{
 
 label{
   font-size:13px;
-  font-weight:750;
+  font-weight:700;
 }
 
 input[type="text"],
@@ -311,9 +309,10 @@ input[type="number"],
 input[type="date"],
 select{
   width:100%;
-  padding:10px 11px;
+  min-height:42px;
+  padding:9px 10px;
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:9px;
   outline:none;
   background:var(--card);
   color:var(--text);
@@ -322,20 +321,20 @@ select{
 input:focus,
 select:focus{
   border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--primary);
 }
 
 input[type="color"]{
   width:100%;
   height:42px;
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:9px;
   background:var(--card);
-}
-
-input[type="range"]{
-  width:100%;
-  accent-color:var(--primary);
 }
 
 .check{
@@ -350,25 +349,31 @@ input[type="range"]{
   width:auto;
 }
 
+.notice{
+  margin:9px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
 /* BUTTONS */
 
 .actions{
   display:flex;
   flex-wrap:wrap;
-  gap:9px;
-  margin-top:15px;
+  gap:8px;
+  margin-top:14px;
 }
 
 .btn{
   border:0;
-  border-radius:11px;
-  padding:11px 15px;
+  border-radius:10px;
+  padding:10px 14px;
   font-weight:750;
 }
 
 .primary{
   background:var(--primary);
-  color:#fff;
+  color:white;
 }
 
 .primary:hover{
@@ -381,10 +386,6 @@ input[type="range"]{
   border:1px solid #bfdbfe;
 }
 
-.secondary:hover{
-  filter:brightness(.97);
-}
-
 .btn:disabled{
   opacity:.5;
   cursor:not-allowed;
@@ -393,18 +394,18 @@ input[type="range"]{
 /* PREVIEW */
 
 .preview{
-  min-height:330px;
+  min-height:320px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:18px;
+  padding:15px;
   overflow:hidden;
-  border-radius:15px;
+  border-radius:13px;
   background:
     repeating-conic-gradient(
-      #eef1f5 0 25%,
+      #edf0f4 0 25%,
       #fff 0 50%
-    ) 50%/22px 22px;
+    ) 50%/20px 20px;
 }
 
 [data-theme="dark"] .preview{
@@ -412,21 +413,20 @@ input[type="range"]{
     repeating-conic-gradient(
       #182235 0 25%,
       #101827 0 50%
-    ) 50%/22px 22px;
+    ) 50%/20px 20px;
 }
 
 .preview img{
   display:block;
   max-width:100%;
-  max-height:520px;
+  max-height:500px;
   object-fit:contain;
-  border-radius:4px;
 }
 
 .empty{
-  color:var(--muted);
+  padding:35px 10px;
   text-align:center;
-  padding:40px 10px;
+  color:var(--muted);
 }
 
 /* STATS */
@@ -434,40 +434,40 @@ input[type="range"]{
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:9px;
-  margin-top:12px;
+  gap:7px;
+  margin-top:10px;
 }
 
 .stat{
-  padding:11px 5px;
+  padding:9px 4px;
   border:1px solid var(--line);
-  border-radius:11px;
+  border-radius:9px;
   text-align:center;
 }
 
 .stat b{
   display:block;
-  font-size:15px;
+  font-size:14px;
 }
 
 .stat span{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 /* GALLERY */
 
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(105px,1fr));
-  gap:9px;
-  margin-top:15px;
+  grid-template-columns:repeat(auto-fill,minmax(95px,1fr));
+  gap:8px;
+  margin-top:13px;
 }
 
 .thumb{
+  padding:3px;
   border:1px solid var(--line);
-  border-radius:10px;
-  padding:4px;
+  border-radius:9px;
   background:var(--card);
   color:var(--text);
 }
@@ -481,7 +481,7 @@ input[type="range"]{
   aspect-ratio:1;
   object-fit:cover;
   display:block;
-  border-radius:7px;
+  border-radius:6px;
 }
 
 .thumb small{
@@ -490,23 +490,18 @@ input[type="range"]{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  font-size:10px;
 }
 
-/* TEXT */
-
-.notice{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-size:12px;
-}
+/* CONTENT */
 
 .section{
-  padding:42px 0;
+  padding:38px 0;
 }
 
 .section h2{
-  margin:0 0 10px;
-  font-size:28px;
+  margin:0 0 9px;
+  font-size:27px;
 }
 
 .section-intro{
@@ -516,18 +511,18 @@ input[type="range"]{
 .features{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:13px;
 }
 
 .feature{
-  padding:19px;
+  padding:17px;
   border:1px solid var(--line);
-  border-radius:15px;
+  border-radius:13px;
   background:var(--card);
 }
 
 .feature h3{
-  margin:0 0 6px;
+  margin:0 0 5px;
   font-size:17px;
 }
 
@@ -539,10 +534,10 @@ input[type="range"]{
 /* FAQ */
 
 .faq details{
-  margin:9px 0;
-  padding:14px 15px;
+  margin:8px 0;
+  padding:13px 14px;
   border:1px solid var(--line);
-  border-radius:12px;
+  border-radius:11px;
   background:var(--card);
 }
 
@@ -558,18 +553,53 @@ input[type="range"]{
 /* FOOTER */
 
 footer{
-  margin-top:25px;
-  padding:28px 0;
+  margin-top:20px;
+  padding:25px 0;
   border-top:1px solid var(--line);
 }
 
-.footer-inner{
+.footer{
   display:flex;
   justify-content:space-between;
-  gap:15px;
   flex-wrap:wrap;
+  gap:12px;
   color:var(--muted);
   font-size:13px;
+}
+
+/* LOADING */
+
+#loading{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.55);
+}
+
+.loading-box{
+  width:min(350px,90%);
+  padding:23px;
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
+  text-align:center;
+}
+
+.spinner{
+  width:34px;
+  height:34px;
+  margin:0 auto 12px;
+  border:4px solid var(--line);
+  border-top-color:var(--primary);
+  border-radius:50%;
+  animation:spin .75s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
 }
 
 /* TOAST */
@@ -577,15 +607,16 @@ footer{
 #toast{
   position:fixed;
   left:50%;
-  bottom:22px;
-  z-index:100;
+  bottom:20px;
+  z-index:120;
   transform:translate(-50%,20px);
   opacity:0;
   pointer-events:none;
-  padding:10px 15px;
+  max-width:90%;
+  padding:10px 14px;
   border-radius:10px;
   background:#111827;
-  color:#fff;
+  color:white;
   font-size:13px;
   transition:.2s;
 }
@@ -595,44 +626,10 @@ footer{
   transform:translate(-50%,0);
 }
 
-/* LOADING */
-
-#loading{
-  position:fixed;
-  inset:0;
-  z-index:90;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.55);
-}
-
-.loading-box{
-  width:min(360px,90%);
-  padding:25px;
-  border-radius:16px;
-  text-align:center;
-  background:var(--card);
-  color:var(--text);
-}
-
-.spinner{
-  width:36px;
-  height:36px;
-  margin:0 auto 12px;
-  border:4px solid var(--line);
-  border-top-color:var(--primary);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
 /* RESPONSIVE */
 
 @media(max-width:850px){
+
   .app{
     grid-template-columns:1fr;
   }
@@ -643,9 +640,6 @@ footer{
 }
 
 @media(max-width:600px){
-  .nav{
-    padding:10px 0;
-  }
 
   .navlinks a{
     display:none;
@@ -663,21 +657,20 @@ footer{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .card-body{
-    padding:14px;
-  }
-
   .features{
     grid-template-columns:1fr;
   }
 
-  .drop{
-    padding:24px 12px;
+  .card-body{
+    padding:14px;
   }
 }
 
 @media(prefers-reduced-motion:reduce){
-  *{
+
+  *,
+  *::before,
+  *::after{
     animation:none!important;
     transition:none!important;
     scroll-behavior:auto!important;
@@ -685,6 +678,7 @@ footer{
 }
 
 @media print{
+
   header,
   .hero,
   .controls,
@@ -692,7 +686,7 @@ footer{
   .gallery,
   .section,
   footer,
-  .ad,
+  .ad-space,
   .notice,
   #loading,
   #toast{
@@ -700,7 +694,7 @@ footer{
   }
 
   body{
-    background:#fff;
+    background:white;
   }
 
   .card{
@@ -709,7 +703,7 @@ footer{
   }
 
   .preview{
-    background:#fff;
+    background:white;
   }
 }
 </style>
@@ -723,8 +717,8 @@ footer{
     <a class="brand" href="./" aria-label="Piklyzo home">
       <img
         src="logo.png"
-        width="40"
-        height="40"
+        width="38"
+        height="38"
         alt="Piklyzo logo"
       >
       <span>Piklyzo</span>
@@ -746,6 +740,7 @@ footer{
   </div>
 </header>
 
+
 <main>
 
 <section class="hero container">
@@ -755,9 +750,8 @@ footer{
   </h1>
 
   <p>
-    Compress images to a smaller file size, resize photos,
-    add name and date stamps, borders, and simple background
-    cleanup — right in your browser.
+    Compress images, resize photos, add name and date stamps,
+    borders, and simple background cleanup directly in your browser.
   </p>
 
   <div class="badges">
@@ -769,37 +763,38 @@ footer{
 
 </section>
 
-<div class="container ad">
+
+<div class="container ad-space">
   Advertisement
 </div>
 
+
 <section class="container app" id="tool">
 
-<!-- LEFT SIDE -->
+<!-- EDITOR -->
 
 <div class="card card-body">
 
   <div class="drop" id="dropArea">
 
     <strong>
-      Choose photos or drop them here
+      Choose images or drop them here
     </strong>
 
     <small>
-      JPG, JPEG, PNG, WebP and common browser-supported image formats.
-      Maximum 30 MB per image.
+      JPG, JPEG, PNG and WebP. Maximum 30 MB per image.
     </small>
 
     <br>
 
-    <label class="file-button">
+    <label class="file-btn">
 
       Choose Images
 
       <input
         id="fileInput"
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp,image/*"
         multiple
         hidden
       >
@@ -807,6 +802,7 @@ footer{
     </label>
 
   </div>
+
 
   <div class="controls">
 
@@ -861,15 +857,22 @@ footer{
 
 
     <label class="check full">
-      <input id="keepRatio" type="checkbox" checked>
-      Keep original aspect ratio
+
+      <input
+        id="keepRatio"
+        type="checkbox"
+        checked
+      >
+
+      Keep aspect ratio
+
     </label>
 
 
     <div class="field full">
 
       <label for="quality">
-        Image quality:
+        Quality:
         <span id="qualityText">85%</span>
       </label>
 
@@ -894,7 +897,7 @@ footer{
         id="filename"
         type="text"
         value="piklyzo-image"
-        maxlength="80"
+        maxlength="70"
       >
 
     </div>
@@ -909,8 +912,8 @@ footer{
       <input
         id="nameStamp"
         type="text"
-        placeholder="Optional name"
         maxlength="80"
+        placeholder="Optional name"
       >
 
     </div>
@@ -940,7 +943,7 @@ footer{
         id="stampSize"
         type="number"
         min="8"
-        max="200"
+        max="150"
         value="28"
       >
 
@@ -1038,7 +1041,7 @@ footer{
       <input
         id="threshold"
         type="range"
-        min="10"
+        min="5"
         max="100"
         value="40"
       >
@@ -1065,7 +1068,6 @@ footer{
       Process Image
     </button>
 
-
     <button
       class="btn secondary"
       id="processAllBtn"
@@ -1073,7 +1075,6 @@ footer{
     >
       Process All
     </button>
-
 
     <button
       class="btn secondary"
@@ -1083,7 +1084,6 @@ footer{
       Reset
     </button>
 
-
     <button
       class="btn secondary"
       id="shareBtn"
@@ -1091,7 +1091,6 @@ footer{
     >
       Share
     </button>
-
 
     <button
       class="btn secondary"
@@ -1105,9 +1104,9 @@ footer{
 
 
   <p class="notice">
-    Target size is an approximate goal. JPG and WebP compression
-    can vary by image. PNG uses lossless encoding, so an exact
-    target KB size cannot be guaranteed.
+    Target KB is an approximate goal. File size depends on
+    image content, dimensions and output format. PNG is
+    lossless and cannot guarantee a target KB size.
   </p>
 
 
@@ -1120,7 +1119,7 @@ footer{
 </div>
 
 
-<!-- RIGHT SIDE -->
+<!-- PREVIEW -->
 
 <aside class="card card-body">
 
@@ -1169,7 +1168,6 @@ footer{
       Download Image
     </button>
 
-
     <button
       class="btn secondary"
       id="copyBtn"
@@ -1183,8 +1181,8 @@ footer{
 
 
   <p class="notice">
-    Image editing is performed locally in your browser.
-    The editor does not need to upload your selected image
+    Image processing happens locally in your browser.
+    The editor does not need to upload selected images
     to a processing server.
   </p>
 
@@ -1193,30 +1191,28 @@ footer{
 </section>
 
 
-<div class="container ad">
+<div class="container ad-space">
   Advertisement
 </div>
 
 
 <section class="section container" id="features">
 
-  <h2>
-    What you can do with Piklyzo
-  </h2>
+  <h2>Free image tools in Piklyzo</h2>
 
   <p class="section-intro">
-    Piklyzo provides lightweight browser-based image tools
-    for everyday photo and document preparation.
+    Piklyzo is a lightweight browser-based image utility
+    for preparing photos and documents for everyday use.
   </p>
 
 
   <div class="features">
 
     <article class="feature">
-      <h3>Image Compression</h3>
+      <h3>Image Compressor</h3>
       <p>
-        Reduce JPG and WebP image file sizes toward a
-        selected KB target.
+        Reduce JPG and WebP file sizes toward a selected
+        KB target without sending the image to a server.
       </p>
     </article>
 
@@ -1224,8 +1220,8 @@ footer{
     <article class="feature">
       <h3>Image Resizer</h3>
       <p>
-        Set custom image width and height while optionally
-        preserving the original aspect ratio.
+        Set custom width and height in pixels and optionally
+        preserve the original aspect ratio.
       </p>
     </article>
 
@@ -1233,8 +1229,8 @@ footer{
     <article class="feature">
       <h3>Form Photo Maker</h3>
       <p>
-        Add a name, date and professional border to photos
-        used for applications and forms.
+        Add a name, date and border to a photo before using
+        it for an application or form.
       </p>
     </article>
 
@@ -1242,25 +1238,26 @@ footer{
     <article class="feature">
       <h3>Background Cleanup</h3>
       <p>
-        Replace similar corner-background colors with white,
-        light blue or transparency.
+        Replace similar background colors with white,
+        light blue or transparency using a lightweight
+        color-threshold method.
       </p>
     </article>
 
 
     <article class="feature">
-      <h3>Batch Processing</h3>
+      <h3>Multiple Images</h3>
       <p>
-        Select multiple images and process them using the
+        Select several images and process them with the
         same settings.
       </p>
     </article>
 
 
     <article class="feature">
-      <h3>JPG, PNG &amp; WebP</h3>
+      <h3>JPG, PNG and WebP</h3>
       <p>
-        Export processed images in common modern image formats.
+        Export images in commonly supported image formats.
       </p>
     </article>
 
@@ -1271,26 +1268,22 @@ footer{
 
 <section class="section container" id="how">
 
-  <h2>
-    How to use Piklyzo
-  </h2>
-
+  <h2>How to use Piklyzo</h2>
 
   <div class="features">
 
     <article class="feature">
-      <h3>1. Select an image</h3>
+      <h3>1. Choose your image</h3>
       <p>
-        Choose one or multiple images from your phone,
-        tablet or computer.
+        Select one or multiple photos from your device.
       </p>
     </article>
 
 
     <article class="feature">
-      <h3>2. Choose your settings</h3>
+      <h3>2. Adjust the settings</h3>
       <p>
-        Set KB size, dimensions, format, quality,
+        Choose the target size, dimensions, format, quality,
         name, date, border or background options.
       </p>
     </article>
@@ -1299,8 +1292,8 @@ footer{
     <article class="feature">
       <h3>3. Process and download</h3>
       <p>
-        Process the image, check the preview and download
-        the final file.
+        Process the image, review the result and download
+        the finished file.
       </p>
     </article>
 
@@ -1309,135 +1302,121 @@ footer{
 </section>
 
 
-<section class="section container faq" id="faq">
+<section class="section container" id="faq">
 
-  <h2>
-    Frequently Asked Questions
-  </h2>
+  <h2>Frequently Asked Questions</h2>
 
+  <div class="faq">
 
-  <details>
-    <summary>
-      Is Piklyzo free?
-    </summary>
+    <details>
+      <summary>Is Piklyzo free?</summary>
 
-    <p>
-      Yes. Piklyzo is designed as a free browser-based
-      image utility and does not require an account.
-    </p>
-  </details>
+      <p>
+        Yes. Piklyzo is designed as a free browser-based
+        image utility and does not require an account.
+      </p>
+    </details>
 
 
-  <details>
-    <summary>
-      Are my photos uploaded?
-    </summary>
+    <details>
+      <summary>Are my images uploaded?</summary>
 
-    <p>
-      The image editor processes selected images locally
-      in your browser. The editing process does not require
-      uploading the selected image to a processing server.
-    </p>
-  </details>
+      <p>
+        The image editor processes selected images locally
+        in your browser. The editing process does not require
+        sending the selected image to a processing server.
+      </p>
+    </details>
 
 
-  <details>
-    <summary>
-      Can Piklyzo create an exact KB file?
-    </summary>
+    <details>
+      <summary>Can Piklyzo make an exact KB file?</summary>
 
-    <p>
-      Piklyzo works toward the target size you enter,
-      but exact file size cannot always be guaranteed because
-      encoding depends on image content, dimensions and format.
-    </p>
-  </details>
-
-
-  <details>
-    <summary>
-      Can I resize an image?
-    </summary>
-
-    <p>
-      Yes. Enter the desired width and height in pixels.
-      You can keep the original aspect ratio if needed.
-    </p>
-  </details>
+      <p>
+        Piklyzo works toward the requested target size,
+        but an exact file size cannot always be guaranteed.
+        Image content, dimensions and encoding format affect
+        the final file size.
+      </p>
+    </details>
 
 
-  <details>
-    <summary>
-      Does background cleanup use AI?
-    </summary>
+    <details>
+      <summary>Can I resize an image?</summary>
 
-    <p>
-      No. The lightweight background cleanup uses a color
-      threshold based on pixels sampled from the image corners.
-      It is not an AI subject-segmentation system.
-    </p>
-  </details>
+      <p>
+        Yes. You can enter the desired width and height in
+        pixels. The aspect-ratio option can keep the original
+        proportions.
+      </p>
+    </details>
 
 
-  <details>
-    <summary>
-      Can I save the image as PDF?
-    </summary>
+    <details>
+      <summary>Is the background remover AI?</summary>
 
-    <p>
-      Yes. Process the image and choose Print / Save PDF.
-      Your browser's print dialog can then be used to save
-      the result as a PDF.
-    </p>
-  </details>
+      <p>
+        No. The built-in background cleanup is a lightweight
+        color-threshold tool. It is not an AI subject
+        segmentation system.
+      </p>
+    </details>
 
 
-  <details>
-    <summary>
-      Does Piklyzo work on mobile phones?
-    </summary>
+    <details>
+      <summary>Can I make a PDF?</summary>
 
-    <p>
-      Yes. The interface is responsive and is designed to
-      work in modern mobile and desktop browsers.
-    </p>
-  </details>
+      <p>
+        Yes. After processing an image, use Print / Save PDF.
+        Your browser's print dialog can save the result as PDF.
+      </p>
+    </details>
+
+
+    <details>
+      <summary>Does Piklyzo work on phones?</summary>
+
+      <p>
+        Yes. The interface is responsive and is designed for
+        modern mobile, tablet and desktop browsers.
+      </p>
+    </details>
+
+  </div>
 
 </section>
 
 
 <section class="section container">
 
-  <h2>
-    Privacy
-  </h2>
+  <h2>Privacy</h2>
 
   <p class="section-intro">
-    Piklyzo's image editor is designed around browser-side
-    processing. Selected images are read by your browser
-    for editing and export. You should always review the
-    final file before submitting an important document.
+    Piklyzo's image editor is designed for browser-side
+    processing. Images selected for editing are read by the
+    browser and processed locally. The image editor does not
+    require users to upload their photos to a processing
+    server. Users should still avoid processing sensitive
+    documents on devices they do not trust.
   </p>
 
 
-  <h2>
-    Terms
-  </h2>
+  <h2>Terms of Use</h2>
 
   <p class="section-intro">
-    You are responsible for the images and documents you
-    process and for checking the requirements of the
-    organization receiving your final file.
+    Piklyzo is provided as a general-purpose image utility.
+    Users are responsible for checking the dimensions,
+    file size, format and other requirements of the
+    organization receiving their final image.
   </p>
 
 
-  <h2>
-    Contact
-  </h2>
+  <h2>Contact</h2>
 
   <p class="section-intro">
-    For website feedback or technical issues, use the
-    contact information published with the Piklyzo project.
+    For feedback or technical issues concerning Piklyzo,
+    use the contact information associated with the
+    Piklyzo project.
   </p>
 
 </section>
@@ -1447,7 +1426,7 @@ footer{
 
 <footer>
 
-  <div class="container footer-inner">
+  <div class="container footer">
 
     <span>
       © <span id="year"></span> Piklyzo. All rights reserved.
@@ -1462,7 +1441,7 @@ footer{
 </footer>
 
 
-<!-- LOADING -->
+<!-- PROCESSING SCREEN -->
 
 <div id="loading" aria-live="polite">
 
@@ -1473,10 +1452,6 @@ footer{
     <strong id="loadingText">
       Processing image...
     </strong>
-
-    <p>
-      Please keep this tab open.
-    </p>
 
   </div>
 
@@ -1489,20 +1464,11 @@ footer{
 <script>
 "use strict";
 
-/* =========================
-   BASIC HELPERS
-========================= */
+/* ================================
+   ELEMENTS
+================================ */
 
 const $ = id => document.getElementById(id);
-
-const state = {
-  files: [],
-  selected: 0,
-  image: null,
-  result: null,
-  resultURL: null
-};
-
 
 const el = {
   fileInput:$("fileInput"),
@@ -1558,11 +1524,24 @@ const el = {
 };
 
 
-/* =========================
-   TOAST
-========================= */
+/* ================================
+   STATE
+================================ */
 
-let toastTimer;
+const state = {
+  files:[],
+  selected:0,
+  image:null,
+  result:null,
+  resultURL:null
+};
+
+
+/* ================================
+   TOAST
+================================ */
+
+let toastTimer=null;
 
 function toast(message){
 
@@ -1579,43 +1558,44 @@ function toast(message){
 }
 
 
-/* =========================
+/* ================================
    LOADING
-========================= */
+================================ */
 
-function loading(show,text="Processing image..."){
+function setLoading(show,message){
 
-  el.loadingText.textContent=text;
+  el.loadingText.textContent=
+    message || "Processing image...";
 
   el.loading.style.display=
     show ? "flex" : "none";
 }
 
 
-/* =========================
-   BYTE FORMAT
-========================= */
+/* ================================
+   FILE SIZE
+================================ */
 
 function formatBytes(bytes){
 
   if(!Number.isFinite(bytes))
     return "—";
 
-  if(bytes < 1024)
+  if(bytes<1024)
     return bytes+" B";
 
-  if(bytes < 1024*1024)
+  if(bytes<1048576)
     return (bytes/1024).toFixed(1)+" KB";
 
-  return (bytes/1024/1024).toFixed(2)+" MB";
+  return (bytes/1048576).toFixed(2)+" MB";
 }
 
 
-/* =========================
-   FILE EXTENSION
-========================= */
+/* ================================
+   EXTENSION
+================================ */
 
-function extension(type){
+function getExtension(type){
 
   if(type==="image/png")
     return "png";
@@ -1627,16 +1607,16 @@ function extension(type){
 }
 
 
-/* =========================
-   SAFE FILENAME
-========================= */
+/* ================================
+   SAFE NAME
+================================ */
 
-function safeFilename(name){
+function safeName(name){
 
   let value=(name || "piklyzo-image")
     .trim()
     .replace(/\.[^/.]+$/,"")
-    .replace(/[^\w\- ]+/g,"")
+    .replace(/[^\w -]/g,"")
     .replace(/\s+/g,"-")
     .slice(0,70);
 
@@ -1644,46 +1624,46 @@ function safeFilename(name){
 }
 
 
-/* =========================
+/* ================================
    DATE
-========================= */
+================================ */
 
 function setToday(){
 
   if(el.dateStamp.value)
     return;
 
-  const date=new Date();
+  const d=new Date();
 
-  const iso=
+  const local=
     new Date(
-      date.getTime()-
-      date.getTimezoneOffset()*60000
-    )
-    .toISOString()
-    .slice(0,10);
+      d.getTime()-
+      d.getTimezoneOffset()*60000
+    );
 
-  el.dateStamp.value=iso;
+  el.dateStamp.value=
+    local.toISOString().slice(0,10);
 }
 
 setToday();
 
 
-/* =========================
+/* ================================
    YEAR
-========================= */
+================================ */
 
 $("year").textContent=
   new Date().getFullYear();
 
 
-/* =========================
+/* ================================
    DARK MODE
-========================= */
+================================ */
 
 function setTheme(theme){
 
-  document.documentElement.dataset.theme=theme;
+  document.documentElement
+    .setAttribute("data-theme",theme);
 
   localStorage.setItem(
     "piklyzo-theme",
@@ -1694,57 +1674,67 @@ function setTheme(theme){
     theme==="dark" ? "☀️" : "🌙";
 }
 
-const savedTheme=
-  localStorage.getItem("piklyzo-theme");
+let savedTheme=null;
+
+try{
+  savedTheme=
+    localStorage.getItem(
+      "piklyzo-theme"
+    );
+}catch(e){}
 
 setTheme(
   savedTheme ||
   (
     window.matchMedia &&
     window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme:dark)"
     ).matches
       ? "dark"
       : "light"
   )
 );
 
-el.themeBtn.addEventListener("click",()=>{
+el.themeBtn.addEventListener(
+  "click",
+  ()=>{
+    const current=
+      document.documentElement
+        .getAttribute("data-theme");
 
-  const current=
-    document.documentElement.dataset.theme;
-
-  setTheme(
-    current==="dark"
-      ? "light"
-      : "dark"
-  );
-
-});
+    setTheme(
+      current==="dark"
+        ? "light"
+        : "dark"
+    );
+  }
+);
 
 
-/* =========================
+/* ================================
    SLIDERS
-========================= */
+================================ */
 
-el.quality.addEventListener("input",()=>{
+el.quality.addEventListener(
+  "input",
+  ()=>{
+    el.qualityText.textContent=
+      el.quality.value+"%";
+  }
+);
 
-  el.qualityText.textContent=
-    el.quality.value+"%";
-
-});
-
-el.threshold.addEventListener("input",()=>{
-
-  el.thresholdText.textContent=
-    el.threshold.value;
-
-});
+el.threshold.addEventListener(
+  "input",
+  ()=>{
+    el.thresholdText.textContent=
+      el.threshold.value;
+  }
+);
 
 
-/* =========================
+/* ================================
    FORMAT NOTICE
-========================= */
+================================ */
 
 function updateFormatNotice(){
 
@@ -1757,7 +1747,7 @@ function updateFormatNotice(){
     el.format.value="image/png";
 
     el.formatNotice.textContent=
-      "Transparent backgrounds require PNG or WebP. JPG has been changed to PNG.";
+      "Transparent background requires PNG or WebP. JPG was changed to PNG.";
 
     return;
   }
@@ -1765,7 +1755,7 @@ function updateFormatNotice(){
   if(el.format.value==="image/png"){
 
     el.formatNotice.textContent=
-      "PNG is lossless, so a target KB size cannot be guaranteed.";
+      "PNG uses lossless encoding, so the target KB size cannot be guaranteed.";
 
     return;
   }
@@ -1773,14 +1763,13 @@ function updateFormatNotice(){
   if(el.backgroundCleanup.checked){
 
     el.formatNotice.textContent=
-      "Background cleanup is a simple color-threshold tool, not AI segmentation.";
+      "Background cleanup uses a lightweight color-threshold method, not AI.";
 
     return;
   }
 
   el.formatNotice.textContent="";
 }
-
 
 el.format.addEventListener(
   "change",
@@ -1800,51 +1789,70 @@ el.backgroundCleanup.addEventListener(
 updateFormatNotice();
 
 
-/* =========================
-   FILE INPUT
-========================= */
+/* ================================
+   ADD FILES
+================================ */
 
-function addFiles(fileList){
+function addFiles(list){
 
-  const files=[
-    ...fileList
-  ];
+  const incoming=
+    Array.from(list || []);
 
-  const valid=
-    files.filter(file=>
-      file.type.startsWith("image/") &&
+  const valid=[];
+  let rejected=0;
+
+  for(const file of incoming){
+
+    if(
+      file &&
       file.size>0 &&
-      file.size<=30*1024*1024
-    );
+      file.size<=30*1024*1024 &&
+      file.type.startsWith("image/")
+    ){
 
-  const invalid=
-    files.length-valid.length;
+      valid.push(file);
 
-  if(invalid>0){
+    }else{
+
+      rejected++;
+
+    }
+
+  }
+
+  if(rejected){
 
     toast(
-      invalid+
-      " file(s) skipped. Images must be 30 MB or smaller."
+      rejected+
+      " file(s) were skipped. Images must be 30 MB or smaller."
     );
 
   }
 
-  state.files=[
-    ...state.files,
-    ...valid
-  ].slice(0,30);
+  state.files=
+    state.files
+      .concat(valid)
+      .slice(0,30);
 
   if(!state.files.length)
     return;
 
-  if(state.selected>=state.files.length)
+  if(
+    state.selected>=state.files.length
+  ){
+
     state.selected=0;
+
+  }
 
   renderGallery();
   loadSelected();
-
 }
 
+
+/* ================================
+   INPUT
+================================ */
 
 el.fileInput.addEventListener(
   "change",
@@ -1854,9 +1862,9 @@ el.fileInput.addEventListener(
 );
 
 
-/* =========================
-   DRAG AND DROP
-========================= */
+/* ================================
+   DRAG DROP
+================================ */
 
 ["dragenter","dragover"].forEach(type=>{
 
@@ -1864,6 +1872,7 @@ el.fileInput.addEventListener(
     type,
     event=>{
       event.preventDefault();
+      event.stopPropagation();
       el.dropArea.classList.add("drag");
     }
   );
@@ -1876,6 +1885,7 @@ el.fileInput.addEventListener(
     type,
     event=>{
       event.preventDefault();
+      event.stopPropagation();
       el.dropArea.classList.remove("drag");
     }
   );
@@ -1890,15 +1900,17 @@ el.dropArea.addEventListener(
 );
 
 
-/* =========================
-   IMAGE DECODER
-========================= */
+/* ================================
+   DECODE IMAGE
+================================ */
 
 function decodeImage(file){
 
   return new Promise((resolve,reject)=>{
 
-    if("createImageBitmap" in window){
+    if(
+      "createImageBitmap" in window
+    ){
 
       createImageBitmap(
         file,
@@ -1909,66 +1921,62 @@ function decodeImage(file){
       .then(resolve)
       .catch(()=>{
 
-        const image=
-          new Image();
-
-        const url=
-          URL.createObjectURL(file);
-
-        image.onload=()=>{
-          URL.revokeObjectURL(url);
-          resolve(image);
-        };
-
-        image.onerror=()=>{
-          URL.revokeObjectURL(url);
-          reject(
-            new Error(
-              "This image could not be opened."
-            )
-          );
-        };
-
-        image.src=url;
+        loadImageFallback(
+          file,
+          resolve,
+          reject
+        );
 
       });
 
       return;
     }
 
-
-    const image=
-      new Image();
-
-    const url=
-      URL.createObjectURL(file);
-
-    image.onload=()=>{
-      URL.revokeObjectURL(url);
-      resolve(image);
-    };
-
-    image.onerror=()=>{
-      URL.revokeObjectURL(url);
-      reject(
-        new Error(
-          "This image could not be opened."
-        )
-      );
-    };
-
-    image.src=url;
+    loadImageFallback(
+      file,
+      resolve,
+      reject
+    );
 
   });
-
 }
 
 
-/* =========================
-   IMAGE DIMENSIONS
-========================= */
+function loadImageFallback(
+  file,
+  resolve,
+  reject
+){
 
-function imageDimensions(image){
+  const image=
+    new Image();
+
+  const url=
+    URL.createObjectURL(file);
+
+  image.onload=()=>{
+    URL.revokeObjectURL(url);
+    resolve(image);
+  };
+
+  image.onerror=()=>{
+    URL.revokeObjectURL(url);
+    reject(
+      new Error(
+        "This image could not be opened."
+      )
+    );
+  };
+
+  image.src=url;
+}
+
+
+/* ================================
+   DIMENSIONS
+================================ */
+
+function getImageSize(image){
 
   return {
     width:
@@ -1979,13 +1987,12 @@ function imageDimensions(image){
       image.height ||
       image.naturalHeight
   };
-
 }
 
 
-/* =========================
+/* ================================
    GALLERY
-========================= */
+================================ */
 
 function renderGallery(){
 
@@ -2007,9 +2014,6 @@ function renderGallery(){
             : ""
         );
 
-      button.title=
-        "Select "+file.name;
-
 
       const image=
         document.createElement("img");
@@ -2027,15 +2031,15 @@ function renderGallery(){
       };
 
 
-      const small=
+      const name=
         document.createElement("small");
 
-      small.textContent=
+      name.textContent=
         file.name;
 
 
       button.appendChild(image);
-      button.appendChild(small);
+      button.appendChild(name);
 
 
       button.addEventListener(
@@ -2052,13 +2056,12 @@ function renderGallery(){
 
     }
   );
-
 }
 
 
-/* =========================
-   LOAD SELECTED IMAGE
-========================= */
+/* ================================
+   LOAD SELECTED
+================================ */
 
 async function loadSelected(){
 
@@ -2076,7 +2079,8 @@ async function loadSelected(){
     state.image=image;
 
     const size=
-      imageDimensions(image);
+      getImageSize(image);
+
 
     el.width.value=
       size.width;
@@ -2084,8 +2088,10 @@ async function loadSelected(){
     el.height.value=
       size.height;
 
+
     el.filename.value=
-      safeFilename(file.name);
+      safeName(file.name);
+
 
     el.originalSize.textContent=
       formatBytes(file.size);
@@ -2094,12 +2100,32 @@ async function loadSelected(){
     el.reduction.textContent="—";
 
     el.dimensions.textContent=
-      size.width+"×"+size.height;
+      size.width+
+      "×"+
+      size.height;
 
 
-    showPreview(file);
+    const url=
+      URL.createObjectURL(file);
 
-    state.result=null;
+    el.preview.innerHTML="";
+
+    const previewImage=
+      document.createElement("img");
+
+    previewImage.alt=
+      "Selected image preview";
+
+    previewImage.src=url;
+
+    previewImage.onload=()=>{
+      URL.revokeObjectURL(url);
+    };
+
+    el.preview.appendChild(
+      previewImage
+    );
+
 
     if(state.resultURL){
 
@@ -2111,52 +2137,26 @@ async function loadSelected(){
 
     }
 
+    state.result=null;
+
     el.downloadBtn.disabled=true;
     el.copyBtn.disabled=true;
+
 
   }catch(error){
 
     toast(
       error.message ||
-      "Unable to open this image."
+      "Unable to open the image."
     );
 
   }
-
 }
 
 
-/* =========================
-   PREVIEW FILE
-========================= */
-
-function showPreview(file){
-
-  el.preview.innerHTML="";
-
-  const image=
-    document.createElement("img");
-
-  image.alt=
-    "Selected image preview";
-
-  const url=
-    URL.createObjectURL(file);
-
-  image.src=url;
-
-  image.onload=()=>{
-    URL.revokeObjectURL(url);
-  };
-
-  el.preview.appendChild(image);
-
-}
-
-
-/* =========================
-   ASPECT RATIO
-========================= */
+/* ================================
+   RATIO
+================================ */
 
 function updateRatio(source){
 
@@ -2167,12 +2167,16 @@ function updateRatio(source){
     return;
 
   const size=
-    imageDimensions(state.image);
+    getImageSize(state.image);
+
 
   if(source==="width"){
 
     const width=
-      parseInt(el.width.value,10);
+      parseInt(
+        el.width.value,
+        10
+      );
 
     if(width>0){
 
@@ -2191,7 +2195,10 @@ function updateRatio(source){
   }else{
 
     const height=
-      parseInt(el.height.value,10);
+      parseInt(
+        el.height.value,
+        10
+      );
 
     if(height>0){
 
@@ -2208,9 +2215,7 @@ function updateRatio(source){
     }
 
   }
-
 }
-
 
 el.width.addEventListener(
   "input",
@@ -2223,14 +2228,14 @@ el.height.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    OUTPUT DIMENSIONS
-========================= */
+================================ */
 
-function getOutputDimensions(){
+function outputDimensions(){
 
   const source=
-    imageDimensions(state.image);
+    getImageSize(state.image);
 
   let width=
     parseInt(el.width.value,10);
@@ -2239,10 +2244,10 @@ function getOutputDimensions(){
     parseInt(el.height.value,10);
 
 
-  if(!Number.isFinite(width) || width<=0)
+  if(!Number.isFinite(width)||width<1)
     width=source.width;
 
-  if(!Number.isFinite(height) || height<=0)
+  if(!Number.isFinite(height)||height<1)
     height=source.height;
 
 
@@ -2261,8 +2266,15 @@ function getOutputDimensions(){
 
   if(el.keepRatio.checked){
 
+    const enteredWidth=
+      parseInt(
+        el.width.value,
+        10
+      );
+
     if(
-      parseInt(el.width.value,10)>0
+      Number.isFinite(enteredWidth) &&
+      enteredWidth>0
     ){
 
       height=
@@ -2275,27 +2287,20 @@ function getOutputDimensions(){
           )
         );
 
-    }else{
-
-      width=
-        Math.max(
-          1,
-          Math.round(
-            height*
-            source.width/
-            source.height
-          )
-        );
-
     }
 
   }
 
 
-  /* Prevent excessive canvas memory use */
+  /*
+    Limit canvas memory.
+    24 million pixels is approximately
+    96 MB for one RGBA buffer.
+  */
 
   const maxPixels=
     24000000;
+
 
   if(width*height>maxPixels){
 
@@ -2317,10 +2322,6 @@ function getOutputDimensions(){
         Math.floor(height*scale)
       );
 
-    toast(
-      "Image dimensions were automatically reduced to protect browser memory."
-    );
-
   }
 
 
@@ -2328,27 +2329,26 @@ function getOutputDimensions(){
     width,
     height
   };
-
 }
 
 
-/* =========================
-   CORNER BACKGROUND COLOR
-========================= */
+/* ================================
+   BACKGROUND REFERENCE
+================================ */
 
-function getCornerColor(
-  context,
+function cornerColor(
+  ctx,
   width,
   height
 ){
 
-  const sample=
+  const size=
     Math.max(
       1,
       Math.min(
-        12,
+        10,
         Math.floor(
-          Math.min(width,height)/40
+          Math.min(width,height)/50
         )
       )
     );
@@ -2356,29 +2356,28 @@ function getCornerColor(
 
   const points=[
     [0,0],
-    [width-sample,0],
-    [0,height-sample],
-    [width-sample,height-sample]
+    [width-size,0],
+    [0,height-size],
+    [width-size,height-size]
   ];
 
 
-  let red=0;
-  let green=0;
-  let blue=0;
+  let r=0;
+  let g=0;
+  let b=0;
   let count=0;
 
 
   for(
-    const [x,y]
-    of points
+    const point of points
   ){
 
     const data=
-      context.getImageData(
-        x,
-        y,
-        sample,
-        sample
+      ctx.getImageData(
+        point[0],
+        point[1],
+        size,
+        size
       ).data;
 
 
@@ -2388,72 +2387,82 @@ function getCornerColor(
       i+=4
     ){
 
-      red+=data[i];
-      green+=data[i+1];
-      blue+=data[i+2];
+      r+=data[i];
+      g+=data[i+1];
+      b+=data[i+2];
 
       count++;
 
     }
-
   }
 
 
   return [
-    red/count,
-    green/count,
-    blue/count
+    r/count,
+    g/count,
+    b/count
   ];
-
 }
 
 
-/* =========================
+/* ================================
    BACKGROUND CLEANUP
-========================= */
+================================ */
 
 function cleanupBackground(
-  context,
+  ctx,
   width,
-  height,
-  mode,
-  threshold
+  height
 ){
 
   const reference=
-    getCornerColor(
-      context,
-      width,
-      height
-    );
-
-
-  const imageData=
-    context.getImageData(
-      0,
-      0,
+    cornerColor(
+      ctx,
       width,
       height
     );
 
 
   const data=
-    imageData.data;
+    ctx.getImageData(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+  const pixels=
+    data.data;
 
 
   const limit=
-    Number(threshold)*2.55;
+    Number(el.threshold.value)*2.55;
 
 
-  const fill=
-    mode==="blue"
-      ? [220,238,255]
-      : [255,255,255];
+  let fill=[
+    255,
+    255,
+    255
+  ];
+
+
+  if(
+    el.backgroundMode.value==="blue"
+  ){
+
+    fill=[
+      220,
+      238,
+      255
+    ];
+
+  }
 
 
   for(
     let i=0;
-    i<data.length;
+    i<pixels.length;
     i+=4
   ){
 
@@ -2461,17 +2470,17 @@ function cleanupBackground(
       Math.sqrt(
 
         Math.pow(
-          data[i]-reference[0],
+          pixels[i]-reference[0],
           2
         )+
 
         Math.pow(
-          data[i+1]-reference[1],
+          pixels[i+1]-reference[1],
           2
         )+
 
         Math.pow(
-          data[i+2]-reference[2],
+          pixels[i+2]-reference[2],
           2
         )
 
@@ -2480,16 +2489,19 @@ function cleanupBackground(
 
     if(distance<=limit){
 
-      if(mode==="transparent"){
+      if(
+        el.backgroundMode.value===
+        "transparent"
+      ){
 
-        data[i+3]=0;
+        pixels[i+3]=0;
 
       }else{
 
-        data[i]=fill[0];
-        data[i+1]=fill[1];
-        data[i+2]=fill[2];
-        data[i+3]=255;
+        pixels[i]=fill[0];
+        pixels[i+1]=fill[1];
+        pixels[i+2]=fill[2];
+        pixels[i+3]=255;
 
       }
 
@@ -2498,21 +2510,20 @@ function cleanupBackground(
   }
 
 
-  context.putImageData(
-    imageData,
+  ctx.putImageData(
+    data,
     0,
     0
   );
-
 }
 
 
-/* =========================
+/* ================================
    BORDER
-========================= */
+================================ */
 
 function drawBorder(
-  context,
+  ctx,
   width,
   height
 ){
@@ -2521,7 +2532,7 @@ function drawBorder(
     return;
 
 
-  const borderWidth=
+  const size=
     Math.min(
       100,
       Math.max(
@@ -2534,30 +2545,28 @@ function drawBorder(
     );
 
 
-  context.strokeStyle=
+  ctx.strokeStyle=
     el.borderColor.value;
 
+  ctx.lineWidth=
+    size;
 
-  context.lineWidth=
-    borderWidth;
 
-
-  context.strokeRect(
-    borderWidth/2,
-    borderWidth/2,
-    width-borderWidth,
-    height-borderWidth
+  ctx.strokeRect(
+    size/2,
+    size/2,
+    width-size,
+    height-size
   );
-
 }
 
 
-/* =========================
-   NAME / DATE STAMP
-========================= */
+/* ================================
+   STAMP
+================================ */
 
 function drawStamp(
-  context,
+  ctx,
   width,
   height
 ){
@@ -2573,22 +2582,22 @@ function drawStamp(
     return;
 
 
-  const textParts=[];
+  const parts=[];
 
 
   if(name)
-    textParts.push(name);
+    parts.push(name);
 
 
   if(date){
 
-    const dateObject=
+    const d=
       new Date(
         date+"T00:00:00"
       );
 
-    textParts.push(
-      dateObject.toLocaleDateString(
+    parts.push(
+      d.toLocaleDateString(
         undefined,
         {
           year:"numeric",
@@ -2601,9 +2610,9 @@ function drawStamp(
   }
 
 
-  const fontSize=
+  const size=
     Math.min(
-      200,
+      150,
       Math.max(
         8,
         parseInt(
@@ -2615,106 +2624,101 @@ function drawStamp(
 
 
   const text=
-    textParts.join(" • ");
+    parts.join(" • ");
 
 
-  context.font=
+  ctx.font=
     "700 "+
-    fontSize+
+    size+
     "px system-ui,sans-serif";
 
 
   const padding=
     Math.max(
       8,
-      fontSize*.45
+      size*.4
     );
 
 
   const textWidth=
-    context.measureText(text).width;
+    ctx.measureText(text).width;
 
 
   const x=
     Math.max(
       padding,
-      width-
-      textWidth-
-      padding
+      width-textWidth-padding
     );
 
 
   const y=
     Math.max(
-      fontSize+padding,
+      size+padding,
       height-padding
     );
 
 
-  context.fillStyle=
+  ctx.fillStyle=
     "rgba(255,255,255,.88)";
 
 
-  context.fillRect(
+  ctx.fillRect(
     x-padding,
-    y-fontSize-padding/2,
+    y-size-padding/2,
     textWidth+padding*2,
-    fontSize+padding
+    size+padding
   );
 
 
-  context.fillStyle=
-    "#111827";
+  ctx.fillStyle="#111827";
 
 
-  context.fillText(
+  ctx.fillText(
     text,
     x,
     y
   );
-
 }
 
 
-/* =========================
-   CANVAS TO BLOB
-========================= */
+/* ================================
+   CANVAS BLOB
+================================ */
 
-function canvasToBlob(
+function canvasBlob(
   canvas,
   type,
   quality
 ){
 
-  return new Promise(resolve=>{
-
-    canvas.toBlob(
-      blob=>resolve(blob),
-      type,
-      quality
-    );
-
-  });
-
+  return new Promise(
+    resolve=>{
+      canvas.toBlob(
+        resolve,
+        type,
+        quality
+      );
+    }
+  );
 }
 
 
-/* =========================
-   TARGET COMPRESSION
-========================= */
+/* ================================
+   ENCODE
+================================ */
 
-async function encodeImage(
+async function encodeCanvas(
   canvas,
-  type,
-  targetKB,
-  quality
+  type
 ){
 
-  /* PNG is lossless */
+  /*
+    PNG is lossless.
+  */
 
   if(type==="image/png"){
 
-    return canvasToBlob(
+    return canvasBlob(
       canvas,
       type,
       1
@@ -2726,23 +2730,26 @@ async function encodeImage(
   const target=
     Math.max(
       5,
-      Number(targetKB)||100
+      Number(el.targetKB.value)||100
     )*1024;
 
 
-  let low=.05;
-  let high=
-    Math.max(
-      .1,
-      Math.min(
-        1,
-        quality
+  const requestedQuality=
+    Math.min(
+      1,
+      Math.max(
+        .1,
+        Number(el.quality.value)/100
       )
     );
 
 
+  let low=.05;
+  let high=requestedQuality;
+
+
   let best=
-    await canvasToBlob(
+    await canvasBlob(
       canvas,
       type,
       high
@@ -2753,27 +2760,27 @@ async function encodeImage(
     return null;
 
 
+  /*
+    Already under target.
+  */
+
   if(best.size<=target)
     return best;
 
 
   /*
-    Binary search for a quality that
-    gets close to the requested KB.
+    Search for the closest smaller
+    file using binary quality search.
   */
 
-  for(
-    let i=0;
-    i<11;
-    i++
-  ){
+  for(let i=0;i<12;i++){
 
     const middle=
       (low+high)/2;
 
 
     const blob=
-      await canvasToBlob(
+      await canvasBlob(
         canvas,
         type,
         middle
@@ -2794,18 +2801,16 @@ async function encodeImage(
       high=middle;
 
     }
-
   }
 
 
   return best;
-
 }
 
 
-/* =========================
-   PROCESS ONE FILE
-========================= */
+/* ================================
+   PROCESS FILE
+================================ */
 
 async function processFile(file){
 
@@ -2813,18 +2818,12 @@ async function processFile(file){
     await decodeImage(file);
 
 
-  const source=
-    imageDimensions(image);
-
-
   const output=
-    getOutputDimensions();
+    outputDimensions();
 
 
   const canvas=
-    document.createElement(
-      "canvas"
-    );
+    document.createElement("canvas");
 
 
   canvas.width=
@@ -2834,7 +2833,7 @@ async function processFile(file){
     output.height;
 
 
-  const context=
+  const ctx=
     canvas.getContext(
       "2d",
       {
@@ -2844,22 +2843,22 @@ async function processFile(file){
     );
 
 
-  if(!context){
+  if(!ctx){
 
     throw new Error(
-      "Your browser could not create a canvas."
+      "Your browser cannot create a canvas."
     );
 
   }
 
 
-  context.imageSmoothingEnabled=true;
-  context.imageSmoothingQuality="high";
+  ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality="high";
 
 
   /*
-    Draw a background first.
-    Transparent mode starts clear.
+    Start with transparency only when
+    transparent output is requested.
   */
 
   if(
@@ -2867,7 +2866,7 @@ async function processFile(file){
     el.backgroundMode.value==="transparent"
   ){
 
-    context.clearRect(
+    ctx.clearRect(
       0,
       0,
       output.width,
@@ -2876,7 +2875,7 @@ async function processFile(file){
 
   }else{
 
-    context.fillStyle=
+    ctx.fillStyle=
       (
         el.backgroundCleanup.checked &&
         el.backgroundMode.value==="blue"
@@ -2885,7 +2884,7 @@ async function processFile(file){
       : "#ffffff";
 
 
-    context.fillRect(
+    ctx.fillRect(
       0,
       0,
       output.width,
@@ -2895,7 +2894,7 @@ async function processFile(file){
   }
 
 
-  context.drawImage(
+  ctx.drawImage(
     image,
     0,
     0,
@@ -2907,25 +2906,23 @@ async function processFile(file){
   if(el.backgroundCleanup.checked){
 
     cleanupBackground(
-      context,
+      ctx,
       output.width,
-      output.height,
-      el.backgroundMode.value,
-      el.threshold.value
+      output.height
     );
 
   }
 
 
   drawBorder(
-    context,
+    ctx,
     output.width,
     output.height
   );
 
 
   drawStamp(
-    context,
+    ctx,
     output.width,
     output.height
   );
@@ -2950,12 +2947,36 @@ async function processFile(file){
   }
 
 
+  /*
+    Some browsers may not support WebP.
+    Test by creating a WebP blob.
+  */
+
+  if(type==="image/webp"){
+
+    const test=
+      await canvasBlob(
+        canvas,
+        "image/webp",
+        .8
+      );
+
+    if(
+      !test ||
+      test.type!=="image/webp"
+    ){
+
+      type="image/jpeg";
+
+    }
+
+  }
+
+
   const blob=
-    await encodeImage(
+    await encodeCanvas(
       canvas,
-      type,
-      el.targetKB.value,
-      Number(el.quality.value)/100
+      type
     );
 
 
@@ -2971,41 +2992,38 @@ async function processFile(file){
   return {
     blob,
     width:output.width,
-    height:output.height,
-    source
+    height:output.height
   };
-
 }
 
 
-/* =========================
-   PROCESS CURRENT IMAGE
-========================= */
+/* ================================
+   PROCESS CURRENT
+================================ */
 
 async function processCurrent(){
 
   if(!state.files.length){
 
     toast(
-      "Please choose an image first."
+      "Choose an image first."
     );
 
     return null;
-
   }
 
 
-  loading(
+  const file=
+    state.files[state.selected];
+
+
+  setLoading(
     true,
     "Processing image..."
   );
 
 
   try{
-
-    const file=
-      state.files[state.selected];
-
 
     const result=
       await processFile(file);
@@ -3030,20 +3048,18 @@ async function processCurrent(){
       );
 
 
-    el.preview.innerHTML="";
-
-
     const image=
       document.createElement("img");
 
+
+    image.alt=
+      "Processed image";
 
     image.src=
       state.resultURL;
 
 
-    image.alt=
-      "Processed image preview";
-
+    el.preview.innerHTML="";
 
     el.preview.appendChild(
       image
@@ -3083,7 +3099,10 @@ async function processCurrent(){
 
     return result;
 
+
   }catch(error){
+
+    console.error(error);
 
     toast(
       error.message ||
@@ -3092,12 +3111,12 @@ async function processCurrent(){
 
     return null;
 
+
   }finally{
 
-    loading(false);
+    setLoading(false);
 
   }
-
 }
 
 
@@ -3107,9 +3126,9 @@ el.processBtn.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    BATCH PROCESSING
-========================= */
+================================ */
 
 el.processAllBtn.addEventListener(
   "click",
@@ -3118,17 +3137,16 @@ el.processAllBtn.addEventListener(
     if(!state.files.length){
 
       toast(
-        "Please choose images first."
+        "Choose images first."
       );
 
       return;
-
     }
 
 
-    loading(
+    setLoading(
       true,
-      "Processing images..."
+      "Preparing images..."
     );
 
 
@@ -3137,15 +3155,20 @@ el.processAllBtn.addEventListener(
 
     try{
 
+      /*
+        Process each image sequentially.
+        This keeps memory usage lower.
+      */
+
       for(
         let i=0;
         i<state.files.length;
         i++
       ){
 
-        loading(
+        setLoading(
           true,
-          "Processing image "+
+          "Processing "+
           (i+1)+
           " of "+
           state.files.length+
@@ -3159,34 +3182,36 @@ el.processAllBtn.addEventListener(
           );
 
 
-        const name=
-          safeFilename(
+        const filename=
+          safeName(
             state.files[i].name
           )+
           "-piklyzo."+
-          extension(
+          getExtension(
             result.blob.type
           );
 
 
+        /*
+          Download one file at a time.
+          Some browsers may ask permission for
+          multiple automatic downloads.
+        */
+
         downloadBlob(
           result.blob,
-          name
+          filename
         );
 
 
         completed++;
 
-        /*
-          Give the browser a chance to update
-          the UI between large images.
-        */
 
         await new Promise(
           resolve=>
             setTimeout(
               resolve,
-              20
+              80
             )
         );
 
@@ -3194,7 +3219,6 @@ el.processAllBtn.addEventListener(
 
 
       toast(
-        "Processed "+
         completed+
         " image"+
         (
@@ -3202,24 +3226,22 @@ el.processAllBtn.addEventListener(
             ? ""
             : "s"
         )+
-        "."
+        " processed."
       );
 
 
     }catch(error){
 
+      console.error(error);
+
       toast(
-        "Batch processing stopped: "+
-        (
-          error.message ||
-          "Unknown error"
-        )
+        "Batch processing stopped."
       );
 
 
     }finally{
 
-      loading(false);
+      setLoading(false);
 
     }
 
@@ -3227,9 +3249,9 @@ el.processAllBtn.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    DOWNLOAD
-========================= */
+================================ */
 
 function downloadBlob(
   blob,
@@ -3246,15 +3268,12 @@ function downloadBlob(
 
   link.href=url;
   link.download=filename;
+  link.rel="noopener";
 
 
-  document.body.appendChild(
-    link
-  );
-
+  document.body.appendChild(link);
 
   link.click();
-
 
   link.remove();
 
@@ -3265,7 +3284,6 @@ function downloadBlob(
     },
     1500
   );
-
 }
 
 
@@ -3277,28 +3295,28 @@ el.downloadBtn.addEventListener(
       return;
 
 
-    const name=
-      safeFilename(
+    const filename=
+      safeName(
         el.filename.value
       )+
       "."+
-      extension(
+      getExtension(
         state.result.type
       );
 
 
     downloadBlob(
       state.result,
-      name
+      filename
     );
 
   }
 );
 
 
-/* =========================
-   COPY IMAGE
-========================= */
+/* ================================
+   COPY
+================================ */
 
 el.copyBtn.addEventListener(
   "click",
@@ -3315,7 +3333,9 @@ el.copyBtn.addEventListener(
         !window.ClipboardItem
       ){
 
-        throw new Error();
+        throw new Error(
+          "Clipboard image support is unavailable."
+        );
 
       }
 
@@ -3345,9 +3365,9 @@ el.copyBtn.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    SHARE
-========================= */
+================================ */
 
 el.shareBtn.addEventListener(
   "click",
@@ -3360,7 +3380,6 @@ el.shareBtn.addEventListener(
       );
 
       return;
-
     }
 
 
@@ -3370,12 +3389,11 @@ el.shareBtn.addEventListener(
           state.result
         ],
         "piklyzo-image."+
-        extension(
+        getExtension(
           state.result.type
         ),
         {
-          type:
-            state.result.type
+          type:state.result.type
         }
       );
 
@@ -3393,13 +3411,12 @@ el.shareBtn.addEventListener(
       ){
 
         await navigator.share({
-          title:"Piklyzo image",
-          text:"Processed with Piklyzo",
+          title:"Piklyzo",
+          text:"Image processed with Piklyzo.",
           files:[file]
         });
 
         return;
-
       }
 
 
@@ -3412,13 +3429,13 @@ el.shareBtn.addEventListener(
         );
 
         toast(
-          "Piklyzo page link copied."
+          "Piklyzo link copied."
         );
 
       }else{
 
         toast(
-          "Sharing is not available in this browser."
+          "Sharing is not available."
         );
 
       }
@@ -3429,9 +3446,11 @@ el.shareBtn.addEventListener(
       if(
         error &&
         error.name==="AbortError"
-      )
+      ){
+
         return;
 
+      }
 
       toast(
         "Sharing is unavailable."
@@ -3443,9 +3462,9 @@ el.shareBtn.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    PRINT / SAVE PDF
-========================= */
+================================ */
 
 el.pdfBtn.addEventListener(
   "click",
@@ -3458,25 +3477,23 @@ el.pdfBtn.addEventListener(
       );
 
       return;
-
     }
 
 
-    const printWindow=
+    const popup=
       window.open(
         "",
         "_blank"
       );
 
 
-    if(!printWindow){
+    if(!popup){
 
       toast(
-        "Please allow pop-ups to use Print / Save PDF."
+        "Allow pop-ups to use Save PDF."
       );
 
       return;
-
     }
 
 
@@ -3484,57 +3501,58 @@ el.pdfBtn.addEventListener(
       state.resultURL;
 
 
-    printWindow.document.open();
+    popup.document.open();
+
+    popup.document.write(`
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piklyzo - Save PDF</title>
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  background:#fff;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+img{
+  max-width:95vw;
+  max-height:95vh;
+  object-fit:contain;
+}
+</style>
+
+</head>
+
+<body>
+
+<img
+  src="${imageURL}"
+  alt="Piklyzo processed image"
+>
+
+</body>
+</html>
+`);
+
+    popup.document.close();
 
 
-    printWindow.document.write(`
-      <!doctype html>
-      <html>
-      <head>
-        <title>Piklyzo - Save PDF</title>
-        <style>
-          html,body{
-            margin:0;
-            width:100%;
-            min-height:100%;
-            background:#fff;
-          }
-
-          body{
-            display:flex;
-            align-items:center;
-            justify-content:center;
-          }
-
-          img{
-            max-width:95vw;
-            max-height:95vh;
-            object-fit:contain;
-          }
-        </style>
-      </head>
-
-      <body>
-
-        <img
-          src="${imageURL}"
-          alt="Piklyzo processed image"
-        >
-
-      </body>
-      </html>
-    `);
-
-
-    printWindow.document.close();
-
-
-    printWindow.onload=()=>{
+    popup.onload=()=>{
 
       setTimeout(
         ()=>{
-          printWindow.focus();
-          printWindow.print();
+          popup.focus();
+          popup.print();
         },
         300
       );
@@ -3545,9 +3563,9 @@ el.pdfBtn.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    RESET
-========================= */
+================================ */
 
 el.resetBtn.addEventListener(
   "click",
@@ -3571,6 +3589,7 @@ el.resetBtn.addEventListener(
 
 
     el.fileInput.value="";
+
     el.gallery.innerHTML="";
 
 
@@ -3592,6 +3611,9 @@ el.resetBtn.addEventListener(
     el.height.value="";
 
 
+    el.keepRatio.checked=true;
+
+
     el.quality.value=85;
 
     el.qualityText.textContent=
@@ -3603,7 +3625,9 @@ el.resetBtn.addEventListener(
 
 
     el.nameStamp.value="";
+
     el.dateStamp.value="";
+
     setToday();
 
 
@@ -3642,6 +3666,7 @@ el.resetBtn.addEventListener(
 
     updateFormatNotice();
 
+
     toast(
       "Piklyzo has been reset."
     );
@@ -3650,18 +3675,15 @@ el.resetBtn.addEventListener(
 );
 
 
-/* =========================
-   GLOBAL ERROR HANDLING
-========================= */
+/* ================================
+   ERROR HANDLING
+================================ */
 
 window.addEventListener(
   "error",
   event=>{
 
-    if(
-      event &&
-      event.message
-    ){
+    if(event.message){
 
       console.error(
         "Piklyzo error:",
@@ -3687,9 +3709,9 @@ window.addEventListener(
 );
 
 
-/* =========================
+/* ================================
    CLEANUP
-========================= */
+================================ */
 
 window.addEventListener(
   "beforeunload",
