@@ -2429,3 +2429,1284 @@ function cleanupBackground(
 
 
   const imageData=
+    context.getImageData(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+  const data=
+    imageData.data;
+
+
+  const limit=
+    Number(threshold)*2.55;
+
+
+  const fill=
+    mode==="blue"
+      ? [220,238,255]
+      : [255,255,255];
+
+
+  for(
+    let i=0;
+    i<data.length;
+    i+=4
+  ){
+
+    const distance=
+      Math.sqrt(
+
+        Math.pow(
+          data[i]-reference[0],
+          2
+        )+
+
+        Math.pow(
+          data[i+1]-reference[1],
+          2
+        )+
+
+        Math.pow(
+          data[i+2]-reference[2],
+          2
+        )
+
+      );
+
+
+    if(distance<=limit){
+
+      if(mode==="transparent"){
+
+        data[i+3]=0;
+
+      }else{
+
+        data[i]=fill[0];
+        data[i+1]=fill[1];
+        data[i+2]=fill[2];
+        data[i+3]=255;
+
+      }
+
+    }
+
+  }
+
+
+  context.putImageData(
+    imageData,
+    0,
+    0
+  );
+
+}
+
+
+/* =========================
+   BORDER
+========================= */
+
+function drawBorder(
+  context,
+  width,
+  height
+){
+
+  if(!el.addBorder.checked)
+    return;
+
+
+  const borderWidth=
+    Math.min(
+      100,
+      Math.max(
+        1,
+        parseInt(
+          el.borderWidth.value,
+          10
+        ) || 5
+      )
+    );
+
+
+  context.strokeStyle=
+    el.borderColor.value;
+
+
+  context.lineWidth=
+    borderWidth;
+
+
+  context.strokeRect(
+    borderWidth/2,
+    borderWidth/2,
+    width-borderWidth,
+    height-borderWidth
+  );
+
+}
+
+
+/* =========================
+   NAME / DATE STAMP
+========================= */
+
+function drawStamp(
+  context,
+  width,
+  height
+){
+
+  const name=
+    el.nameStamp.value.trim();
+
+  const date=
+    el.dateStamp.value;
+
+
+  if(!name && !date)
+    return;
+
+
+  const textParts=[];
+
+
+  if(name)
+    textParts.push(name);
+
+
+  if(date){
+
+    const dateObject=
+      new Date(
+        date+"T00:00:00"
+      );
+
+    textParts.push(
+      dateObject.toLocaleDateString(
+        undefined,
+        {
+          year:"numeric",
+          month:"2-digit",
+          day:"2-digit"
+        }
+      )
+    );
+
+  }
+
+
+  const fontSize=
+    Math.min(
+      200,
+      Math.max(
+        8,
+        parseInt(
+          el.stampSize.value,
+          10
+        ) || 28
+      )
+    );
+
+
+  const text=
+    textParts.join(" • ");
+
+
+  context.font=
+    "700 "+
+    fontSize+
+    "px system-ui,sans-serif";
+
+
+  const padding=
+    Math.max(
+      8,
+      fontSize*.45
+    );
+
+
+  const textWidth=
+    context.measureText(text).width;
+
+
+  const x=
+    Math.max(
+      padding,
+      width-
+      textWidth-
+      padding
+    );
+
+
+  const y=
+    Math.max(
+      fontSize+padding,
+      height-padding
+    );
+
+
+  context.fillStyle=
+    "rgba(255,255,255,.88)";
+
+
+  context.fillRect(
+    x-padding,
+    y-fontSize-padding/2,
+    textWidth+padding*2,
+    fontSize+padding
+  );
+
+
+  context.fillStyle=
+    "#111827";
+
+
+  context.fillText(
+    text,
+    x,
+    y
+  );
+
+}
+
+
+/* =========================
+   CANVAS TO BLOB
+========================= */
+
+function canvasToBlob(
+  canvas,
+  type,
+  quality
+){
+
+  return new Promise(resolve=>{
+
+    canvas.toBlob(
+      blob=>resolve(blob),
+      type,
+      quality
+    );
+
+  });
+
+}
+
+
+/* =========================
+   TARGET COMPRESSION
+========================= */
+
+async function encodeImage(
+  canvas,
+  type,
+  targetKB,
+  quality
+){
+
+  /* PNG is lossless */
+
+  if(type==="image/png"){
+
+    return canvasToBlob(
+      canvas,
+      type,
+      1
+    );
+
+  }
+
+
+  const target=
+    Math.max(
+      5,
+      Number(targetKB)||100
+    )*1024;
+
+
+  let low=.05;
+  let high=
+    Math.max(
+      .1,
+      Math.min(
+        1,
+        quality
+      )
+    );
+
+
+  let best=
+    await canvasToBlob(
+      canvas,
+      type,
+      high
+    );
+
+
+  if(!best)
+    return null;
+
+
+  if(best.size<=target)
+    return best;
+
+
+  /*
+    Binary search for a quality that
+    gets close to the requested KB.
+  */
+
+  for(
+    let i=0;
+    i<11;
+    i++
+  ){
+
+    const middle=
+      (low+high)/2;
+
+
+    const blob=
+      await canvasToBlob(
+        canvas,
+        type,
+        middle
+      );
+
+
+    if(!blob)
+      break;
+
+
+    if(blob.size<=target){
+
+      best=blob;
+      low=middle;
+
+    }else{
+
+      high=middle;
+
+    }
+
+  }
+
+
+  return best;
+
+}
+
+
+/* =========================
+   PROCESS ONE FILE
+========================= */
+
+async function processFile(file){
+
+  const image=
+    await decodeImage(file);
+
+
+  const source=
+    imageDimensions(image);
+
+
+  const output=
+    getOutputDimensions();
+
+
+  const canvas=
+    document.createElement(
+      "canvas"
+    );
+
+
+  canvas.width=
+    output.width;
+
+  canvas.height=
+    output.height;
+
+
+  const context=
+    canvas.getContext(
+      "2d",
+      {
+        willReadFrequently:
+          el.backgroundCleanup.checked
+      }
+    );
+
+
+  if(!context){
+
+    throw new Error(
+      "Your browser could not create a canvas."
+    );
+
+  }
+
+
+  context.imageSmoothingEnabled=true;
+  context.imageSmoothingQuality="high";
+
+
+  /*
+    Draw a background first.
+    Transparent mode starts clear.
+  */
+
+  if(
+    el.backgroundCleanup.checked &&
+    el.backgroundMode.value==="transparent"
+  ){
+
+    context.clearRect(
+      0,
+      0,
+      output.width,
+      output.height
+    );
+
+  }else{
+
+    context.fillStyle=
+      (
+        el.backgroundCleanup.checked &&
+        el.backgroundMode.value==="blue"
+      )
+      ? "#dceeff"
+      : "#ffffff";
+
+
+    context.fillRect(
+      0,
+      0,
+      output.width,
+      output.height
+    );
+
+  }
+
+
+  context.drawImage(
+    image,
+    0,
+    0,
+    output.width,
+    output.height
+  );
+
+
+  if(el.backgroundCleanup.checked){
+
+    cleanupBackground(
+      context,
+      output.width,
+      output.height,
+      el.backgroundMode.value,
+      el.threshold.value
+    );
+
+  }
+
+
+  drawBorder(
+    context,
+    output.width,
+    output.height
+  );
+
+
+  drawStamp(
+    context,
+    output.width,
+    output.height
+  );
+
+
+  let type=
+    el.format.value;
+
+
+  /*
+    JPEG cannot contain transparency.
+  */
+
+  if(
+    el.backgroundCleanup.checked &&
+    el.backgroundMode.value==="transparent" &&
+    type==="image/jpeg"
+  ){
+
+    type="image/png";
+
+  }
+
+
+  const blob=
+    await encodeImage(
+      canvas,
+      type,
+      el.targetKB.value,
+      Number(el.quality.value)/100
+    );
+
+
+  if(!blob){
+
+    throw new Error(
+      "The browser could not create the output image."
+    );
+
+  }
+
+
+  return {
+    blob,
+    width:output.width,
+    height:output.height,
+    source
+  };
+
+}
+
+
+/* =========================
+   PROCESS CURRENT IMAGE
+========================= */
+
+async function processCurrent(){
+
+  if(!state.files.length){
+
+    toast(
+      "Please choose an image first."
+    );
+
+    return null;
+
+  }
+
+
+  loading(
+    true,
+    "Processing image..."
+  );
+
+
+  try{
+
+    const file=
+      state.files[state.selected];
+
+
+    const result=
+      await processFile(file);
+
+
+    state.result=
+      result.blob;
+
+
+    if(state.resultURL){
+
+      URL.revokeObjectURL(
+        state.resultURL
+      );
+
+    }
+
+
+    state.resultURL=
+      URL.createObjectURL(
+        result.blob
+      );
+
+
+    el.preview.innerHTML="";
+
+
+    const image=
+      document.createElement("img");
+
+
+    image.src=
+      state.resultURL;
+
+
+    image.alt=
+      "Processed image preview";
+
+
+    el.preview.appendChild(
+      image
+    );
+
+
+    el.outputSize.textContent=
+      formatBytes(
+        result.blob.size
+      );
+
+
+    const reduction=
+      Math.max(
+        0,
+        (
+          1-
+          result.blob.size/
+          file.size
+        )*100
+      );
+
+
+    el.reduction.textContent=
+      reduction.toFixed(1)+"%";
+
+
+    el.dimensions.textContent=
+      result.width+
+      "×"+
+      result.height;
+
+
+    el.downloadBtn.disabled=false;
+    el.copyBtn.disabled=false;
+
+
+    return result;
+
+  }catch(error){
+
+    toast(
+      error.message ||
+      "Image processing failed."
+    );
+
+    return null;
+
+  }finally{
+
+    loading(false);
+
+  }
+
+}
+
+
+el.processBtn.addEventListener(
+  "click",
+  processCurrent
+);
+
+
+/* =========================
+   BATCH PROCESSING
+========================= */
+
+el.processAllBtn.addEventListener(
+  "click",
+  async()=>{
+
+    if(!state.files.length){
+
+      toast(
+        "Please choose images first."
+      );
+
+      return;
+
+    }
+
+
+    loading(
+      true,
+      "Processing images..."
+    );
+
+
+    let completed=0;
+
+
+    try{
+
+      for(
+        let i=0;
+        i<state.files.length;
+        i++
+      ){
+
+        loading(
+          true,
+          "Processing image "+
+          (i+1)+
+          " of "+
+          state.files.length+
+          "..."
+        );
+
+
+        const result=
+          await processFile(
+            state.files[i]
+          );
+
+
+        const name=
+          safeFilename(
+            state.files[i].name
+          )+
+          "-piklyzo."+
+          extension(
+            result.blob.type
+          );
+
+
+        downloadBlob(
+          result.blob,
+          name
+        );
+
+
+        completed++;
+
+        /*
+          Give the browser a chance to update
+          the UI between large images.
+        */
+
+        await new Promise(
+          resolve=>
+            setTimeout(
+              resolve,
+              20
+            )
+        );
+
+      }
+
+
+      toast(
+        "Processed "+
+        completed+
+        " image"+
+        (
+          completed===1
+            ? ""
+            : "s"
+        )+
+        "."
+      );
+
+
+    }catch(error){
+
+      toast(
+        "Batch processing stopped: "+
+        (
+          error.message ||
+          "Unknown error"
+        )
+      );
+
+
+    }finally{
+
+      loading(false);
+
+    }
+
+  }
+);
+
+
+/* =========================
+   DOWNLOAD
+========================= */
+
+function downloadBlob(
+  blob,
+  filename
+){
+
+  const url=
+    URL.createObjectURL(blob);
+
+
+  const link=
+    document.createElement("a");
+
+
+  link.href=url;
+  link.download=filename;
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  link.remove();
+
+
+  setTimeout(
+    ()=>{
+      URL.revokeObjectURL(url);
+    },
+    1500
+  );
+
+}
+
+
+el.downloadBtn.addEventListener(
+  "click",
+  ()=>{
+
+    if(!state.result)
+      return;
+
+
+    const name=
+      safeFilename(
+        el.filename.value
+      )+
+      "."+
+      extension(
+        state.result.type
+      );
+
+
+    downloadBlob(
+      state.result,
+      name
+    );
+
+  }
+);
+
+
+/* =========================
+   COPY IMAGE
+========================= */
+
+el.copyBtn.addEventListener(
+  "click",
+  async()=>{
+
+    if(!state.result)
+      return;
+
+
+    try{
+
+      if(
+        !navigator.clipboard ||
+        !window.ClipboardItem
+      ){
+
+        throw new Error();
+
+      }
+
+
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [state.result.type]:
+            state.result
+        })
+      ]);
+
+
+      toast(
+        "Image copied to clipboard."
+      );
+
+
+    }catch(error){
+
+      toast(
+        "Image copying is not supported by this browser."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   SHARE
+========================= */
+
+el.shareBtn.addEventListener(
+  "click",
+  async()=>{
+
+    if(!state.result){
+
+      toast(
+        "Process an image first."
+      );
+
+      return;
+
+    }
+
+
+    const file=
+      new File(
+        [
+          state.result
+        ],
+        "piklyzo-image."+
+        extension(
+          state.result.type
+        ),
+        {
+          type:
+            state.result.type
+        }
+      );
+
+
+    try{
+
+      if(
+        navigator.share &&
+        (
+          !navigator.canShare ||
+          navigator.canShare({
+            files:[file]
+          })
+        )
+      ){
+
+        await navigator.share({
+          title:"Piklyzo image",
+          text:"Processed with Piklyzo",
+          files:[file]
+        });
+
+        return;
+
+      }
+
+
+      if(
+        navigator.clipboard
+      ){
+
+        await navigator.clipboard.writeText(
+          location.href
+        );
+
+        toast(
+          "Piklyzo page link copied."
+        );
+
+      }else{
+
+        toast(
+          "Sharing is not available in this browser."
+        );
+
+      }
+
+
+    }catch(error){
+
+      if(
+        error &&
+        error.name==="AbortError"
+      )
+        return;
+
+
+      toast(
+        "Sharing is unavailable."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PRINT / SAVE PDF
+========================= */
+
+el.pdfBtn.addEventListener(
+  "click",
+  ()=>{
+
+    if(!state.result){
+
+      toast(
+        "Process an image first."
+      );
+
+      return;
+
+    }
+
+
+    const printWindow=
+      window.open(
+        "",
+        "_blank"
+      );
+
+
+    if(!printWindow){
+
+      toast(
+        "Please allow pop-ups to use Print / Save PDF."
+      );
+
+      return;
+
+    }
+
+
+    const imageURL=
+      state.resultURL;
+
+
+    printWindow.document.open();
+
+
+    printWindow.document.write(`
+      <!doctype html>
+      <html>
+      <head>
+        <title>Piklyzo - Save PDF</title>
+        <style>
+          html,body{
+            margin:0;
+            width:100%;
+            min-height:100%;
+            background:#fff;
+          }
+
+          body{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+          }
+
+          img{
+            max-width:95vw;
+            max-height:95vh;
+            object-fit:contain;
+          }
+        </style>
+      </head>
+
+      <body>
+
+        <img
+          src="${imageURL}"
+          alt="Piklyzo processed image"
+        >
+
+      </body>
+      </html>
+    `);
+
+
+    printWindow.document.close();
+
+
+    printWindow.onload=()=>{
+
+      setTimeout(
+        ()=>{
+          printWindow.focus();
+          printWindow.print();
+        },
+        300
+      );
+
+    };
+
+  }
+);
+
+
+/* =========================
+   RESET
+========================= */
+
+el.resetBtn.addEventListener(
+  "click",
+  ()=>{
+
+    state.files=[];
+    state.selected=0;
+    state.image=null;
+    state.result=null;
+
+
+    if(state.resultURL){
+
+      URL.revokeObjectURL(
+        state.resultURL
+      );
+
+      state.resultURL=null;
+
+    }
+
+
+    el.fileInput.value="";
+    el.gallery.innerHTML="";
+
+
+    el.preview.innerHTML=
+      `
+      <div class="empty">
+        Your processed image will appear here.
+      </div>
+      `;
+
+
+    el.targetKB.value=100;
+
+    el.format.value=
+      "image/jpeg";
+
+
+    el.width.value="";
+    el.height.value="";
+
+
+    el.quality.value=85;
+
+    el.qualityText.textContent=
+      "85%";
+
+
+    el.filename.value=
+      "piklyzo-image";
+
+
+    el.nameStamp.value="";
+    el.dateStamp.value="";
+    setToday();
+
+
+    el.stampSize.value=28;
+
+
+    el.addBorder.checked=false;
+
+    el.borderWidth.value=5;
+
+    el.borderColor.value=
+      "#1d4ed8";
+
+
+    el.backgroundCleanup.checked=false;
+
+    el.backgroundMode.value=
+      "white";
+
+
+    el.threshold.value=40;
+
+    el.thresholdText.textContent=
+      "40";
+
+
+    el.originalSize.textContent="—";
+    el.outputSize.textContent="—";
+    el.reduction.textContent="—";
+    el.dimensions.textContent="—";
+
+
+    el.downloadBtn.disabled=true;
+    el.copyBtn.disabled=true;
+
+
+    updateFormatNotice();
+
+    toast(
+      "Piklyzo has been reset."
+    );
+
+  }
+);
+
+
+/* =========================
+   GLOBAL ERROR HANDLING
+========================= */
+
+window.addEventListener(
+  "error",
+  event=>{
+
+    if(
+      event &&
+      event.message
+    ){
+
+      console.error(
+        "Piklyzo error:",
+        event.message
+      );
+
+    }
+
+  }
+);
+
+
+window.addEventListener(
+  "unhandledrejection",
+  event=>{
+
+    console.error(
+      "Piklyzo promise error:",
+      event.reason
+    );
+
+  }
+);
+
+
+/* =========================
+   CLEANUP
+========================= */
+
+window.addEventListener(
+  "beforeunload",
+  ()=>{
+
+    if(state.resultURL){
+
+      URL.revokeObjectURL(
+        state.resultURL
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
