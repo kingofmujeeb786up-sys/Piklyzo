@@ -3,42 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
 
 <title>Piklyzo – Free Image Compressor, Resizer & Form Photo Maker</title>
 
-<meta name="description"
-content="Piklyzo is a free browser-based image compressor, resizer and photo editor. Compress images to a target KB size, resize photos, add name and date stamps, borders, remove simple backgrounds, and export JPG, PNG, WebP or PDF.">
-<meta name="robots"
-content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<meta name="author" content="Piklyzo">
-<meta name="application-name" content="Piklyzo">
-<meta name="theme-color" content="#2563eb">
-<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Piklyzo is a free browser-based image compressor, resizer and form photo maker. Compress images to a target KB size, resize photos, add name and date stamps, borders and simple background cleanup. No sign-up required.">
 
-<link rel="canonical"
-href="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="canonical" href="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
 
 <meta property="og:type" content="website">
-<meta property="og:title"
-content="Piklyzo – Free Image Compressor, Resizer & Form Photo Maker">
-<meta property="og:description"
-content="Compress, resize and edit images directly in your browser. Add name/date stamps, borders and remove simple backgrounds. No sign-up required.">
-<meta property="og:url"
-content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
+<meta property="og:title" content="Piklyzo – Free Image Compressor, Resizer & Form Photo Maker">
+<meta property="og:description" content="Compress, resize and edit images directly in your browser. Add name, date, borders and simple background cleanup.">
+<meta property="og:url" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/">
+<meta property="og:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
 <meta property="og:site_name" content="Piklyzo">
-<meta property="og:image"
-content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title"
-content="Piklyzo – Free Image Compressor & Photo Editor">
-<meta name="twitter:description"
-content="Free browser-based image compression, resizing and form photo tools.">
-<meta name="twitter:image"
-content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
+<meta name="twitter:title" content="Piklyzo – Free Image Compressor, Resizer & Form Photo Maker">
+<meta name="twitter:description" content="Free browser-based image compression, resizing and form photo tools.">
+<meta name="twitter:image" content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
+
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 
 <script type="application/ld+json">
 {
@@ -48,9 +36,7 @@ content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
   "url":"https://kingofmujeeb786up-sys.github.io/Piklyzo/",
   "description":"Free browser-based image compressor, resizer and form photo maker.",
   "applicationCategory":"MultimediaApplication",
-  "operatingSystem":"Any",
-  "browserRequirements":"Requires JavaScript and a modern web browser",
-  "isAccessibleForFree":true,
+  "operatingSystem":"Web Browser",
   "offers":{
     "@type":"Offer",
     "price":"0",
@@ -71,17 +57,26 @@ content="https://kingofmujeeb786up-sys.github.io/Piklyzo/logo.png">
 <style>
 :root{
   --bg:#f5f7fb;
-  --surface:#ffffff;
-  --surface2:#f8fafc;
+  --card:#fff;
   --text:#172033;
-  --muted:#64748b;
-  --border:#e2e8f0;
+  --muted:#667085;
+  --line:#dfe5ef;
   --primary:#2563eb;
-  --primary2:#1d4ed8;
-  --green:#16a34a;
+  --primary-dark:#1d4ed8;
+  --soft:#eff6ff;
   --danger:#dc2626;
-  --shadow:0 12px 35px rgba(15,23,42,.08);
+  --shadow:0 12px 35px rgba(0,0,0,.08);
   --radius:18px;
+}
+
+[data-theme="dark"]{
+  --bg:#0b1220;
+  --card:#111a2b;
+  --text:#edf3ff;
+  --muted:#9aa8bf;
+  --line:#29364c;
+  --soft:#13233e;
+  --shadow:0 12px 35px rgba(0,0,0,.3);
 }
 
 *{
@@ -94,20 +89,10 @@ html{
 
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   line-height:1.55;
-}
-
-body.dark{
-  --bg:#0b1220;
-  --surface:#111827;
-  --surface2:#172033;
-  --text:#f8fafc;
-  --muted:#a8b3c5;
-  --border:#263449;
-  --shadow:0 12px 35px rgba(0,0,0,.28);
 }
 
 button,
@@ -125,21 +110,23 @@ img{
 }
 
 a{
-  color:inherit;
+  color:var(--primary);
+  text-decoration:none;
 }
 
 .container{
-  width:min(1180px,92%);
+  width:min(1120px,92%);
   margin:auto;
 }
+
+/* HEADER */
 
 header{
   position:sticky;
   top:0;
-  z-index:100;
-  background:color-mix(in srgb,var(--surface) 92%,transparent);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
+  z-index:20;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
 }
 
 .nav{
@@ -154,319 +141,295 @@ header{
   display:flex;
   align-items:center;
   gap:10px;
-  text-decoration:none;
+  color:var(--text);
   font-size:21px;
-  font-weight:850;
-  letter-spacing:-.4px;
+  font-weight:800;
 }
 
 .brand img{
-  width:38px;
-  height:38px;
-  object-fit:contain;
-  border-radius:10px;
-}
-
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.control{
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--text);
-  border-radius:10px;
-  padding:8px 10px;
-}
-
-.icon-btn{
   width:40px;
   height:40px;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--text);
   border-radius:10px;
+  object-fit:cover;
 }
 
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.navlinks a,
+.theme{
+  padding:8px 11px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+}
+
+.navlinks a:hover,
+.theme:hover{
+  background:var(--soft);
+  color:var(--primary);
+}
+
+/* HERO */
+
 .hero{
-  padding:62px 0 32px;
   text-align:center;
+  padding:55px 0 30px;
+}
+
+.hero h1{
+  max-width:850px;
+  margin:0 auto 15px;
+  font-size:clamp(30px,5vw,52px);
+  line-height:1.08;
+  letter-spacing:-1.5px;
+}
+
+.hero p{
+  max-width:760px;
+  margin:0 auto 20px;
+  color:var(--muted);
+  font-size:17px;
 }
 
 .badges{
   display:flex;
   justify-content:center;
-  gap:8px;
   flex-wrap:wrap;
-  margin-bottom:18px;
+  gap:8px;
 }
 
 .badge{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:999px;
   padding:6px 11px;
-  color:var(--muted);
+  border-radius:999px;
+  background:var(--soft);
+  border:1px solid #bfdbfe;
+  color:var(--primary);
   font-size:13px;
   font-weight:700;
 }
 
-.hero h1{
-  font-size:clamp(32px,6vw,58px);
-  line-height:1.04;
-  letter-spacing:-2px;
-  margin:0 auto 15px;
-  max-width:850px;
-}
+/* AD AREA */
 
-.gradient-text{
-  background:linear-gradient(90deg,#2563eb,#16a34a);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  max-width:760px;
-  margin:auto;
+.ad{
+  min-height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:var(--muted);
-  font-size:18px;
+  font-size:11px;
+  margin:15px auto;
 }
 
-.tool{
-  margin:28px auto 55px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:24px;
+/* APP */
+
+.app{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:20px;
+  align-items:start;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
   box-shadow:var(--shadow);
-  padding:22px;
 }
 
-.upload{
-  border:2px dashed #94a3b8;
-  border-radius:18px;
-  padding:35px 20px;
+.card-body{
+  padding:20px;
+}
+
+/* UPLOAD */
+
+.drop{
+  padding:30px 18px;
   text-align:center;
-  background:var(--surface2);
+  border:2px dashed #9db5d9;
+  border-radius:16px;
+  background:var(--soft);
   transition:.2s;
 }
 
-.upload.drag{
+.drop.drag{
   border-color:var(--primary);
   transform:scale(1.01);
 }
 
-.upload-icon{
-  font-size:40px;
-  margin-bottom:7px;
+.drop strong{
+  display:block;
+  margin-bottom:6px;
+  font-size:19px;
 }
 
-.upload h2{
-  margin:5px 0;
-  font-size:22px;
-}
-
-.upload p{
+.drop small{
   color:var(--muted);
-  margin:7px 0 17px;
 }
 
-.file-label{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:12px 18px;
-  border-radius:12px;
+.file-button{
+  display:inline-block;
+  margin-top:15px;
+  padding:11px 16px;
+  border-radius:11px;
   background:var(--primary);
   color:#fff;
-  font-weight:800;
+  font-weight:750;
   cursor:pointer;
 }
 
-.file-label:hover{
-  background:var(--primary2);
-}
+/* CONTROLS */
 
-input[type=file]{
-  display:none;
-}
-
-.editor-grid{
+.controls{
   display:grid;
-  grid-template-columns:360px 1fr;
-  gap:20px;
-  margin-top:20px;
-}
-
-.panel{
-  border:1px solid var(--border);
-  background:var(--surface2);
-  border-radius:17px;
-  padding:18px;
-}
-
-.panel h3{
-  margin:0 0 14px;
-  font-size:18px;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+  margin-top:18px;
 }
 
 .field{
-  margin-bottom:15px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
 
-.field label{
-  display:block;
-  margin-bottom:6px;
+.full{
+  grid-column:1/-1;
+}
+
+label{
   font-size:13px;
-  font-weight:800;
+  font-weight:750;
 }
 
-.field input[type=text],
-.field input[type=number],
-.field input[type=color],
-.field select{
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select{
   width:100%;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--text);
+  padding:10px 11px;
+  border:1px solid var(--line);
   border-radius:10px;
-  padding:10px;
+  outline:none;
+  background:var(--card);
+  color:var(--text);
 }
 
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+input:focus,
+select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+
+input[type="color"]{
+  width:100%;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--primary);
 }
 
 .check{
   display:flex;
   align-items:center;
   gap:8px;
-  margin:10px 0;
-  color:var(--text);
+  color:var(--muted);
   font-size:14px;
 }
 
-.range-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.check input{
+  width:auto;
 }
 
-.range-row input{
-  flex:1;
-}
-
-.value{
-  min-width:52px;
-  text-align:right;
-  font-weight:800;
-  font-size:13px;
-}
+/* BUTTONS */
 
 .actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  display:flex;
+  flex-wrap:wrap;
   gap:9px;
-  margin-top:18px;
+  margin-top:15px;
 }
 
 .btn{
   border:0;
   border-radius:11px;
-  padding:11px 12px;
-  font-weight:800;
-  transition:.15s;
+  padding:11px 15px;
+  font-weight:750;
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-}
-
-.btn-primary{
+.primary{
   background:var(--primary);
   color:#fff;
 }
 
-.btn-green{
-  background:var(--green);
-  color:#fff;
+.primary:hover{
+  background:var(--primary-dark);
 }
 
-.btn-light{
-  background:var(--surface);
-  color:var(--text);
-  border:1px solid var(--border);
+.secondary{
+  background:var(--soft);
+  color:var(--primary);
+  border:1px solid #bfdbfe;
 }
 
-.btn-danger{
-  background:#fee2e2;
-  color:#991b1b;
+.secondary:hover{
+  filter:brightness(.97);
 }
 
-.preview-box{
-  min-height:500px;
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:
-    linear-gradient(45deg,#e5e7eb 25%,transparent 25%),
-    linear-gradient(-45deg,#e5e7eb 25%,transparent 25%),
-    linear-gradient(45deg,transparent 75%,#e5e7eb 75%),
-    linear-gradient(-45deg,transparent 75%,#e5e7eb 75%);
-  background-size:24px 24px;
-  background-position:0 0,0 12px,12px -12px,-12px 0;
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* PREVIEW */
+
+.preview{
+  min-height:330px;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  padding:18px;
   overflow:hidden;
-  position:relative;
+  border-radius:15px;
+  background:
+    repeating-conic-gradient(
+      #eef1f5 0 25%,
+      #fff 0 50%
+    ) 50%/22px 22px;
 }
 
-.preview-box img{
-  max-height:520px;
-  width:auto;
-  object-fit:contain;
+[data-theme="dark"] .preview{
+  background:
+    repeating-conic-gradient(
+      #182235 0 25%,
+      #101827 0 50%
+    ) 50%/22px 22px;
+}
+
+.preview img{
   display:block;
+  max-width:100%;
+  max-height:520px;
+  object-fit:contain;
+  border-radius:4px;
 }
 
-.empty-preview{
+.empty{
+  color:var(--muted);
   text-align:center;
-  padding:30px;
-  color:#64748b;
+  padding:40px 10px;
 }
 
-.gallery{
-  display:flex;
-  gap:9px;
-  overflow-x:auto;
-  padding:12px 2px 3px;
-  margin-top:12px;
-}
-
-.thumb{
-  flex:0 0 76px;
-  height:76px;
-  border-radius:10px;
-  border:2px solid transparent;
-  overflow:hidden;
-  cursor:pointer;
-  background:var(--surface);
-}
-
-.thumb.active{
-  border-color:var(--primary);
-}
-
-.thumb img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+/* STATS */
 
 .stats{
   display:grid;
@@ -476,215 +439,277 @@ input[type=file]{
 }
 
 .stat{
-  background:var(--surface);
-  border:1px solid var(--border);
+  padding:11px 5px;
+  border:1px solid var(--line);
   border-radius:11px;
-  padding:10px;
   text-align:center;
 }
 
-.stat strong{
+.stat b{
   display:block;
-  font-size:16px;
+  font-size:15px;
 }
 
 .stat span{
-  display:block;
   color:var(--muted);
   font-size:11px;
-  margin-top:2px;
 }
 
-.status{
-  min-height:22px;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:12px;
-}
+/* GALLERY */
 
-.features{
-  padding:25px 0 55px;
-}
-
-.section-title{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.section-title h2{
-  font-size:32px;
-  margin:0 0 6px;
-}
-
-.section-title p{
-  color:var(--muted);
-  margin:0 auto;
-  max-width:700px;
-}
-
-.cards{
+.gallery{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
+  grid-template-columns:repeat(auto-fill,minmax(105px,1fr));
+  gap:9px;
+  margin-top:15px;
 }
 
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:20px;
+.thumb{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:4px;
+  background:var(--card);
+  color:var(--text);
 }
 
-.card-icon{
+.thumb.selected{
+  border:2px solid var(--primary);
+}
+
+.thumb img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  display:block;
+  border-radius:7px;
+}
+
+.thumb small{
+  display:block;
+  padding:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* TEXT */
+
+.notice{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.section{
+  padding:42px 0;
+}
+
+.section h2{
+  margin:0 0 10px;
   font-size:28px;
 }
 
-.card h3{
-  margin:9px 0 6px;
+.section-intro{
+  color:var(--muted);
 }
 
-.card p{
-  color:var(--muted);
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.feature{
+  padding:19px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--card);
+}
+
+.feature h3{
+  margin:0 0 6px;
+  font-size:17px;
+}
+
+.feature p{
   margin:0;
-  font-size:14px;
-}
-
-.info{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:25px;
-  margin-bottom:45px;
-}
-
-.info h2{
-  margin-top:0;
-}
-
-.info p{
   color:var(--muted);
 }
 
-.faq{
-  border-top:1px solid var(--border);
-  padding:13px 0;
+/* FAQ */
+
+.faq details{
+  margin:9px 0;
+  padding:14px 15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
 }
 
 .faq summary{
   cursor:pointer;
-  font-weight:800;
+  font-weight:750;
 }
 
-footer{
-  border-top:1px solid var(--border);
-  padding:28px 0;
+.faq p{
   color:var(--muted);
-  text-align:center;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:25px;
+  padding:28px 0;
+  border-top:1px solid var(--line);
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  color:var(--muted);
   font-size:13px;
 }
 
-.hidden{
-  display:none!important;
+/* TOAST */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  z-index:100;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  padding:10px 15px;
+  border-radius:10px;
+  background:#111827;
+  color:#fff;
+  font-size:13px;
+  transition:.2s;
 }
 
-.processing{
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* LOADING */
+
+#loading{
   position:fixed;
   inset:0;
-  background:rgba(2,6,23,.55);
+  z-index:90;
   display:none;
-  place-items:center;
-  z-index:500;
-  padding:20px;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.55);
 }
 
-.processing.show{
-  display:grid;
-}
-
-.loader-card{
-  width:min(360px,100%);
-  background:var(--surface);
-  color:var(--text);
-  border-radius:18px;
-  padding:24px;
+.loading-box{
+  width:min(360px,90%);
+  padding:25px;
+  border-radius:16px;
   text-align:center;
-  box-shadow:var(--shadow);
+  background:var(--card);
+  color:var(--text);
 }
 
 .spinner{
-  width:42px;
-  height:42px;
-  border:4px solid var(--border);
+  width:36px;
+  height:36px;
+  margin:0 auto 12px;
+  border:4px solid var(--line);
   border-top-color:var(--primary);
   border-radius:50%;
   animation:spin .8s linear infinite;
-  margin:0 auto 14px;
 }
 
 @keyframes spin{
   to{transform:rotate(360deg)}
 }
 
+/* RESPONSIVE */
+
 @media(max-width:850px){
-  .editor-grid{
+  .app{
     grid-template-columns:1fr;
   }
 
-  .preview-box{
-    min-height:360px;
-  }
-
-  .cards{
+  .features{
     grid-template-columns:1fr 1fr;
   }
 }
 
 @media(max-width:600px){
   .nav{
-    align-items:flex-start;
     padding:10px 0;
   }
 
-  .nav-right{
-    justify-content:flex-end;
+  .navlinks a{
+    display:none;
   }
 
   .hero{
-    padding:38px 0 20px;
+    padding-top:35px;
   }
 
-  .hero h1{
-    letter-spacing:-1px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .tool{
-    padding:13px;
-    border-radius:18px;
-  }
-
-  .cards{
+  .controls{
     grid-template-columns:1fr;
   }
 
   .stats{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .actions{
+  .card-body{
+    padding:14px;
+  }
+
+  .features{
     grid-template-columns:1fr;
   }
 
-  .row{
-    grid-template-columns:1fr 1fr;
+  .drop{
+    padding:24px 12px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
+
+@media print{
+  header,
+  .hero,
+  .controls,
+  .actions,
+  .gallery,
+  .section,
+  footer,
+  .ad,
+  .notice,
+  #loading,
+  #toast{
+    display:none!important;
   }
 
-  .preview-box img{
-    max-height:390px;
+  body{
+    background:#fff;
+  }
+
+  .card{
+    border:0;
+    box-shadow:none;
+  }
+
+  .preview{
+    background:#fff;
   }
 }
 </style>
@@ -696,2932 +721,1711 @@ footer{
   <div class="container nav">
 
     <a class="brand" href="./" aria-label="Piklyzo home">
-      <img src="logo.png"
-           alt="Piklyzo logo"
-           width="38"
-           height="38"
-           onerror="this.style.display='none'">
+      <img
+        src="logo.png"
+        width="40"
+        height="40"
+        alt="Piklyzo logo"
+      >
       <span>Piklyzo</span>
     </a>
 
-    <div class="nav-right">
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#faq">FAQ</a>
 
-      <select id="countrySelect"
-              class="control"
-              aria-label="Country">
-        <option value="US">🇺🇸 United States</option>
-        <option value="CA">🇨🇦 Canada</option>
-        <option value="GB">🇬🇧 United Kingdom</option>
-        <option value="AU">🇦🇺 Australia</option>
-        <option value="IN">🇮🇳 India</option>
-        <option value="PK">🇵🇰 Pakistan</option>
-        <option value="BD">🇧🇩 Bangladesh</option>
-        <option value="AE">🇦🇪 United Arab Emirates</option>
-        <option value="SA">🇸🇦 Saudi Arabia</option>
-        <option value="ID">🇮🇩 Indonesia</option>
-        <option value="BR">🇧🇷 Brazil</option>
-        <option value="MX">🇲🇽 Mexico</option>
-        <option value="DE">🇩🇪 Germany</option>
-        <option value="FR">🇫🇷 France</option>
-        <option value="JP">🇯🇵 Japan</option>
-        <option value="KR">🇰🇷 South Korea</option>
-        <option value="CN">🇨🇳 China</option>
-        <option value="ES">🇪🇸 Spain</option>
-        <option value="IT">🇮🇹 Italy</option>
-        <option value="NL">🇳🇱 Netherlands</option>
-      </select>
+      <button
+        class="theme"
+        id="themeBtn"
+        type="button"
+        aria-label="Toggle dark mode"
+      >🌙</button>
+    </nav>
 
-      <select id="languageSelect"
-              class="control"
-              aria-label="Language">
-        <option value="en">English (US)</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="pt">Português</option>
-        <option value="hi">हिन्दी</option>
-        <option value="ur">اردو</option>
-        <option value="bn">বাংলা</option>
-        <option value="id">Bahasa Indonesia</option>
-        <option value="ar">العربية</option>
-        <option value="ja">日本語</option>
-        <option value="ko">한국어</option>
-        <option value="zh">简体中文</option>
-      </select>
-
-      <button id="themeBtn"
-              class="icon-btn"
-              type="button"
-              aria-label="Toggle dark mode">🌙</button>
-    </div>
   </div>
 </header>
 
 <main>
 
-<section class="hero">
-  <div class="container">
-
-    <div class="badges">
-      <span class="badge">✓ 100% Free</span>
-      <span class="badge">✓ No Sign-Up</span>
-      <span class="badge">✓ Browser Processing</span>
-      <span class="badge">✓ Multiple Images</span>
-    </div>
-
-    <h1>
-      <span data-i18n="heroTitle1">Free Image Compressor</span>
-      <span class="gradient-text"
-            data-i18n="heroTitle2">& Form Photo Maker</span>
-    </h1>
-
-    <p data-i18n="heroText">
-      Compress, resize and edit your photos directly in your browser.
-      Add a name and date, borders, and remove simple backgrounds.
-      No server upload required.
-    </p>
-
-  </div>
-</section>
-
-<section class="container tool">
-
-  <div id="dropZone" class="upload">
-
-    <div class="upload-icon">🖼️</div>
-
-    <h2 data-i18n="uploadTitle">
-      Drop your images here
-    </h2>
-
-    <p data-i18n="uploadText">
-      JPG, PNG, WebP and common image files are supported.
-      You can select multiple images.
-    </p>
-
-    <label class="file-label" for="fileInput">
-      📁 <span data-i18n="chooseFiles">Choose Images</span>
-    </label>
-
-    <input
-      id="fileInput"
-      type="file"
-      accept="image/jpeg,image/png,image/webp,image/gif,image/bmp"
-      multiple
-    >
-
-  </div>
-
-  <div id="editorArea" class="editor-grid hidden">
-
-    <aside class="panel">
-
-      <h3 data-i18n="settings">Editing Settings</h3>
-
-      <div class="field">
-        <label for="targetKB" data-i18n="targetKB">
-          Target Size (KB)
-        </label>
-        <input id="targetKB"
-               type="number"
-               min="5"
-               max="50000"
-               value="100">
-      </div>
-
-      <div class="row">
-
-        <div class="field">
-          <label for="width" data-i18n="width">Width</label>
-          <input id="width"
-                 type="number"
-                 min="20"
-                 max="10000">
-        </div>
-
-        <div class="field">
-          <label for="height" data-i18n="height">Height</label>
-          <input id="height"
-                 type="number"
-                 min="20"
-                 max="10000">
-        </div>
-
-      </div>
-
-      <label class="check">
-        <input id="keepRatio"
-               type="checkbox"
-               checked>
-        <span data-i18n="keepRatio">Keep aspect ratio</span>
-      </label>
-
-      <div class="field">
-        <label for="outputFormat" data-i18n="format">
-          Output Format
-        </label>
-
-        <select id="outputFormat">
-          <option value="image/jpeg">JPG</option>
-          <option value="image/png">PNG</option>
-          <option value="image/webp">WebP</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="quality">
-          <span data-i18n="quality">Quality</span>
-        </label>
-
-        <div class="range-row">
-          <input id="quality"
-                 type="range"
-                 min="30"
-                 max="100"
-                 value="85">
-          <span id="qualityValue" class="value">85%</span>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="filename" data-i18n="filename">
-          File Name
-        </label>
-        <input id="filename"
-               type="text"
-               value="piklyzo-image"
-               maxlength="80">
-      </div>
-
-      <hr style="border:0;border-top:1px solid var(--border);margin:18px 0">
-
-      <label class="check">
-        <input id="stampToggle"
-               type="checkbox">
-        <span data-i18n="stamp">Add Name & Date</span>
-      </label>
-
-      <div id="stampOptions" class="hidden">
-
-        <div class="field">
-          <label for="stampName" data-i18n="name">
-            Name
-          </label>
-          <input id="stampName"
-                 type="text"
-                 placeholder="Your name"
-                 maxlength="50">
-        </div>
-
-        <div class="field">
-          <label for="stampDate" data-i18n="date">
-            Date
-          </label>
-          <input id="stampDate"
-                 type="date">
-        </div>
-
-        <div class="row">
-
-          <div class="field">
-            <label for="stampSize" data-i18n="textSize">
-              Text Size
-            </label>
-            <input id="stampSize"
-                   type="number"
-                   min="8"
-                   max="120"
-                   value="28">
-          </div>
-
-          <div class="field">
-            <label for="stampColor" data-i18n="textColor">
-              Text Color
-            </label>
-            <input id="stampColor"
-                   type="color"
-                   value="#111111">
-          </div>
-
-        </div>
-
-      </div>
-
-      <label class="check">
-        <input id="borderToggle"
-               type="checkbox">
-        <span data-i18n="border">Add Border</span>
-      </label>
-
-      <div id="borderOptions" class="hidden">
-
-        <div class="row">
-
-          <div class="field">
-            <label for="borderWidth" data-i18n="borderWidth">
-              Border Width
-            </label>
-            <input id="borderWidth"
-                   type="number"
-                   min="1"
-                   max="100"
-                   value="5">
-          </div>
-
-          <div class="field">
-            <label for="borderColor" data-i18n="borderColor">
-              Border Color
-            </label>
-            <input id="borderColor"
-                   type="color"
-                   value="#111111">
-          </div>
-
-        </div>
-
-      </div>
-
-      <label class="check">
-        <input id="backgroundToggle"
-               type="checkbox">
-        <span data-i18n="background">Remove Simple Background</span>
-      </label>
-
-      <div id="backgroundOptions" class="hidden">
-
-        <div class="field">
-          <label for="backgroundMode"
-                 data-i18n="backgroundMode">
-            Background
-          </label>
-
-          <select id="backgroundMode">
-            <option value="transparent">Transparent</option>
-            <option value="white">Solid White</option>
-            <option value="blue">Light Blue</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label data-i18n="threshold">
-            Removal Threshold
-          </label>
-
-          <div class="range-row">
-            <input id="threshold"
-                   type="range"
-                   min="5"
-                   max="100"
-                   value="40">
-            <span id="thresholdValue"
-                  class="value">40</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="actions">
-
-        <button id="processBtn"
-                class="btn btn-primary"
-                type="button"
-                data-i18n="process">
-          ⚡ Process Image
-        </button>
-
-        <button id="processAllBtn"
-                class="btn btn-green"
-                type="button"
-                data-i18n="processAll">
-          ⚡ Process All
-        </button>
-
-        <button id="resetBtn"
-                class="btn btn-light"
-                type="button"
-                data-i18n="reset">
-          Reset
-        </button>
-
-        <button id="shareBtn"
-                class="btn btn-light"
-                type="button"
-                data-i18n="share">
-          Share
-        </button>
-
-        <button id="pdfBtn"
-                class="btn btn-light"
-                type="button"
-                data-i18n="pdf">
-          Print / Save PDF
-        </button>
-
-      </div>
-
-      <div id="status"
-           class="status"
-           aria-live="polite"></div>
-
-    </aside>
-
-    <section>
-
-      <div class="preview-box">
-
-        <div id="emptyPreview"
-             class="empty-preview">
-          <div style="font-size:45px">👆</div>
-          <strong data-i18n="previewEmpty">
-            Select an image to start editing
-          </strong>
-        </div>
-
-        <img id="previewImage"
-             class="hidden"
-             alt="Piklyzo image preview">
-      </div>
-
-      <div id="gallery"
-           class="gallery"></div>
-
-      <div class="stats">
-
-        <div class="stat">
-          <strong id="originalSize">—</strong>
-          <span data-i18n="original">Original</span>
-        </div>
-
-        <div class="stat">
-          <strong id="outputSize">—</strong>
-          <span data-i18n="output">Output</span>
-        </div>
-
-        <div class="stat">
-          <strong id="reduction">—</strong>
-          <span data-i18n="reduction">Reduction</span>
-        </div>
-
-        <div class="stat">
-          <strong id="dimensions">—</strong>
-          <span data-i18n="dimensions">Dimensions</span>
-        </div>
-
-      </div>
-
-      <div class="actions">
-
-        <button id="downloadJPG"
-                class="btn btn-primary"
-                type="button">
-          Download JPG
-        </button>
-
-        <button id="downloadPNG"
-                class="btn btn-light"
-                type="button">
-          Download PNG
-        </button>
-
-        <button id="downloadWebP"
-                class="btn btn-light"
-                type="button">
-          Download WebP
-        </button>
-
-        <button id="copyBtn"
-                class="btn btn-light"
-                type="button"
-                data-i18n="copy">
-          Copy Image
-        </button>
-
-      </div>
-
-    </section>
-
-  </div>
-
-</section>
-
-<section class="features">
-  <div class="container">
-
-    <div class="section-title">
-      <h2 data-i18n="whyTitle">Everything You Need</h2>
-      <p data-i18n="whyText">
-        Simple tools designed to work quickly in your browser.
-      </p>
-    </div>
-
-    <div class="cards">
-
-      <article class="card">
-        <div class="card-icon">🎯</div>
-        <h3 data-i18n="card1Title">Target KB Compression</h3>
-        <p data-i18n="card1Text">
-          Reduce image size toward a specific KB target using browser-side
-          quality and dimension adjustments.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">📐</div>
-        <h3 data-i18n="card2Title">Resize Photos</h3>
-        <p data-i18n="card2Text">
-          Set exact width and height or keep the original aspect ratio.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">📝</div>
-        <h3 data-i18n="card3Title">Name & Date</h3>
-        <p data-i18n="card3Text">
-          Add a clean name and date stamp to application or form photos.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🖼️</div>
-        <h3 data-i18n="card4Title">Background Tool</h3>
-        <p data-i18n="card4Text">
-          Remove a simple, evenly colored background directly in the browser.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">📦</div>
-        <h3 data-i18n="card5Title">Batch Processing</h3>
-        <p data-i18n="card5Text">
-          Select multiple photos and process them one after another.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🔒</div>
-        <h3 data-i18n="card6Title">Browser Processing</h3>
-        <p data-i18n="card6Text">
-          Images are processed locally by your browser instead of being
-          uploaded to a Piklyzo server.
-        </p>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<section class="container info">
-
-  <h2 data-i18n="aboutTitle">
-    What is Piklyzo?
-  </h2>
-
-  <p data-i18n="aboutText">
-    Piklyzo is a free online image utility for people who need to
-    compress, resize and prepare photos for applications, forms,
-    websites and everyday sharing. The editor runs in your browser,
-    helping keep the processing lightweight and private.
+<section class="hero container">
+
+  <h1>
+    Free Image Compressor, Resizer &amp; Form Photo Maker
+  </h1>
+
+  <p>
+    Compress images to a smaller file size, resize photos,
+    add name and date stamps, borders, and simple background
+    cleanup — right in your browser.
   </p>
 
-  <h2 data-i18n="faqTitle">
+  <div class="badges">
+    <span class="badge">100% Free</span>
+    <span class="badge">No Sign-Up</span>
+    <span class="badge">Browser Processing</span>
+    <span class="badge">Multiple Images</span>
+  </div>
+
+</section>
+
+<div class="container ad">
+  Advertisement
+</div>
+
+<section class="container app" id="tool">
+
+<!-- LEFT SIDE -->
+
+<div class="card card-body">
+
+  <div class="drop" id="dropArea">
+
+    <strong>
+      Choose photos or drop them here
+    </strong>
+
+    <small>
+      JPG, JPEG, PNG, WebP and common browser-supported image formats.
+      Maximum 30 MB per image.
+    </small>
+
+    <br>
+
+    <label class="file-button">
+
+      Choose Images
+
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        multiple
+        hidden
+      >
+
+    </label>
+
+  </div>
+
+  <div class="controls">
+
+    <div class="field">
+      <label for="targetKB">Target size (KB)</label>
+
+      <input
+        id="targetKB"
+        type="number"
+        min="5"
+        max="50000"
+        value="100"
+      >
+    </div>
+
+
+    <div class="field">
+      <label for="format">Output format</label>
+
+      <select id="format">
+        <option value="image/jpeg">JPG</option>
+        <option value="image/webp">WebP</option>
+        <option value="image/png">PNG</option>
+      </select>
+    </div>
+
+
+    <div class="field">
+      <label for="width">Width (px)</label>
+
+      <input
+        id="width"
+        type="number"
+        min="1"
+        max="10000"
+        placeholder="Original"
+      >
+    </div>
+
+
+    <div class="field">
+      <label for="height">Height (px)</label>
+
+      <input
+        id="height"
+        type="number"
+        min="1"
+        max="10000"
+        placeholder="Original"
+      >
+    </div>
+
+
+    <label class="check full">
+      <input id="keepRatio" type="checkbox" checked>
+      Keep original aspect ratio
+    </label>
+
+
+    <div class="field full">
+
+      <label for="quality">
+        Image quality:
+        <span id="qualityText">85%</span>
+      </label>
+
+      <input
+        id="quality"
+        type="range"
+        min="10"
+        max="100"
+        value="85"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="filename">
+        Output filename
+      </label>
+
+      <input
+        id="filename"
+        type="text"
+        value="piklyzo-image"
+        maxlength="80"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="nameStamp">
+        Name stamp
+      </label>
+
+      <input
+        id="nameStamp"
+        type="text"
+        placeholder="Optional name"
+        maxlength="80"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="dateStamp">
+        Date stamp
+      </label>
+
+      <input
+        id="dateStamp"
+        type="date"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="stampSize">
+        Stamp size
+      </label>
+
+      <input
+        id="stampSize"
+        type="number"
+        min="8"
+        max="200"
+        value="28"
+      >
+
+    </div>
+
+
+    <label class="check full">
+
+      <input
+        id="addBorder"
+        type="checkbox"
+      >
+
+      Add professional border
+
+    </label>
+
+
+    <div class="field">
+
+      <label for="borderWidth">
+        Border width
+      </label>
+
+      <input
+        id="borderWidth"
+        type="number"
+        min="1"
+        max="100"
+        value="5"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="borderColor">
+        Border color
+      </label>
+
+      <input
+        id="borderColor"
+        type="color"
+        value="#1d4ed8"
+      >
+
+    </div>
+
+
+    <label class="check full">
+
+      <input
+        id="backgroundCleanup"
+        type="checkbox"
+      >
+
+      Simple background cleanup
+
+    </label>
+
+
+    <div class="field">
+
+      <label for="backgroundMode">
+        Background result
+      </label>
+
+      <select id="backgroundMode">
+
+        <option value="white">
+          Solid white
+        </option>
+
+        <option value="blue">
+          Light blue
+        </option>
+
+        <option value="transparent">
+          Transparent
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="threshold">
+        Cleanup threshold:
+        <span id="thresholdText">40</span>
+      </label>
+
+      <input
+        id="threshold"
+        type="range"
+        min="10"
+        max="100"
+        value="40"
+      >
+
+    </div>
+
+  </div>
+
+
+  <p
+    class="notice"
+    id="formatNotice"
+    aria-live="polite"
+  ></p>
+
+
+  <div class="actions">
+
+    <button
+      class="btn primary"
+      id="processBtn"
+      type="button"
+    >
+      Process Image
+    </button>
+
+
+    <button
+      class="btn secondary"
+      id="processAllBtn"
+      type="button"
+    >
+      Process All
+    </button>
+
+
+    <button
+      class="btn secondary"
+      id="resetBtn"
+      type="button"
+    >
+      Reset
+    </button>
+
+
+    <button
+      class="btn secondary"
+      id="shareBtn"
+      type="button"
+    >
+      Share
+    </button>
+
+
+    <button
+      class="btn secondary"
+      id="pdfBtn"
+      type="button"
+    >
+      Print / Save PDF
+    </button>
+
+  </div>
+
+
+  <p class="notice">
+    Target size is an approximate goal. JPG and WebP compression
+    can vary by image. PNG uses lossless encoding, so an exact
+    target KB size cannot be guaranteed.
+  </p>
+
+
+  <div
+    class="gallery"
+    id="gallery"
+    aria-label="Selected images"
+  ></div>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+
+<aside class="card card-body">
+
+  <div class="preview" id="preview">
+
+    <div class="empty">
+      Your processed image will appear here.
+    </div>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <b id="originalSize">—</b>
+      <span>Original</span>
+    </div>
+
+    <div class="stat">
+      <b id="outputSize">—</b>
+      <span>Output</span>
+    </div>
+
+    <div class="stat">
+      <b id="reduction">—</b>
+      <span>Reduction</span>
+    </div>
+
+    <div class="stat">
+      <b id="dimensions">—</b>
+      <span>Dimensions</span>
+    </div>
+
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="btn primary"
+      id="downloadBtn"
+      type="button"
+      disabled
+    >
+      Download Image
+    </button>
+
+
+    <button
+      class="btn secondary"
+      id="copyBtn"
+      type="button"
+      disabled
+    >
+      Copy Image
+    </button>
+
+  </div>
+
+
+  <p class="notice">
+    Image editing is performed locally in your browser.
+    The editor does not need to upload your selected image
+    to a processing server.
+  </p>
+
+</aside>
+
+</section>
+
+
+<div class="container ad">
+  Advertisement
+</div>
+
+
+<section class="section container" id="features">
+
+  <h2>
+    What you can do with Piklyzo
+  </h2>
+
+  <p class="section-intro">
+    Piklyzo provides lightweight browser-based image tools
+    for everyday photo and document preparation.
+  </p>
+
+
+  <div class="features">
+
+    <article class="feature">
+      <h3>Image Compression</h3>
+      <p>
+        Reduce JPG and WebP image file sizes toward a
+        selected KB target.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>Image Resizer</h3>
+      <p>
+        Set custom image width and height while optionally
+        preserving the original aspect ratio.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>Form Photo Maker</h3>
+      <p>
+        Add a name, date and professional border to photos
+        used for applications and forms.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>Background Cleanup</h3>
+      <p>
+        Replace similar corner-background colors with white,
+        light blue or transparency.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>Batch Processing</h3>
+      <p>
+        Select multiple images and process them using the
+        same settings.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>JPG, PNG &amp; WebP</h3>
+      <p>
+        Export processed images in common modern image formats.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="section container" id="how">
+
+  <h2>
+    How to use Piklyzo
+  </h2>
+
+
+  <div class="features">
+
+    <article class="feature">
+      <h3>1. Select an image</h3>
+      <p>
+        Choose one or multiple images from your phone,
+        tablet or computer.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>2. Choose your settings</h3>
+      <p>
+        Set KB size, dimensions, format, quality,
+        name, date, border or background options.
+      </p>
+    </article>
+
+
+    <article class="feature">
+      <h3>3. Process and download</h3>
+      <p>
+        Process the image, check the preview and download
+        the final file.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="section container faq" id="faq">
+
+  <h2>
     Frequently Asked Questions
   </h2>
 
-  <div class="faq">
-    <details>
-      <summary data-i18n="q1">
-        Does Piklyzo upload my photos?
-      </summary>
-      <p data-i18n="a1">
-        The image processing in this page is performed locally in your
-        browser. Piklyzo does not need an image-upload server for these
-        editing operations.
-      </p>
-    </details>
-  </div>
 
-  <div class="faq">
-    <details>
-      <summary data-i18n="q2">
-        Can I compress an image to an exact KB size?
-      </summary>
-      <p data-i18n="a2">
-        The compressor aims for your requested KB size by adjusting
-        image quality and dimensions. Because image formats work
-        differently, the final file size can be slightly above or below
-        the target.
-      </p>
-    </details>
-  </div>
+  <details>
+    <summary>
+      Is Piklyzo free?
+    </summary>
 
-  <div class="faq">
-    <details>
-      <summary data-i18n="q3">
-        Can I process multiple images?
-      </summary>
-      <p data-i18n="a3">
-        Yes. Select multiple images and use Process All. Your browser
-        processes them sequentially to reduce memory pressure.
-      </p>
-    </details>
-  </div>
+    <p>
+      Yes. Piklyzo is designed as a free browser-based
+      image utility and does not require an account.
+    </p>
+  </details>
 
-  <div class="faq">
-    <details>
-      <summary data-i18n="q4">
-        Does background removal work on every photo?
-      </summary>
-      <p data-i18n="a4">
-        The built-in background remover is designed for simple,
-        mostly uniform backgrounds. It is not an AI subject-segmentation
-        system, so complex backgrounds may require a dedicated AI tool.
-      </p>
-    </details>
-  </div>
+
+  <details>
+    <summary>
+      Are my photos uploaded?
+    </summary>
+
+    <p>
+      The image editor processes selected images locally
+      in your browser. The editing process does not require
+      uploading the selected image to a processing server.
+    </p>
+  </details>
+
+
+  <details>
+    <summary>
+      Can Piklyzo create an exact KB file?
+    </summary>
+
+    <p>
+      Piklyzo works toward the target size you enter,
+      but exact file size cannot always be guaranteed because
+      encoding depends on image content, dimensions and format.
+    </p>
+  </details>
+
+
+  <details>
+    <summary>
+      Can I resize an image?
+    </summary>
+
+    <p>
+      Yes. Enter the desired width and height in pixels.
+      You can keep the original aspect ratio if needed.
+    </p>
+  </details>
+
+
+  <details>
+    <summary>
+      Does background cleanup use AI?
+    </summary>
+
+    <p>
+      No. The lightweight background cleanup uses a color
+      threshold based on pixels sampled from the image corners.
+      It is not an AI subject-segmentation system.
+    </p>
+  </details>
+
+
+  <details>
+    <summary>
+      Can I save the image as PDF?
+    </summary>
+
+    <p>
+      Yes. Process the image and choose Print / Save PDF.
+      Your browser's print dialog can then be used to save
+      the result as a PDF.
+    </p>
+  </details>
+
+
+  <details>
+    <summary>
+      Does Piklyzo work on mobile phones?
+    </summary>
+
+    <p>
+      Yes. The interface is responsive and is designed to
+      work in modern mobile and desktop browsers.
+    </p>
+  </details>
+
+</section>
+
+
+<section class="section container">
+
+  <h2>
+    Privacy
+  </h2>
+
+  <p class="section-intro">
+    Piklyzo's image editor is designed around browser-side
+    processing. Selected images are read by your browser
+    for editing and export. You should always review the
+    final file before submitting an important document.
+  </p>
+
+
+  <h2>
+    Terms
+  </h2>
+
+  <p class="section-intro">
+    You are responsible for the images and documents you
+    process and for checking the requirements of the
+    organization receiving your final file.
+  </p>
+
+
+  <h2>
+    Contact
+  </h2>
+
+  <p class="section-intro">
+    For website feedback or technical issues, use the
+    contact information published with the Piklyzo project.
+  </p>
 
 </section>
 
 </main>
 
+
 <footer>
-  <div class="container">
-    <strong>Piklyzo</strong> —
-    <span data-i18n="footer">
-      Free browser-based image tools for everyone.
+
+  <div class="container footer-inner">
+
+    <span>
+      © <span id="year"></span> Piklyzo. All rights reserved.
     </span>
-    <br>
-    © <span id="year"></span> Piklyzo
+
+    <span>
+      Free browser-based image tools.
+    </span>
+
   </div>
+
 </footer>
 
-<div id="processingOverlay" class="processing">
-  <div class="loader-card">
+
+<!-- LOADING -->
+
+<div id="loading" aria-live="polite">
+
+  <div class="loading-box">
+
     <div class="spinner"></div>
-    <strong id="processingText">Processing image…</strong>
-    <div id="processingProgress"
-         style="color:var(--muted);font-size:13px;margin-top:6px">
-    </div>
+
+    <strong id="loadingText">
+      Processing image...
+    </strong>
+
+    <p>
+      Please keep this tab open.
+    </p>
+
   </div>
+
 </div>
+
+
+<div id="toast" role="status"></div>
+
 
 <script>
 "use strict";
 
-/* =========================================================
-   PIKLYZO — Browser Image Utility
-   No external libraries required.
-   ========================================================= */
+/* =========================
+   BASIC HELPERS
+========================= */
 
 const $ = id => document.getElementById(id);
 
 const state = {
   files: [],
-  activeIndex: 0,
-  processedBlob: null,
-  processedURL: null,
-  originalURL: null,
+  selected: 0,
   image: null,
-  originalWidth: 0,
-  originalHeight: 0
+  result: null,
+  resultURL: null
 };
 
-const MAX_INPUT_MB = 30;
-const MAX_CANVAS_PIXELS = 24000000;
 
-/* =========================================================
-   TRANSLATIONS
-   ========================================================= */
+const el = {
+  fileInput:$("fileInput"),
+  dropArea:$("dropArea"),
+  gallery:$("gallery"),
+  preview:$("preview"),
 
-const translations = {
+  targetKB:$("targetKB"),
+  format:$("format"),
 
-en:{
-heroTitle1:"Free Image Compressor",
-heroTitle2:" & Form Photo Maker",
-heroText:"Compress, resize and edit your photos directly in your browser. Add a name and date, borders, and remove simple backgrounds. No server upload required.",
-uploadTitle:"Drop your images here",
-uploadText:"JPG, PNG, WebP and common image files are supported. You can select multiple images.",
-chooseFiles:"Choose Images",
-settings:"Editing Settings",
-targetKB:"Target Size (KB)",
-width:"Width",
-height:"Height",
-keepRatio:"Keep aspect ratio",
-format:"Output Format",
-quality:"Quality",
-filename:"File Name",
-stamp:"Add Name & Date",
-name:"Name",
-date:"Date",
-textSize:"Text Size",
-textColor:"Text Color",
-border:"Add Border",
-borderWidth:"Border Width",
-borderColor:"Border Color",
-background:"Remove Simple Background",
-backgroundMode:"Background",
-threshold:"Removal Threshold",
-process:"⚡ Process Image",
-processAll:"⚡ Process All",
-reset:"Reset",
-share:"Share",
-pdf:"Print / Save PDF",
-previewEmpty:"Select an image to start editing",
-original:"Original",
-output:"Output",
-reduction:"Reduction",
-dimensions:"Dimensions",
-copy:"Copy Image",
-whyTitle:"Everything You Need",
-whyText:"Simple tools designed to work quickly in your browser.",
-card1Title:"Target KB Compression",
-card1Text:"Reduce image size toward a specific KB target using browser-side quality and dimension adjustments.",
-card2Title:"Resize Photos",
-card2Text:"Set exact width and height or keep the original aspect ratio.",
-card3Title:"Name & Date",
-card3Text:"Add a clean name and date stamp to application or form photos.",
-card4Title:"Background Tool",
-card4Text:"Remove a simple, evenly colored background directly in the browser.",
-card5Title:"Batch Processing",
-card5Text:"Select multiple photos and process them one after another.",
-card6Title:"Browser Processing",
-card6Text:"Images are processed locally by your browser instead of being uploaded to a Piklyzo server.",
-aboutTitle:"What is Piklyzo?",
-aboutText:"Piklyzo is a free online image utility for people who need to compress, resize and prepare photos for applications, forms, websites and everyday sharing. The editor runs in your browser, helping keep the processing lightweight and private.",
-faqTitle:"Frequently Asked Questions",
-q1:"Does Piklyzo upload my photos?",
-a1:"The image processing in this page is performed locally in your browser. Piklyzo does not need an image-upload server for these editing operations.",
-q2:"Can I compress an image to an exact KB size?",
-a2:"The compressor aims for your requested KB size by adjusting image quality and dimensions. Because image formats work differently, the final file size can be slightly above or below the target.",
-q3:"Can I process multiple images?",
-a3:"Yes. Select multiple images and use Process All. Your browser processes them sequentially to reduce memory pressure.",
-q4:"Does background removal work on every photo?",
-a4:"The built-in background remover is designed for simple, mostly uniform backgrounds. It is not an AI subject-segmentation system, so complex backgrounds may require a dedicated AI tool.",
-footer:"Free browser-based image tools for everyone."
-},
+  width:$("width"),
+  height:$("height"),
+  keepRatio:$("keepRatio"),
 
-es:{
-heroTitle1:"Compresor de imágenes gratis",
-heroTitle2:" y creador de fotos para formularios",
-heroText:"Comprime, cambia el tamaño y edita tus fotos directamente en tu navegador.",
-uploadTitle:"Suelta tus imágenes aquí",
-uploadText:"JPG, PNG y WebP son compatibles. Puedes seleccionar varias imágenes.",
-chooseFiles:"Elegir imágenes",
-settings:"Configuración de edición",
-targetKB:"Tamaño objetivo (KB)",
-width:"Ancho",
-height:"Alto",
-keepRatio:"Mantener proporción",
-format:"Formato de salida",
-quality:"Calidad",
-filename:"Nombre del archivo",
-stamp:"Añadir nombre y fecha",
-name:"Nombre",
-date:"Fecha",
-textSize:"Tamaño del texto",
-textColor:"Color del texto",
-border:"Añadir borde",
-borderWidth:"Ancho del borde",
-borderColor:"Color del borde",
-background:"Eliminar fondo simple",
-backgroundMode:"Fondo",
-threshold:"Umbral",
-process:"⚡ Procesar imagen",
-processAll:"⚡ Procesar todas",
-reset:"Restablecer",
-share:"Compartir",
-pdf:"Imprimir / Guardar PDF",
-previewEmpty:"Selecciona una imagen para comenzar",
-original:"Original",
-output:"Salida",
-reduction:"Reducción",
-dimensions:"Dimensiones",
-copy:"Copiar imagen",
-whyTitle:"Todo lo que necesitas",
-whyText:"Herramientas sencillas que funcionan rápidamente en tu navegador.",
-card1Title:"Compresión por KB",
-card1Text:"Reduce el tamaño de la imagen hacia un objetivo de KB.",
-card2Title:"Cambiar tamaño",
-card2Text:"Define el ancho y alto exactos o conserva la proporción.",
-card3Title:"Nombre y fecha",
-card3Text:"Añade un nombre y una fecha a tus fotos.",
-card4Title:"Herramienta de fondo",
-card4Text:"Elimina fondos simples y uniformes.",
-card5Title:"Procesamiento por lotes",
-card5Text:"Selecciona y procesa varias fotos.",
-card6Title:"Procesamiento en navegador",
-card6Text:"Las imágenes se procesan localmente en tu navegador.",
-aboutTitle:"¿Qué es Piklyzo?",
-aboutText:"Piklyzo es una herramienta gratuita para comprimir, cambiar el tamaño y preparar imágenes.",
-faqTitle:"Preguntas frecuentes",
-q1:"¿Piklyzo sube mis fotos?",
-a1:"El procesamiento se realiza localmente en tu navegador.",
-q2:"¿Puedo comprimir a un tamaño KB específico?",
-a2:"El compresor intenta alcanzar el tamaño solicitado ajustando calidad y dimensiones.",
-q3:"¿Puedo procesar varias imágenes?",
-a3:"Sí. Selecciona varias imágenes y usa Procesar todas.",
-q4:"¿Funciona la eliminación de fondo en todas las fotos?",
-a4:"Está diseñada para fondos sencillos y uniformes.",
-footer:"Herramientas de imágenes gratuitas en el navegador."
-},
+  quality:$("quality"),
+  qualityText:$("qualityText"),
 
-fr:{
-heroTitle1:"Compresseur d'images gratuit",
-heroTitle2:" et créateur de photos pour formulaires",
-heroText:"Compressez, redimensionnez et modifiez vos photos directement dans votre navigateur.",
-uploadTitle:"Déposez vos images ici",
-uploadText:"JPG, PNG et WebP sont pris en charge.",
-chooseFiles:"Choisir des images",
-settings:"Paramètres",
-targetKB:"Taille cible (KB)",
-width:"Largeur",
-height:"Hauteur",
-keepRatio:"Conserver les proportions",
-format:"Format de sortie",
-quality:"Qualité",
-filename:"Nom du fichier",
-stamp:"Ajouter nom et date",
-name:"Nom",
-date:"Date",
-textSize:"Taille du texte",
-textColor:"Couleur du texte",
-border:"Ajouter une bordure",
-borderWidth:"Largeur de bordure",
-borderColor:"Couleur de bordure",
-background:"Supprimer l'arrière-plan simple",
-backgroundMode:"Arrière-plan",
-threshold:"Seuil",
-process:"⚡ Traiter l'image",
-processAll:"⚡ Tout traiter",
-reset:"Réinitialiser",
-share:"Partager",
-pdf:"Imprimer / Enregistrer PDF",
-previewEmpty:"Sélectionnez une image pour commencer",
-original:"Original",
-output:"Sortie",
-reduction:"Réduction",
-dimensions:"Dimensions",
-copy:"Copier l'image",
-whyTitle:"Tout ce dont vous avez besoin",
-whyText:"Des outils simples et rapides dans votre navigateur.",
-card1Title:"Compression KB",
-card1Text:"Réduisez la taille vers une cible en KB.",
-card2Title:"Redimensionnement",
-card2Text:"Définissez une largeur et une hauteur précises.",
-card3Title:"Nom et date",
-card3Text:"Ajoutez un nom et une date.",
-card4Title:"Arrière-plan",
-card4Text:"Supprimez les arrière-plans simples.",
-card5Title:"Traitement multiple",
-card5Text:"Traitez plusieurs photos.",
-card6Title:"Traitement navigateur",
-card6Text:"Les images sont traitées localement.",
-aboutTitle:"Qu'est-ce que Piklyzo ?",
-aboutText:"Piklyzo est un outil gratuit pour compresser, redimensionner et préparer des images.",
-faqTitle:"Questions fréquentes",
-q1:"Piklyzo envoie-t-il mes photos ?",
-a1:"Le traitement est effectué localement dans votre navigateur.",
-q2:"Puis-je atteindre une taille KB précise ?",
-a2:"Le compresseur vise la taille demandée.",
-q3:"Puis-je traiter plusieurs images ?",
-a3:"Oui, sélectionnez plusieurs images.",
-q4:"La suppression d'arrière-plan fonctionne-t-elle partout ?",
-a4:"Elle est conçue pour les arrière-plans simples.",
-footer:"Outils d'image gratuits dans votre navigateur."
-},
+  filename:$("filename"),
 
-de:{
-heroTitle1:"Kostenloser Bildkompressor",
-heroTitle2:" & Formular-Fotobearbeitung",
-heroText:"Bilder direkt im Browser komprimieren, skalieren und bearbeiten.",
-uploadTitle:"Bilder hier ablegen",
-uploadText:"JPG, PNG und WebP werden unterstützt.",
-chooseFiles:"Bilder auswählen",
-settings:"Bearbeitungseinstellungen",
-targetKB:"Zielgröße (KB)",
-width:"Breite",
-height:"Höhe",
-keepRatio:"Seitenverhältnis beibehalten",
-format:"Ausgabeformat",
-quality:"Qualität",
-filename:"Dateiname",
-stamp:"Name & Datum hinzufügen",
-name:"Name",
-date:"Datum",
-textSize:"Textgröße",
-textColor:"Textfarbe",
-border:"Rahmen hinzufügen",
-borderWidth:"Rahmenbreite",
-borderColor:"Rahmenfarbe",
-background:"Einfachen Hintergrund entfernen",
-backgroundMode:"Hintergrund",
-threshold:"Schwellenwert",
-process:"⚡ Bild verarbeiten",
-processAll:"⚡ Alle verarbeiten",
-reset:"Zurücksetzen",
-share:"Teilen",
-pdf:"Drucken / PDF speichern",
-previewEmpty:"Bild auswählen, um zu beginnen",
-original:"Original",
-output:"Ausgabe",
-reduction:"Reduzierung",
-dimensions:"Abmessungen",
-copy:"Bild kopieren",
-whyTitle:"Alles, was Sie brauchen",
-whyText:"Einfache Werkzeuge direkt im Browser.",
-card1Title:"KB-Komprimierung",
-card1Text:"Reduzieren Sie die Bildgröße auf einen Zielwert.",
-card2Title:"Bilder skalieren",
-card2Text:"Breite und Höhe exakt festlegen.",
-card3Title:"Name & Datum",
-card3Text:"Name und Datum hinzufügen.",
-card4Title:"Hintergrund",
-card4Text:"Einfache Hintergründe entfernen.",
-card5Title:"Stapelverarbeitung",
-card5Text:"Mehrere Fotos nacheinander verarbeiten.",
-card6Title:"Browser-Verarbeitung",
-card6Text:"Bilder werden lokal verarbeitet.",
-aboutTitle:"Was ist Piklyzo?",
-aboutText:"Piklyzo ist ein kostenloses Browser-Tool für Bilder.",
-faqTitle:"Häufig gestellte Fragen",
-q1:"Werden meine Bilder hochgeladen?",
-a1:"Die Verarbeitung erfolgt lokal in Ihrem Browser.",
-q2:"Kann ich eine bestimmte KB-Größe erreichen?",
-a2:"Der Kompressor versucht, die gewünschte Größe zu erreichen.",
-q3:"Kann ich mehrere Bilder verarbeiten?",
-a3:"Ja, wählen Sie mehrere Bilder aus.",
-q4:"Funktioniert die Hintergrundentfernung bei jedem Bild?",
-a4:"Sie ist für einfache, gleichmäßige Hintergründe gedacht.",
-footer:"Kostenlose Bildtools direkt im Browser."
-},
+  nameStamp:$("nameStamp"),
+  dateStamp:$("dateStamp"),
+  stampSize:$("stampSize"),
 
-pt:{
-heroTitle1:"Compressor de imagens grátis",
-heroTitle2:" e criador de fotos para formulários",
-heroText:"Comprima, redimensione e edite suas fotos diretamente no navegador.",
-uploadTitle:"Solte suas imagens aqui",
-uploadText:"JPG, PNG e WebP são compatíveis.",
-chooseFiles:"Escolher imagens",
-settings:"Configurações",
-targetKB:"Tamanho alvo (KB)",
-width:"Largura",
-height:"Altura",
-keepRatio:"Manter proporção",
-format:"Formato de saída",
-quality:"Qualidade",
-filename:"Nome do arquivo",
-stamp:"Adicionar nome e data",
-name:"Nome",
-date:"Data",
-textSize:"Tamanho do texto",
-textColor:"Cor do texto",
-border:"Adicionar borda",
-borderWidth:"Largura da borda",
-borderColor:"Cor da borda",
-background:"Remover fundo simples",
-backgroundMode:"Fundo",
-threshold:"Limite",
-process:"⚡ Processar imagem",
-processAll:"⚡ Processar todas",
-reset:"Redefinir",
-share:"Compartilhar",
-pdf:"Imprimir / Salvar PDF",
-previewEmpty:"Selecione uma imagem para começar",
-original:"Original",
-output:"Saída",
-reduction:"Redução",
-dimensions:"Dimensões",
-copy:"Copiar imagem",
-whyTitle:"Tudo que você precisa",
-whyText:"Ferramentas simples e rápidas no navegador.",
-card1Title:"Compressão por KB",
-card1Text:"Reduza o tamanho para um objetivo em KB.",
-card2Title:"Redimensionar",
-card2Text:"Defina largura e altura exatas.",
-card3Title:"Nome e data",
-card3Text:"Adicione nome e data.",
-card4Title:"Ferramenta de fundo",
-card4Text:"Remova fundos simples.",
-card5Title:"Processamento em lote",
-card5Text:"Processe várias fotos.",
-card6Title:"Processamento no navegador",
-card6Text:"As imagens são processadas localmente.",
-aboutTitle:"O que é o Piklyzo?",
-aboutText:"Piklyzo é uma ferramenta gratuita de imagens.",
-faqTitle:"Perguntas frequentes",
-q1:"O Piklyzo envia minhas fotos?",
-a1:"O processamento acontece localmente no navegador.",
-q2:"Posso atingir um tamanho KB específico?",
-a2:"O compressor tenta atingir o tamanho solicitado.",
-q3:"Posso processar várias imagens?",
-a3:"Sim.",
-q4:"A remoção de fundo funciona em todas as fotos?",
-a4:"É indicada para fundos simples.",
-footer:"Ferramentas de imagem gratuitas no navegador."
-},
+  addBorder:$("addBorder"),
+  borderWidth:$("borderWidth"),
+  borderColor:$("borderColor"),
 
-hi:{
-heroTitle1:"मुफ़्त Image Compressor",
-heroTitle2:" और Form Photo Maker",
-heroText:"अपनी photos को सीधे browser में compress, resize और edit करें। Name/date, border और simple background removal भी करें।",
-uploadTitle:"अपनी images यहाँ डालें",
-uploadText:"JPG, PNG और WebP supported हैं। आप multiple images चुन सकते हैं।",
-chooseFiles:"Images चुनें",
-settings:"Editing Settings",
-targetKB:"Target Size (KB)",
-width:"Width",
-height:"Height",
-keepRatio:"Aspect ratio रखें",
-format:"Output Format",
-quality:"Quality",
-filename:"File Name",
-stamp:"Name & Date जोड़ें",
-name:"Name",
-date:"Date",
-textSize:"Text Size",
-textColor:"Text Color",
-border:"Border जोड़ें",
-borderWidth:"Border Width",
-borderColor:"Border Color",
-background:"Simple Background हटाएँ",
-backgroundMode:"Background",
-threshold:"Removal Threshold",
-process:"⚡ Image Process करें",
-processAll:"⚡ सभी Process करें",
-reset:"Reset",
-share:"Share",
-pdf:"Print / Save PDF",
-previewEmpty:"शुरू करने के लिए image चुनें",
-original:"Original",
-output:"Output",
-reduction:"Reduction",
-dimensions:"Dimensions",
-copy:"Image Copy करें",
-whyTitle:"आपको जो चाहिए, सब एक जगह",
-whyText:"तेज़ और simple browser-based image tools.",
-card1Title:"Target KB Compression",
-card1Text:"Image को आपके target KB के करीब compress करें।",
-card2Title:"Photo Resize",
-card2Text:"Exact width और height सेट करें।",
-card3Title:"Name & Date",
-card3Text:"Photo पर name और date जोड़ें।",
-card4Title:"Background Tool",
-card4Text:"Simple background को browser में हटाएँ।",
-card5Title:"Multiple Photos",
-card5Text:"एक साथ कई photos चुनकर process करें।",
-card6Title:"Browser Processing",
-card6Text:"Images browser में locally process होती हैं।",
-aboutTitle:"Piklyzo क्या है?",
-aboutText:"Piklyzo एक free browser-based image utility है जो compression, resizing और form photo editing के लिए बनाई गई है।",
-faqTitle:"अक्सर पूछे जाने वाले सवाल",
-q1:"क्या Piklyzo मेरी photos upload करता है?",
-a1:"इस editor की processing आपके browser में locally होती है।",
-q2:"क्या मैं exact KB size कर सकता हूँ?",
-a2:"Compressor target KB तक पहुँचने की कोशिश करता है। Final size थोड़ा ऊपर या नीचे हो सकता है।",
-q3:"क्या multiple images process कर सकते हैं?",
-a3:"हाँ। Multiple images select करके Process All दबाएँ।",
-q4:"क्या background removal हर photo पर काम करेगा?",
-a4:"यह simple और mostly uniform backgrounds के लिए बनाया गया है।",
-footer:"सबके लिए free browser-based image tools."
-},
+  backgroundCleanup:$("backgroundCleanup"),
+  backgroundMode:$("backgroundMode"),
+  threshold:$("threshold"),
+  thresholdText:$("thresholdText"),
 
-ur:{
-heroTitle1:"مفت Image Compressor",
-heroTitle2:" اور Form Photo Maker",
-heroText:"اپنی تصاویر کو براہ راست browser میں compress، resize اور edit کریں۔",
-uploadTitle:"اپنی تصاویر یہاں ڈالیں",
-uploadText:"JPG، PNG اور WebP supported ہیں۔ آپ multiple images منتخب کر سکتے ہیں۔",
-chooseFiles:"Images منتخب کریں",
-settings:"Editing Settings",
-targetKB:"Target Size (KB)",
-width:"Width",
-height:"Height",
-keepRatio:"Aspect ratio برقرار رکھیں",
-format:"Output Format",
-quality:"Quality",
-filename:"File Name",
-stamp:"Name & Date شامل کریں",
-name:"Name",
-date:"Date",
-textSize:"Text Size",
-textColor:"Text Color",
-border:"Border شامل کریں",
-borderWidth:"Border Width",
-borderColor:"Border Color",
-background:"Simple Background ہٹائیں",
-backgroundMode:"Background",
-threshold:"Removal Threshold",
-process:"⚡ Image Process کریں",
-processAll:"⚡ سب Process کریں",
-reset:"Reset",
-share:"Share",
-pdf:"Print / Save PDF",
-previewEmpty:"شروع کرنے کے لیے image منتخب کریں",
-original:"Original",
-output:"Output",
-reduction:"Reduction",
-dimensions:"Dimensions",
-copy:"Image Copy کریں",
-whyTitle:"آپ کی ضرورت کی ہر چیز",
-whyText:"تیز browser-based image tools.",
-card1Title:"Target KB Compression",
-card1Text:"Image کو مطلوبہ KB کے قریب compress کریں۔",
-card2Title:"Resize Photos",
-card2Text:"Exact width اور height سیٹ کریں۔",
-card3Title:"Name & Date",
-card3Text:"Photo پر name اور date شامل کریں۔",
-card4Title:"Background Tool",
-card4Text:"Simple background کو browser میں ہٹائیں۔",
-card5Title:"Batch Processing",
-card5Text:"Multiple photos process کریں۔",
-card6Title:"Browser Processing",
-card6Text:"Images browser میں locally process ہوتی ہیں۔",
-aboutTitle:"Piklyzo کیا ہے؟",
-aboutText:"Piklyzo ایک مفت browser-based image utility ہے۔",
-faqTitle:"اکثر پوچھے گئے سوالات",
-q1:"کیا Piklyzo میری photos upload کرتا ہے؟",
-a1:"Processing آپ کے browser میں locally ہوتی ہے۔",
-q2:"کیا exact KB size حاصل کر سکتے ہیں؟",
-a2:"Compressor مطلوبہ size تک پہنچنے کی کوشش کرتا ہے۔",
-q3:"کیا multiple images process کر سکتے ہیں؟",
-a3:"جی ہاں۔",
-q4:"کیا background removal ہر تصویر پر کام کرتا ہے؟",
-a4:"یہ simple backgrounds کے لیے بنایا گیا ہے۔",
-footer:"سب کے لیے مفت browser-based image tools."
-},
+  formatNotice:$("formatNotice"),
 
-bn:{
-heroTitle1:"ফ্রি Image Compressor",
-heroTitle2:" এবং Form Photo Maker",
-heroText:"ব্রাউজারেই ছবি compress, resize এবং edit করুন।",
-uploadTitle:"আপনার ছবি এখানে দিন",
-uploadText:"JPG, PNG এবং WebP সমর্থিত। একাধিক ছবি নির্বাচন করতে পারেন।",
-chooseFiles:"ছবি নির্বাচন করুন",
-settings:"Editing Settings",
-targetKB:"Target Size (KB)",
-width:"Width",
-height:"Height",
-keepRatio:"Aspect ratio রাখুন",
-format:"Output Format",
-quality:"Quality",
-filename:"File Name",
-stamp:"Name & Date যোগ করুন",
-name:"Name",
-date:"Date",
-textSize:"Text Size",
-textColor:"Text Color",
-border:"Border যোগ করুন",
-borderWidth:"Border Width",
-borderColor:"Border Color",
-background:"Simple Background সরান",
-backgroundMode:"Background",
-threshold:"Removal Threshold",
-process:"⚡ Image Process",
-processAll:"⚡ সব Process",
-reset:"Reset",
-share:"Share",
-pdf:"Print / Save PDF",
-previewEmpty:"শুরু করতে একটি ছবি নির্বাচন করুন",
-original:"Original",
-output:"Output",
-reduction:"Reduction",
-dimensions:"Dimensions",
-copy:"Copy Image",
-whyTitle:"আপনার প্রয়োজনীয় সবকিছু",
-whyText:"দ্রুত browser-based image tools.",
-card1Title:"Target KB Compression",
-card1Text:"ছবির আকার নির্দিষ্ট KB-এর কাছাকাছি কমান।",
-card2Title:"Resize Photos",
-card2Text:"সঠিক width ও height সেট করুন।",
-card3Title:"Name & Date",
-card3Text:"ছবিতে name ও date যোগ করুন।",
-card4Title:"Background Tool",
-card4Text:"Simple background সরান।",
-card5Title:"Batch Processing",
-card5Text:"একাধিক ছবি process করুন।",
-card6Title:"Browser Processing",
-card6Text:"ছবি browser-এই process হয়।",
-aboutTitle:"Piklyzo কী?",
-aboutText:"Piklyzo একটি free browser-based image utility।",
-faqTitle:"সাধারণ প্রশ্ন",
-q1:"Piklyzo কি আমার ছবি upload করে?",
-a1:"Processing আপনার browser-এ locally হয়।",
-q2:"নির্দিষ্ট KB করা যাবে?",
-a2:"Compressor target size-এর কাছাকাছি যাওয়ার চেষ্টা করে।",
-q3:"একাধিক ছবি process করা যাবে?",
-a3:"হ্যাঁ।",
-q4:"Background removal কি সব ছবিতে কাজ করে?",
-a4:"এটি simple background-এর জন্য তৈরি।",
-footer:"সবার জন্য free browser-based image tools."
-},
+  processBtn:$("processBtn"),
+  processAllBtn:$("processAllBtn"),
+  resetBtn:$("resetBtn"),
+  shareBtn:$("shareBtn"),
+  pdfBtn:$("pdfBtn"),
 
-id:{
-heroTitle1:"Kompresor Gambar Gratis",
-heroTitle2:" & Pembuat Foto Formulir",
-heroText:"Kompres, ubah ukuran, dan edit foto langsung di browser.",
-uploadTitle:"Letakkan gambar di sini",
-uploadText:"JPG, PNG dan WebP didukung.",
-chooseFiles:"Pilih Gambar",
-settings:"Pengaturan Edit",
-targetKB:"Ukuran Target (KB)",
-width:"Lebar",
-height:"Tinggi",
-keepRatio:"Pertahankan rasio",
-format:"Format Output",
-quality:"Kualitas",
-filename:"Nama File",
-stamp:"Tambah Nama & Tanggal",
-name:"Nama",
-date:"Tanggal",
-textSize:"Ukuran Teks",
-textColor:"Warna Teks",
-border:"Tambah Border",
-borderWidth:"Lebar Border",
-borderColor:"Warna Border",
-background:"Hapus Background Sederhana",
-backgroundMode:"Background",
-threshold:"Ambang",
-process:"⚡ Proses Gambar",
-processAll:"⚡ Proses Semua",
-reset:"Reset",
-share:"Bagikan",
-pdf:"Cetak / Simpan PDF",
-previewEmpty:"Pilih gambar untuk mulai",
-original:"Asli",
-output:"Output",
-reduction:"Pengurangan",
-dimensions:"Dimensi",
-copy:"Salin Gambar",
-whyTitle:"Semua yang Anda Butuhkan",
-whyText:"Alat gambar sederhana yang cepat di browser.",
-card1Title:"Kompresi Target KB",
-card1Text:"Kurangi ukuran gambar mendekati target KB.",
-card2Title:"Ubah Ukuran",
-card2Text:"Atur lebar dan tinggi dengan mudah.",
-card3Title:"Nama & Tanggal",
-card3Text:"Tambahkan nama dan tanggal.",
-card4Title:"Background",
-card4Text:"Hapus background sederhana.",
-card5Title:"Batch Processing",
-card5Text:"Proses beberapa foto.",
-card6Title:"Browser Processing",
-card6Text:"Gambar diproses secara lokal.",
-aboutTitle:"Apa itu Piklyzo?",
-aboutText:"Piklyzo adalah alat gambar gratis berbasis browser.",
-faqTitle:"Pertanyaan Umum",
-q1:"Apakah Piklyzo mengunggah foto saya?",
-a1:"Pemrosesan dilakukan secara lokal di browser.",
-q2:"Bisakah mencapai ukuran KB tertentu?",
-a2:"Kompresor mencoba mencapai ukuran target.",
-q3:"Bisakah memproses banyak gambar?",
-a3:"Ya.",
-q4:"Apakah penghapusan background bekerja di semua foto?",
-a4:"Dirancang untuk background sederhana.",
-footer:"Alat gambar gratis berbasis browser."
-},
+  downloadBtn:$("downloadBtn"),
+  copyBtn:$("copyBtn"),
 
-ar:{
-heroTitle1:"ضاغط صور مجاني",
-heroTitle2:" وصانع صور للنماذج",
-heroText:"اضغط الصور وغير حجمها وعدلها مباشرة في المتصفح.",
-uploadTitle:"ضع الصور هنا",
-uploadText:"يدعم JPG وPNG وWebP ويمكنك اختيار عدة صور.",
-chooseFiles:"اختر الصور",
-settings:"إعدادات التحرير",
-targetKB:"الحجم المستهدف (KB)",
-width:"العرض",
-height:"الارتفاع",
-keepRatio:"الحفاظ على النسبة",
-format:"صيغة الإخراج",
-quality:"الجودة",
-filename:"اسم الملف",
-stamp:"إضافة الاسم والتاريخ",
-name:"الاسم",
-date:"التاريخ",
-textSize:"حجم النص",
-textColor:"لون النص",
-border:"إضافة إطار",
-borderWidth:"عرض الإطار",
-borderColor:"لون الإطار",
-background:"إزالة الخلفية البسيطة",
-backgroundMode:"الخلفية",
-threshold:"حد الإزالة",
-process:"⚡ معالجة الصورة",
-processAll:"⚡ معالجة الكل",
-reset:"إعادة ضبط",
-share:"مشاركة",
-pdf:"طباعة / حفظ PDF",
-previewEmpty:"اختر صورة للبدء",
-original:"الأصل",
-output:"الإخراج",
-reduction:"التقليل",
-dimensions:"الأبعاد",
-copy:"نسخ الصورة",
-whyTitle:"كل ما تحتاجه",
-whyText:"أدوات صور بسيطة وسريعة في المتصفح.",
-card1Title:"ضغط حسب KB",
-card1Text:"تقليل حجم الصورة نحو الحجم المطلوب.",
-card2Title:"تغيير الحجم",
-card2Text:"حدد العرض والارتفاع.",
-card3Title:"الاسم والتاريخ",
-card3Text:"أضف الاسم والتاريخ.",
-card4Title:"أداة الخلفية",
-card4Text:"إزالة الخلفيات البسيطة.",
-card5Title:"معالجة متعددة",
-card5Text:"معالجة عدة صور.",
-card6Title:"المعالجة في المتصفح",
-card6Text:"تتم معالجة الصور محلياً.",
-aboutTitle:"ما هو Piklyzo؟",
-aboutText:"Piklyzo أداة صور مجانية تعمل في المتصفح.",
-faqTitle:"الأسئلة الشائعة",
-q1:"هل يتم رفع صوري؟",
-a1:"تتم المعالجة محلياً في المتصفح.",
-q2:"هل يمكن الوصول إلى حجم KB محدد؟",
-a2:"يحاول الضاغط الوصول إلى الحجم المطلوب.",
-q3:"هل يمكن معالجة عدة صور؟",
-a3:"نعم.",
-q4:"هل تعمل إزالة الخلفية على جميع الصور؟",
-a4:"مخصصة للخلفيات البسيطة.",
-footer:"أدوات صور مجانية تعمل في المتصفح."
-},
+  originalSize:$("originalSize"),
+  outputSize:$("outputSize"),
+  reduction:$("reduction"),
+  dimensions:$("dimensions"),
 
-ja:{
-heroTitle1:"無料画像圧縮",
-heroTitle2:" & フォーム写真メーカー",
-heroText:"ブラウザ上で画像を圧縮、サイズ変更、編集できます。",
-uploadTitle:"画像をここにドロップ",
-uploadText:"JPG、PNG、WebPに対応しています。",
-chooseFiles:"画像を選択",
-settings:"編集設定",
-targetKB:"目標サイズ (KB)",
-width:"幅",
-height:"高さ",
-keepRatio:"縦横比を維持",
-format:"出力形式",
-quality:"品質",
-filename:"ファイル名",
-stamp:"名前と日付を追加",
-name:"名前",
-date:"日付",
-textSize:"文字サイズ",
-textColor:"文字色",
-border:"枠線を追加",
-borderWidth:"枠線幅",
-borderColor:"枠線色",
-background:"簡単な背景を削除",
-backgroundMode:"背景",
-threshold:"しきい値",
-process:"⚡ 画像を処理",
-processAll:"⚡ すべて処理",
-reset:"リセット",
-share:"共有",
-pdf:"印刷 / PDF保存",
-previewEmpty:"画像を選択して開始",
-original:"元画像",
-output:"出力",
-reduction:"削減率",
-dimensions:"サイズ",
-copy:"画像をコピー",
-whyTitle:"必要な機能をすべて",
-whyText:"ブラウザで高速に動作するシンプルな画像ツール。",
-card1Title:"KB圧縮",
-card1Text:"目標KBに近づけて画像を圧縮します。",
-card2Title:"画像サイズ変更",
-card2Text:"幅と高さを設定できます。",
-card3Title:"名前と日付",
-card3Text:"写真に名前と日付を追加できます。",
-card4Title:"背景ツール",
-card4Text:"単純な背景を削除します。",
-card5Title:"一括処理",
-card5Text:"複数の写真を処理できます。",
-card6Title:"ブラウザ処理",
-card6Text:"画像はブラウザ内で処理されます。",
-aboutTitle:"Piklyzoとは？",
-aboutText:"Piklyzoは無料のブラウザベース画像ツールです。",
-faqTitle:"よくある質問",
-q1:"写真はアップロードされますか？",
-a1:"処理はブラウザ内で行われます。",
-q2:"指定したKBサイズにできますか？",
-a2:"目標サイズに近づくように処理します。",
-q3:"複数画像を処理できますか？",
-a3:"はい。",
-q4:"背景削除はすべての写真で使えますか？",
-a4:"単純な背景向けです。",
-footer:"無料のブラウザ画像ツール。"
-},
+  themeBtn:$("themeBtn"),
 
-ko:{
-heroTitle1:"무료 이미지 압축기",
-heroTitle2:" & 폼 사진 제작기",
-heroText:"브라우저에서 이미지를 압축하고 크기를 변경하고 편집하세요.",
-uploadTitle:"이미지를 여기에 놓으세요",
-uploadText:"JPG, PNG, WebP를 지원합니다.",
-chooseFiles:"이미지 선택",
-settings:"편집 설정",
-targetKB:"목표 크기 (KB)",
-width:"너비",
-height:"높이",
-keepRatio:"비율 유지",
-format:"출력 형식",
-quality:"품질",
-filename:"파일 이름",
-stamp:"이름 및 날짜 추가",
-name:"이름",
-date:"날짜",
-textSize:"텍스트 크기",
-textColor:"텍스트 색상",
-border:"테두리 추가",
-borderWidth:"테두리 너비",
-borderColor:"테두리 색상",
-background:"간단한 배경 제거",
-backgroundMode:"배경",
-threshold:"제거 임계값",
-process:"⚡ 이미지 처리",
-processAll:"⚡ 모두 처리",
-reset:"초기화",
-share:"공유",
-pdf:"인쇄 / PDF 저장",
-previewEmpty:"이미지를 선택하여 시작하세요",
-original:"원본",
-output:"출력",
-reduction:"감소",
-dimensions:"크기",
-copy:"이미지 복사",
-whyTitle:"필요한 모든 기능",
-whyText:"브라우저에서 빠르게 작동하는 간단한 이미지 도구.",
-card1Title:"KB 압축",
-card1Text:"목표 KB 크기에 맞춰 이미지를 압축합니다.",
-card2Title:"사진 크기 변경",
-card2Text:"너비와 높이를 설정할 수 있습니다.",
-card3Title:"이름 및 날짜",
-card3Text:"사진에 이름과 날짜를 추가합니다.",
-card4Title:"배경 도구",
-card4Text:"간단한 배경을 제거합니다.",
-card5Title:"일괄 처리",
-card5Text:"여러 사진을 처리할 수 있습니다.",
-card6Title:"브라우저 처리",
-card6Text:"이미지는 브라우저에서 로컬로 처리됩니다.",
-aboutTitle:"Piklyzo란?",
-aboutText:"Piklyzo는 무료 브라우저 기반 이미지 도구입니다.",
-faqTitle:"자주 묻는 질문",
-q1:"사진이 업로드되나요?",
-a1:"처리는 브라우저에서 로컬로 수행됩니다.",
-q2:"특정 KB 크기로 만들 수 있나요?",
-a2:"목표 크기에 가깝게 처리합니다.",
-q3:"여러 이미지를 처리할 수 있나요?",
-a3:"네.",
-q4:"배경 제거가 모든 사진에서 작동하나요?",
-a4:"단순한 배경에 적합합니다.",
-footer:"무료 브라우저 이미지 도구."
-},
-
-zh:{
-heroTitle1:"免费图片压缩器",
-heroTitle2:" 和表单照片工具",
-heroText:"直接在浏览器中压缩、调整大小和编辑图片。",
-uploadTitle:"将图片拖到这里",
-uploadText:"支持 JPG、PNG 和 WebP。",
-chooseFiles:"选择图片",
-settings:"编辑设置",
-targetKB:"目标大小 (KB)",
-width:"宽度",
-height:"高度",
-keepRatio:"保持宽高比",
-format:"输出格式",
-quality:"质量",
-filename:"文件名",
-stamp:"添加姓名和日期",
-name:"姓名",
-date:"日期",
-textSize:"文字大小",
-textColor:"文字颜色",
-border:"添加边框",
-borderWidth:"边框宽度",
-borderColor:"边框颜色",
-background:"移除简单背景",
-backgroundMode:"背景",
-threshold:"移除阈值",
-process:"⚡ 处理图片",
-processAll:"⚡ 处理全部",
-reset:"重置",
-share:"分享",
-pdf:"打印 / 保存 PDF",
-previewEmpty:"选择图片开始",
-original:"原始",
-output:"输出",
-reduction:"压缩率",
-dimensions:"尺寸",
-copy:"复制图片",
-whyTitle:"你需要的一切",
-whyText:"在浏览器中快速运行的简单图片工具。",
-card1Title:"KB目标压缩",
-card1Text:"将图片大小压缩到接近目标KB。",
-card2Title:"调整图片大小",
-card2Text:"设置准确的宽度和高度。",
-card3Title:"姓名和日期",
-card3Text:"在照片上添加姓名和日期。",
-card4Title:"背景工具",
-card4Text:"移除简单的纯色背景。",
-card5Title:"批量处理",
-card5Text:"一次选择并处理多张照片。",
-card6Title:"浏览器处理",
-card6Text:"图片在浏览器本地处理。",
-aboutTitle:"什么是Piklyzo？",
-aboutText:"Piklyzo是一款免费的浏览器图片工具。",
-faqTitle:"常见问题",
-q1:"我的照片会被上传吗？",
-a1:"图片处理在浏览器本地完成。",
-q2:"可以压缩到指定KB吗？",
-a2:"压缩器会尽量接近目标大小。",
-q3:"可以处理多张图片吗？",
-a3:"可以。",
-q4:"背景移除适用于所有图片吗？",
-a4:"主要适用于简单、均匀的背景。",
-footer:"免费浏览器图片工具。"
-}
-
+  loading:$("loading"),
+  loadingText:$("loadingText")
 };
 
-/* =========================================================
-   LANGUAGE
-   ========================================================= */
 
-let currentLanguage =
-  localStorage.getItem("piklyzo-language") || "en";
+/* =========================
+   TOAST
+========================= */
 
-function applyLanguage(lang){
+let toastTimer;
 
-  if(!translations[lang]){
-    lang="en";
-  }
+function toast(message){
 
-  currentLanguage=lang;
+  const box=$("toast");
 
-  localStorage.setItem("piklyzo-language",lang);
+  box.textContent=message;
+  box.classList.add("show");
 
-  document.documentElement.lang =
-    lang==="en" ? "en-US" : lang;
+  clearTimeout(toastTimer);
 
-  document.documentElement.dir =
-    (lang==="ar" || lang==="ur") ? "rtl" : "ltr";
-
-  const dict=translations[lang];
-
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key=el.dataset.i18n;
-    if(dict[key]!==undefined){
-      el.textContent=dict[key];
-    }
-  });
-
-  $("languageSelect").value=lang;
+  toastTimer=setTimeout(()=>{
+    box.classList.remove("show");
+  },2800);
 }
 
-/* =========================================================
-   COUNTRY
-   ========================================================= */
 
-let currentCountry =
-  localStorage.getItem("piklyzo-country") || "US";
+/* =========================
+   LOADING
+========================= */
 
-$("countrySelect").value=currentCountry;
+function loading(show,text="Processing image..."){
 
-$("countrySelect").addEventListener("change",e=>{
-  currentCountry=e.target.value;
-  localStorage.setItem("piklyzo-country",currentCountry);
+  el.loadingText.textContent=text;
 
-  if($("stampDate").value){
-    updateDatePlaceholder();
-  }
-});
-
-$("languageSelect").addEventListener("change",e=>{
-  applyLanguage(e.target.value);
-});
-
-/* =========================================================
-   THEME
-   ========================================================= */
-
-const savedTheme=localStorage.getItem("piklyzo-theme");
-
-if(savedTheme==="dark"){
-  document.body.classList.add("dark");
-  $("themeBtn").textContent="☀️";
+  el.loading.style.display=
+    show ? "flex" : "none";
 }
 
-$("themeBtn").addEventListener("click",()=>{
-  const dark=document.body.classList.toggle("dark");
-  localStorage.setItem("piklyzo-theme",dark?"dark":"light");
-  $("themeBtn").textContent=dark?"☀️":"🌙";
-});
 
-/* =========================================================
-   DATE
-   ========================================================= */
-
-function updateDatePlaceholder(){
-
-  const localeMap={
-    US:"en-US",
-    CA:"en-CA",
-    GB:"en-GB",
-    AU:"en-AU",
-    IN:"en-IN",
-    PK:"en-PK",
-    BD:"en-BD",
-    AE:"en-AE",
-    SA:"en-SA",
-    ID:"id-ID",
-    BR:"pt-BR",
-    MX:"es-MX",
-    DE:"de-DE",
-    FR:"fr-FR",
-    JP:"ja-JP",
-    KR:"ko-KR",
-    CN:"zh-CN",
-    ES:"es-ES",
-    IT:"it-IT",
-    NL:"nl-NL"
-  };
-
-  const locale=localeMap[currentCountry] || "en-US";
-
-  const now=new Date();
-
-  const formatted=new Intl.DateTimeFormat(locale,{
-    year:"numeric",
-    month:"2-digit",
-    day:"2-digit"
-  }).format(now);
-
-  $("stampDate").title=formatted;
-}
-
-/* =========================================================
-   FILE INPUT
-   ========================================================= */
-
-$("fileInput").addEventListener("change",e=>{
-  handleFiles([...e.target.files]);
-});
-
-const dropZone=$("dropZone");
-
-["dragenter","dragover"].forEach(type=>{
-  dropZone.addEventListener(type,e=>{
-    e.preventDefault();
-    dropZone.classList.add("drag");
-  });
-});
-
-["dragleave","drop"].forEach(type=>{
-  dropZone.addEventListener(type,e=>{
-    e.preventDefault();
-    dropZone.classList.remove("drag");
-  });
-});
-
-dropZone.addEventListener("drop",e=>{
-  handleFiles([...e.dataTransfer.files]);
-});
-
-async function handleFiles(files){
-
-  const valid=[];
-
-  for(const file of files){
-
-    if(!file.type.startsWith("image/")){
-      continue;
-    }
-
-    if(file.size > MAX_INPUT_MB*1024*1024){
-      setStatus(
-        `${file.name} is larger than ${MAX_INPUT_MB} MB and was skipped.`
-      );
-      continue;
-    }
-
-    valid.push(file);
-  }
-
-  if(!valid.length){
-    setStatus("Please select a valid image file.");
-    return;
-  }
-
-  state.files=valid;
-  state.activeIndex=0;
-
-  renderGallery();
-
-  $("editorArea").classList.remove("hidden");
-
-  await loadActiveImage();
-}
-
-/* =========================================================
-   GALLERY
-   ========================================================= */
-
-function renderGallery(){
-
-  $("gallery").innerHTML="";
-
-  state.files.forEach((file,index)=>{
-
-    const url=URL.createObjectURL(file);
-
-    const button=document.createElement("button");
-    button.type="button";
-    button.className="thumb"+(index===state.activeIndex?" active":"");
-    button.title=file.name;
-
-    const img=document.createElement("img");
-    img.src=url;
-    img.alt=file.name;
-
-    button.appendChild(img);
-
-    button.addEventListener("click",async()=>{
-      state.activeIndex=index;
-      renderGallery();
-      await loadActiveImage();
-    });
-
-    $("gallery").appendChild(button);
-
-    img.onload=()=>{
-      URL.revokeObjectURL(url);
-    };
-  });
-}
-
-/* =========================================================
-   IMAGE DECODING
-   ========================================================= */
-
-async function decodeImage(file){
-
-  if("createImageBitmap" in window){
-
-    try{
-      const bitmap=await createImageBitmap(file,{
-        imageOrientation:"from-image"
-      });
-
-      return {
-        source:bitmap,
-        width:bitmap.width,
-        height:bitmap.height,
-        bitmap:true
-      };
-
-    }catch(err){
-      /* fallback below */
-    }
-  }
-
-  return await new Promise((resolve,reject)=>{
-
-    const url=URL.createObjectURL(file);
-    const img=new Image();
-
-    img.onload=()=>{
-      URL.revokeObjectURL(url);
-
-      resolve({
-        source:img,
-        width:img.naturalWidth,
-        height:img.naturalHeight,
-        bitmap:false
-      });
-    };
-
-    img.onerror=()=>{
-      URL.revokeObjectURL(url);
-      reject(new Error("Could not decode image."));
-    };
-
-    img.src=url;
-  });
-}
-
-/* =========================================================
-   LOAD ACTIVE
-   ========================================================= */
-
-async function loadActiveImage(){
-
-  const file=state.files[state.activeIndex];
-
-  if(!file) return;
-
-  try{
-
-    setStatus("Loading image…");
-
-    const decoded=await decodeImage(file);
-
-    state.image=decoded.source;
-    state.originalWidth=decoded.width;
-    state.originalHeight=decoded.height;
-
-    $("width").value=decoded.width;
-    $("height").value=decoded.height;
-
-    $("originalSize").textContent=formatBytes(file.size);
-    $("outputSize").textContent="—";
-    $("reduction").textContent="—";
-    $("dimensions").textContent=
-      `${decoded.width} × ${decoded.height}`;
-
-    $("emptyPreview").classList.add("hidden");
-    $("previewImage").classList.remove("hidden");
-
-    if(state.originalURL){
-      URL.revokeObjectURL(state.originalURL);
-    }
-
-    state.originalURL=URL.createObjectURL(file);
-    $("previewImage").src=state.originalURL;
-
-    state.processedBlob=null;
-
-    setStatus(`${state.activeIndex+1} / ${state.files.length}: ${file.name}`);
-
-  }catch(err){
-
-    console.error(err);
-    setStatus("This image could not be opened.");
-  }
-}
-
-/* =========================================================
-   KEEP RATIO
-   ========================================================= */
-
-let lastChanged="width";
-
-$("width").addEventListener("input",()=>{
-
-  lastChanged="width";
-
-  if($("keepRatio").checked && state.originalWidth){
-
-    const w=Math.max(20,Number($("width").value)||20);
-
-    const h=Math.round(
-      w*state.originalHeight/state.originalWidth
-    );
-
-    $("height").value=h;
-  }
-});
-
-$("height").addEventListener("input",()=>{
-
-  lastChanged="height";
-
-  if($("keepRatio").checked && state.originalHeight){
-
-    const h=Math.max(20,Number($("height").value)||20);
-
-    const w=Math.round(
-      h*state.originalWidth/state.originalHeight
-    );
-
-    $("width").value=w;
-  }
-});
-
-/* =========================================================
-   OPTIONS UI
-   ========================================================= */
-
-$("stampToggle").addEventListener("change",()=>{
-  $("stampOptions").classList.toggle(
-    "hidden",
-    !$("stampToggle").checked
-  );
-});
-
-$("borderToggle").addEventListener("change",()=>{
-  $("borderOptions").classList.toggle(
-    "hidden",
-    !$("borderToggle").checked
-  );
-});
-
-$("backgroundToggle").addEventListener("change",()=>{
-  $("backgroundOptions").classList.toggle(
-    "hidden",
-    !$("backgroundToggle").checked
-  );
-});
-
-$("quality").addEventListener("input",()=>{
-  $("qualityValue").textContent=
-    `${$("quality").value}%`;
-});
-
-$("threshold").addEventListener("input",()=>{
-  $("thresholdValue").textContent=
-    $("threshold").value;
-});
-
-/* =========================================================
-   CANVAS SIZE SAFETY
-   ========================================================= */
-
-function safeDimensions(width,height){
-
-  let w=Math.max(20,Math.round(width));
-  let h=Math.max(20,Math.round(height));
-
-  const pixels=w*h;
-
-  if(pixels>MAX_CANVAS_PIXELS){
-
-    const scale=Math.sqrt(
-      MAX_CANVAS_PIXELS/pixels
-    );
-
-    w=Math.max(20,Math.floor(w*scale));
-    h=Math.max(20,Math.floor(h*scale));
-  }
-
-  return {width:w,height:h};
-}
-
-/* =========================================================
-   BACKGROUND COLOR TEST
-   ========================================================= */
-
-function colorDistance(r1,g1,b1,r2,g2,b2){
-
-  return Math.sqrt(
-    (r1-r2)**2+
-    (g1-g2)**2+
-    (b1-b2)**2
-  );
-}
-
-function removeSimpleBackground(
-  ctx,
-  width,
-  height,
-  threshold,
-  mode
-){
-
-  const imageData=
-    ctx.getImageData(0,0,width,height);
-
-  const data=imageData.data;
-
-  /*
-    Use four corners instead of one pixel.
-    This makes the simple remover more reliable.
-  */
-
-  const points=[
-    [0,0],
-    [width-1,0],
-    [0,height-1],
-    [width-1,height-1]
-  ];
-
-  let rr=0,gg=0,bb=0;
-
-  for(const [x,y] of points){
-
-    const i=(y*width+x)*4;
-
-    rr+=data[i];
-    gg+=data[i+1];
-    bb+=data[i+2];
-  }
-
-  rr/=points.length;
-  gg/=points.length;
-  bb/=points.length;
-
-  const limit=Number(threshold)*2.55;
-
-  for(let i=0;i<data.length;i+=4){
-
-    const d=colorDistance(
-      data[i],
-      data[i+1],
-      data[i+2],
-      rr,
-      gg,
-      bb
-    );
-
-    if(d<=limit){
-
-      if(mode==="transparent"){
-        data[i+3]=0;
-      }
-
-      else if(mode==="white"){
-        data[i]=255;
-        data[i+1]=255;
-        data[i+2]=255;
-      }
-
-      else if(mode==="blue"){
-        data[i]=225;
-        data[i+1]=240;
-        data[i+2]=255;
-      }
-    }
-  }
-
-  ctx.putImageData(imageData,0,0);
-}
-
-/* =========================================================
-   DRAW STAMP
-   ========================================================= */
-
-function drawStamp(ctx,width,height){
-
-  if(!$("stampToggle").checked){
-    return;
-  }
-
-  const name=$("stampName").value.trim();
-
-  if(!name){
-    return;
-  }
-
-  const dateValue=$("stampDate").value;
-
-  let dateText=dateValue;
-
-  if(dateValue){
-
-    const [y,m,d]=dateValue.split("-");
-
-    dateText=`${m}/${d}/${y}`;
-  }
-
-  const size=Math.max(
-    8,
-    Math.min(
-      120,
-      Number($("stampSize").value)||28
-    )
-  );
-
-  const text=
-    dateText ? `${name} • ${dateText}` : name;
-
-  const padding=Math.max(10,width*0.015);
-
-  ctx.font=
-    `700 ${size}px system-ui,-apple-system,sans-serif`;
-
-  ctx.textBaseline="bottom";
-
-  const metrics=ctx.measureText(text);
-
-  const boxW=metrics.width+padding*2;
-  const boxH=size+padding*1.7;
-
-  const x=width-padding;
-  const y=height-padding;
-
-  ctx.save();
-
-  ctx.fillStyle="rgba(255,255,255,.78)";
-  ctx.fillRect(
-    x-boxW,
-    y-boxH,
-    boxW,
-    boxH
-  );
-
-  ctx.fillStyle=$("stampColor").value;
-
-  ctx.textAlign="right";
-
-  ctx.fillText(
-    text,
-    x-padding,
-    y-padding*.35
-  );
-
-  ctx.restore();
-}
-
-/* =========================================================
-   DRAW BORDER
-   ========================================================= */
-
-function drawBorder(ctx,width,height){
-
-  if(!$("borderToggle").checked){
-    return;
-  }
-
-  const border=Math.max(
-    1,
-    Math.min(
-      100,
-      Number($("borderWidth").value)||5
-    )
-  );
-
-  ctx.save();
-
-  ctx.strokeStyle=$("borderColor").value;
-  ctx.lineWidth=border;
-
-  ctx.strokeRect(
-    border/2,
-    border/2,
-    width-border,
-    height-border
-  );
-
-  ctx.restore();
-}
-
-/* =========================================================
-   RENDER CANVAS
-   ========================================================= */
-
-async function createProcessedCanvas(
-  source,
-  width,
-  height
-){
-
-  const canvas=document.createElement("canvas");
-
-  const safe=safeDimensions(width,height);
-
-  canvas.width=safe.width;
-  canvas.height=safe.height;
-
-  const ctx=canvas.getContext("2d",{
-    alpha:true,
-    willReadFrequently:
-      $("backgroundToggle").checked
-  });
-
-  ctx.imageSmoothingEnabled=true;
-  ctx.imageSmoothingQuality="high";
-
-  const format=$("outputFormat").value;
-
-  /*
-    JPG cannot contain transparency.
-    Give it a white background when needed.
-  */
-
-  if(format==="image/jpeg"){
-
-    ctx.fillStyle="#ffffff";
-    ctx.fillRect(
-      0,
-      0,
-      safe.width,
-      safe.height
-    );
-  }
-
-  ctx.drawImage(
-    source,
-    0,
-    0,
-    safe.width,
-    safe.height
-  );
-
-  if($("backgroundToggle").checked){
-
-    removeSimpleBackground(
-      ctx,
-      safe.width,
-      safe.height,
-      $("threshold").value,
-      format==="image/jpeg"
-        ? "white"
-        : $("backgroundMode").value
-    );
-  }
-
-  drawStamp(
-    ctx,
-    safe.width,
-    safe.height
-  );
-
-  drawBorder(
-    ctx,
-    safe.width,
-    safe.height
-  );
-
-  return canvas;
-}
-
-/* =========================================================
-   CANVAS TO BLOB
-   ========================================================= */
-
-function canvasBlob(canvas,type,quality){
-
-  return new Promise(resolve=>{
-
-    canvas.toBlob(
-      blob=>resolve(blob),
-      type,
-      quality
-    );
-
-  });
-}
-
-/* =========================================================
-   TARGET KB COMPRESSION
-   ========================================================= */
-
-async function compressCanvasToTarget(
-  canvas,
-  type,
-  targetKB,
-  startQuality
-){
-
-  /*
-    PNG does not have a useful quality parameter.
-    For exact KB targeting, JPG/WebP are better.
-  */
-
-  if(
-    type==="image/png" ||
-    !targetKB ||
-    targetKB<=0
-  ){
-
-    return await canvasBlob(
-      canvas,
-      type,
-      startQuality
-    );
-  }
-
-  const targetBytes=
-    targetKB*1024;
-
-  let quality=
-    Math.max(.15,Math.min(1,startQuality));
-
-  let blob=
-    await canvasBlob(canvas,type,quality);
-
-  if(!blob){
-    throw new Error("Browser could not encode this image.");
-  }
-
-  if(blob.size<=targetBytes){
-    return blob;
-  }
-
-  /*
-    First reduce quality using binary search.
-  */
-
-  let low=.05;
-  let high=quality;
-  let best=null;
-
-  for(let i=0;i<9;i++){
-
-    const mid=(low+high)/2;
-
-    const candidate=
-      await canvasBlob(canvas,type,mid);
-
-    if(!candidate) break;
-
-    if(candidate.size<=targetBytes){
-
-      best=candidate;
-      low=mid;
-
-    }else{
-
-      high=mid;
-    }
-  }
-
-  if(best){
-    return best;
-  }
-
-  /*
-    If quality alone cannot reach target,
-    progressively scale down the canvas.
-  */
-
-  let currentCanvas=canvas;
-
-  for(let step=0;step<8;step++){
-
-    const newWidth=
-      Math.max(
-        20,
-        Math.floor(currentCanvas.width*.88)
-      );
-
-    const newHeight=
-      Math.max(
-        20,
-        Math.floor(currentCanvas.height*.88)
-      );
-
-    const smaller=
-      document.createElement("canvas");
-
-    smaller.width=newWidth;
-    smaller.height=newHeight;
-
-    const sctx=smaller.getContext("2d");
-
-    sctx.imageSmoothingEnabled=true;
-    sctx.imageSmoothingQuality="high";
-
-    sctx.drawImage(
-      currentCanvas,
-      0,
-      0,
-      newWidth,
-      newHeight
-    );
-
-    const candidate=
-      await canvasBlob(
-        smaller,
-        type,
-        .75
-      );
-
-    if(candidate && candidate.size<=targetBytes){
-      return candidate;
-    }
-
-    currentCanvas=smaller;
-
-    await nextFrame();
-  }
-
-  return await canvasBlob(
-    currentCanvas,
-    type,
-    .55
-  );
-}
-
-/* =========================================================
-   PROCESS ONE
-   ========================================================= */
-
-async function processCurrent(){
-
-  if(!state.image){
-    setStatus("Please select an image first.");
-    return null;
-  }
-
-  showProcessing("Processing image…");
-
-  await nextFrame();
-
-  try{
-
-    let width=
-      Number($("width").value)||state.originalWidth;
-
-    let height=
-      Number($("height").value)||state.originalHeight;
-
-    const safe=safeDimensions(width,height);
-
-    const canvas=
-      await createProcessedCanvas(
-        state.image,
-        safe.width,
-        safe.height
-      );
-
-    const type=$("outputFormat").value;
-
-    const quality=
-      Number($("quality").value)/100;
-
-    const targetKB=
-      Number($("targetKB").value)||0;
-
-    const blob=
-      await compressCanvasToTarget(
-        canvas,
-        type,
-        targetKB,
-        quality
-      );
-
-    if(!blob){
-      throw new Error("Could not create output.");
-    }
-
-    if(state.processedURL){
-      URL.revokeObjectURL(state.processedURL);
-    }
-
-    state.processedBlob=blob;
-    state.processedURL=URL.createObjectURL(blob);
-
-    $("previewImage").src=state.processedURL;
-
-    $("outputSize").textContent=
-      formatBytes(blob.size);
-
-    const original=
-      state.files[state.activeIndex].size;
-
-    const reduction=
-      Math.max(
-        0,
-        Math.round(
-          (1-blob.size/original)*100
-        )
-      );
-
-    $("reduction").textContent=
-      `${reduction}%`;
-
-    $("dimensions").textContent=
-      `${canvas.width} × ${canvas.height}`;
-
-    setStatus(
-      `Done — ${formatBytes(blob.size)} output`
-    );
-
-    return blob;
-
-  }catch(err){
-
-    console.error(err);
-
-    setStatus(
-      err.message ||
-      "Something went wrong while processing."
-    );
-
-    return null;
-
-  }finally{
-
-    hideProcessing();
-  }
-}
-
-/* =========================================================
-   PROCESS ALL
-   ========================================================= */
-
-async function processAll(){
-
-  if(!state.files.length){
-    setStatus("Please select images first.");
-    return;
-  }
-
-  showProcessing("Processing images…");
-
-  try{
-
-    for(let i=0;i<state.files.length;i++){
-
-      state.activeIndex=i;
-
-      renderGallery();
-
-      await loadActiveImage();
-
-      $("processingText").textContent=
-        "Processing images…";
-
-      $("processingProgress").textContent=
-        `${i+1} / ${state.files.length}`;
-
-      await nextFrame();
-
-      const blob=await processCurrent();
-
-      /*
-        Automatically download each processed image.
-        Browsers may require permission for multiple downloads.
-      */
-
-      if(blob){
-
-        downloadBlob(
-          blob,
-          makeOutputName(
-            state.files[i].name,
-            $("outputFormat").value
-          )
-        );
-      }
-
-      await nextFrame();
-    }
-
-    setStatus(
-      `Finished processing ${state.files.length} image(s).`
-    );
-
-  }finally{
-
-    hideProcessing();
-  }
-}
-
-/* =========================================================
-   DOWNLOAD
-   ========================================================= */
-
-function downloadBlob(blob,name){
-
-  if(!blob) return;
-
-  const url=URL.createObjectURL(blob);
-
-  const a=document.createElement("a");
-
-  a.href=url;
-  a.download=name;
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-  setTimeout(()=>{
-    URL.revokeObjectURL(url);
-  },1000);
-}
-
-function makeOutputName(original,type){
-
-  const base=
-    $("filename").value.trim() ||
-    original.replace(/\.[^.]+$/,"") ||
-    "piklyzo-image";
-
-  const ext=
-    type==="image/png"
-      ? "png"
-      : type==="image/webp"
-        ? "webp"
-        : "jpg";
-
-  return `${sanitizeFilename(base)}.${ext}`;
-}
-
-function sanitizeFilename(name){
-
-  return name
-    .replace(/[<>:"/\\|?*\x00-\x1F]/g,"-")
-    .replace(/\s+/g," ")
-    .trim()
-    .slice(0,80)
-    || "piklyzo-image";
-}
-
-/* =========================================================
-   DOWNLOAD FORMAT BUTTONS
-   ========================================================= */
-
-async function downloadAs(type){
-
-  if(!state.image){
-    setStatus("Please select an image first.");
-    return;
-  }
-
-  showProcessing("Preparing download…");
-
-  try{
-
-    const oldType=$("outputFormat").value;
-
-    $("outputFormat").value=type;
-
-    const blob=await processCurrent();
-
-    $("outputFormat").value=oldType;
-
-    if(blob){
-
-      downloadBlob(
-        blob,
-        makeOutputName(
-          state.files[state.activeIndex].name,
-          type
-        )
-      );
-
-      setStatus("Download started.");
-    }
-
-  }finally{
-
-    hideProcessing();
-  }
-}
-
-/* =========================================================
-   SHARE
-   ========================================================= */
-
-$("shareBtn").addEventListener("click",async()=>{
-
-  if(!state.processedBlob){
-
-    await processCurrent();
-
-    if(!state.processedBlob){
-      return;
-    }
-  }
-
-  try{
-
-    const file=new File(
-      [state.processedBlob],
-      makeOutputName(
-        state.files[state.activeIndex].name,
-        state.processedBlob.type
-      ),
-      {
-        type:state.processedBlob.type
-      }
-    );
-
-    if(
-      navigator.share &&
-      (!navigator.canShare || navigator.canShare({files:[file]}))
-    ){
-
-      await navigator.share({
-        title:"Piklyzo",
-        text:"Image processed with Piklyzo.",
-        files:[file]
-      });
-
-      setStatus("Shared successfully.");
-
-    }else{
-
-      downloadBlob(
-        state.processedBlob,
-        file.name
-      );
-
-      setStatus(
-        "File sharing is not supported here. Download started instead."
-      );
-    }
-
-  }catch(err){
-
-    if(err.name!=="AbortError"){
-      setStatus("Sharing was not available.");
-    }
-  }
-});
-
-/* =========================================================
-   COPY IMAGE
-   ========================================================= */
-
-$("copyBtn").addEventListener("click",async()=>{
-
-  if(!state.processedBlob){
-
-    await processCurrent();
-
-    if(!state.processedBlob){
-      return;
-    }
-  }
-
-  try{
-
-    if(
-      navigator.clipboard &&
-      window.ClipboardItem
-    ){
-
-      const item=
-        new ClipboardItem({
-          [state.processedBlob.type]:
-            state.processedBlob
-        });
-
-      await navigator.clipboard.write([item]);
-
-      setStatus("Image copied to clipboard.");
-
-    }else{
-
-      setStatus(
-        "Image copying is not supported by this browser."
-      );
-    }
-
-  }catch(err){
-
-    console.error(err);
-
-    setStatus(
-      "Could not copy the image. Try downloading it instead."
-    );
-  }
-});
-
-/* =========================================================
-   PDF
-   ========================================================= */
-
-$("pdfBtn").addEventListener("click",async()=>{
-
-  if(!state.processedBlob){
-
-    await processCurrent();
-
-    if(!state.processedBlob){
-      return;
-    }
-  }
-
-  /*
-    Uses the browser's native print engine.
-    User can choose "Save as PDF".
-    This keeps Piklyzo lightweight and avoids
-    loading a large PDF library.
-  */
-
-  const url=
-    URL.createObjectURL(state.processedBlob);
-
-  const win=window.open("","_blank");
-
-  if(!win){
-
-    setStatus(
-      "Please allow pop-ups to print or save as PDF."
-    );
-
-    URL.revokeObjectURL(url);
-
-    return;
-  }
-
-  win.document.write(`
-    <!doctype html>
-    <html>
-    <head>
-      <title>Piklyzo PDF</title>
-      <style>
-        html,body{
-          margin:0;
-          padding:0;
-          background:#fff;
-        }
-        body{
-          display:flex;
-          justify-content:center;
-          align-items:flex-start;
-          padding:20px;
-        }
-        img{
-          max-width:100%;
-          height:auto;
-        }
-        @media print{
-          body{
-            padding:0;
-          }
-          img{
-            max-width:100%;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <img src="${url}" alt="Piklyzo image">
-      <script>
-        window.onload=function(){
-          setTimeout(function(){
-            window.print();
-          },250);
-        };
-      <\/script>
-    </body>
-    </html>
-  `);
-
-  win.document.close();
-
-  setTimeout(()=>{
-    URL.revokeObjectURL(url);
-  },10000);
-});
-
-/* =========================================================
-   PROCESS BUTTONS
-   ========================================================= */
-
-$("processBtn").addEventListener(
-  "click",
-  processCurrent
-);
-
-$("processAllBtn").addEventListener(
-  "click",
-  processAll
-);
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-$("resetBtn").addEventListener("click",()=>{
-
-  state.files=[];
-  state.activeIndex=0;
-  state.image=null;
-  state.processedBlob=null;
-
-  if(state.originalURL){
-    URL.revokeObjectURL(state.originalURL);
-    state.originalURL=null;
-  }
-
-  if(state.processedURL){
-    URL.revokeObjectURL(state.processedURL);
-    state.processedURL=null;
-  }
-
-  $("fileInput").value="";
-  $("gallery").innerHTML="";
-  $("editorArea").classList.add("hidden");
-
-  $("previewImage").src="";
-  $("previewImage").classList.add("hidden");
-  $("emptyPreview").classList.remove("hidden");
-
-  $("originalSize").textContent="—";
-  $("outputSize").textContent="—";
-  $("reduction").textContent="—";
-  $("dimensions").textContent="—";
-
-  setStatus("Ready for a new image.");
-});
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
+/* =========================
+   BYTE FORMAT
+========================= */
 
 function formatBytes(bytes){
 
-  if(!Number.isFinite(bytes)){
+  if(!Number.isFinite(bytes))
     return "—";
-  }
 
-  if(bytes<1024){
-    return `${bytes} B`;
-  }
+  if(bytes < 1024)
+    return bytes+" B";
 
-  if(bytes<1024*1024){
-    return `${(bytes/1024).toFixed(1)} KB`;
-  }
+  if(bytes < 1024*1024)
+    return (bytes/1024).toFixed(1)+" KB";
 
-  return `${(bytes/1024/1024).toFixed(2)} MB`;
+  return (bytes/1024/1024).toFixed(2)+" MB";
 }
 
-function setStatus(message){
-  $("status").textContent=message;
+
+/* =========================
+   FILE EXTENSION
+========================= */
+
+function extension(type){
+
+  if(type==="image/png")
+    return "png";
+
+  if(type==="image/webp")
+    return "webp";
+
+  return "jpg";
 }
 
-function nextFrame(){
 
-  return new Promise(resolve=>{
-    requestAnimationFrame(()=>resolve());
-  });
+/* =========================
+   SAFE FILENAME
+========================= */
+
+function safeFilename(name){
+
+  let value=(name || "piklyzo-image")
+    .trim()
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[^\w\- ]+/g,"")
+    .replace(/\s+/g,"-")
+    .slice(0,70);
+
+  return value || "piklyzo-image";
 }
 
-function showProcessing(text){
 
-  $("processingText").textContent=text;
-  $("processingProgress").textContent="";
-  $("processingOverlay").classList.add("show");
+/* =========================
+   DATE
+========================= */
+
+function setToday(){
+
+  if(el.dateStamp.value)
+    return;
+
+  const date=new Date();
+
+  const iso=
+    new Date(
+      date.getTime()-
+      date.getTimezoneOffset()*60000
+    )
+    .toISOString()
+    .slice(0,10);
+
+  el.dateStamp.value=iso;
 }
 
-function hideProcessing(){
+setToday();
 
-  $("processingOverlay").classList.remove("show");
-}
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
+/* =========================
+   YEAR
+========================= */
 
 $("year").textContent=
   new Date().getFullYear();
 
-applyLanguage(currentLanguage);
 
-updateDatePlaceholder();
+/* =========================
+   DARK MODE
+========================= */
 
-const today=
-  new Date();
+function setTheme(theme){
 
-$("stampDate").value=
-  `${today.getFullYear()}-${
-    String(today.getMonth()+1).padStart(2,"0")
-  }-${
-    String(today.getDate()).padStart(2,"0")
-  }`;
+  document.documentElement.dataset.theme=theme;
 
-/*
-  Cleanup generated URLs when leaving the page.
-*/
+  localStorage.setItem(
+    "piklyzo-theme",
+    theme
+  );
 
-window.addEventListener("beforeunload",()=>{
+  el.themeBtn.textContent=
+    theme==="dark" ? "☀️" : "🌙";
+}
 
-  if(state.originalURL){
-    URL.revokeObjectURL(state.originalURL);
-  }
+const savedTheme=
+  localStorage.getItem("piklyzo-theme");
 
-  if(state.processedURL){
-    URL.revokeObjectURL(state.processedURL);
-  }
+setTheme(
+  savedTheme ||
+  (
+    window.matchMedia &&
+    window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches
+      ? "dark"
+      : "light"
+  )
+);
+
+el.themeBtn.addEventListener("click",()=>{
+
+  const current=
+    document.documentElement.dataset.theme;
+
+  setTheme(
+    current==="dark"
+      ? "light"
+      : "dark"
+  );
+
 });
 
-</script>
 
-</body>
-</html>
+/* =========================
+   SLIDERS
+========================= */
+
+el.quality.addEventListener("input",()=>{
+
+  el.qualityText.textContent=
+    el.quality.value+"%";
+
+});
+
+el.threshold.addEventListener("input",()=>{
+
+  el.thresholdText.textContent=
+    el.threshold.value;
+
+});
+
+
+/* =========================
+   FORMAT NOTICE
+========================= */
+
+function updateFormatNotice(){
+
+  if(
+    el.backgroundCleanup.checked &&
+    el.backgroundMode.value==="transparent" &&
+    el.format.value==="image/jpeg"
+  ){
+
+    el.format.value="image/png";
+
+    el.formatNotice.textContent=
+      "Transparent backgrounds require PNG or WebP. JPG has been changed to PNG.";
+
+    return;
+  }
+
+  if(el.format.value==="image/png"){
+
+    el.formatNotice.textContent=
+      "PNG is lossless, so a target KB size cannot be guaranteed.";
+
+    return;
+  }
+
+  if(el.backgroundCleanup.checked){
+
+    el.formatNotice.textContent=
+      "Background cleanup is a simple color-threshold tool, not AI segmentation.";
+
+    return;
+  }
+
+  el.formatNotice.textContent="";
+}
+
+
+el.format.addEventListener(
+  "change",
+  updateFormatNotice
+);
+
+el.backgroundMode.addEventListener(
+  "change",
+  updateFormatNotice
+);
+
+el.backgroundCleanup.addEventListener(
+  "change",
+  updateFormatNotice
+);
+
+updateFormatNotice();
+
+
+/* =========================
+   FILE INPUT
+========================= */
+
+function addFiles(fileList){
+
+  const files=[
+    ...fileList
+  ];
+
+  const valid=
+    files.filter(file=>
+      file.type.startsWith("image/") &&
+      file.size>0 &&
+      file.size<=30*1024*1024
+    );
+
+  const invalid=
+    files.length-valid.length;
+
+  if(invalid>0){
+
+    toast(
+      invalid+
+      " file(s) skipped. Images must be 30 MB or smaller."
+    );
+
+  }
+
+  state.files=[
+    ...state.files,
+    ...valid
+  ].slice(0,30);
+
+  if(!state.files.length)
+    return;
+
+  if(state.selected>=state.files.length)
+    state.selected=0;
+
+  renderGallery();
+  loadSelected();
+
+}
+
+
+el.fileInput.addEventListener(
+  "change",
+  event=>{
+    addFiles(event.target.files);
+  }
+);
+
+
+/* =========================
+   DRAG AND DROP
+========================= */
+
+["dragenter","dragover"].forEach(type=>{
+
+  el.dropArea.addEventListener(
+    type,
+    event=>{
+      event.preventDefault();
+      el.dropArea.classList.add("drag");
+    }
+  );
+
+});
+
+["dragleave","drop"].forEach(type=>{
+
+  el.dropArea.addEventListener(
+    type,
+    event=>{
+      event.preventDefault();
+      el.dropArea.classList.remove("drag");
+    }
+  );
+
+});
+
+el.dropArea.addEventListener(
+  "drop",
+  event=>{
+    addFiles(event.dataTransfer.files);
+  }
+);
+
+
+/* =========================
+   IMAGE DECODER
+========================= */
+
+function decodeImage(file){
+
+  return new Promise((resolve,reject)=>{
+
+    if("createImageBitmap" in window){
+
+      createImageBitmap(
+        file,
+        {
+          imageOrientation:"from-image"
+        }
+      )
+      .then(resolve)
+      .catch(()=>{
+
+        const image=
+          new Image();
+
+        const url=
+          URL.createObjectURL(file);
+
+        image.onload=()=>{
+          URL.revokeObjectURL(url);
+          resolve(image);
+        };
+
+        image.onerror=()=>{
+          URL.revokeObjectURL(url);
+          reject(
+            new Error(
+              "This image could not be opened."
+            )
+          );
+        };
+
+        image.src=url;
+
+      });
+
+      return;
+    }
+
+
+    const image=
+      new Image();
+
+    const url=
+      URL.createObjectURL(file);
+
+    image.onload=()=>{
+      URL.revokeObjectURL(url);
+      resolve(image);
+    };
+
+    image.onerror=()=>{
+      URL.revokeObjectURL(url);
+      reject(
+        new Error(
+          "This image could not be opened."
+        )
+      );
+    };
+
+    image.src=url;
+
+  });
+
+}
+
+
+/* =========================
+   IMAGE DIMENSIONS
+========================= */
+
+function imageDimensions(image){
+
+  return {
+    width:
+      image.width ||
+      image.naturalWidth,
+
+    height:
+      image.height ||
+      image.naturalHeight
+  };
+
+}
+
+
+/* =========================
+   GALLERY
+========================= */
+
+function renderGallery(){
+
+  el.gallery.innerHTML="";
+
+  state.files.forEach(
+    (file,index)=>{
+
+      const button=
+        document.createElement("button");
+
+      button.type="button";
+
+      button.className=
+        "thumb"+
+        (
+          index===state.selected
+            ? " selected"
+            : ""
+        );
+
+      button.title=
+        "Select "+file.name;
+
+
+      const image=
+        document.createElement("img");
+
+      image.alt=
+        file.name;
+
+      const url=
+        URL.createObjectURL(file);
+
+      image.src=url;
+
+      image.onload=()=>{
+        URL.revokeObjectURL(url);
+      };
+
+
+      const small=
+        document.createElement("small");
+
+      small.textContent=
+        file.name;
+
+
+      button.appendChild(image);
+      button.appendChild(small);
+
+
+      button.addEventListener(
+        "click",
+        ()=>{
+          state.selected=index;
+          renderGallery();
+          loadSelected();
+        }
+      );
+
+
+      el.gallery.appendChild(button);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   LOAD SELECTED IMAGE
+========================= */
+
+async function loadSelected(){
+
+  const file=
+    state.files[state.selected];
+
+  if(!file)
+    return;
+
+  try{
+
+    const image=
+      await decodeImage(file);
+
+    state.image=image;
+
+    const size=
+      imageDimensions(image);
+
+    el.width.value=
+      size.width;
+
+    el.height.value=
+      size.height;
+
+    el.filename.value=
+      safeFilename(file.name);
+
+    el.originalSize.textContent=
+      formatBytes(file.size);
+
+    el.outputSize.textContent="—";
+    el.reduction.textContent="—";
+
+    el.dimensions.textContent=
+      size.width+"×"+size.height;
+
+
+    showPreview(file);
+
+    state.result=null;
+
+    if(state.resultURL){
+
+      URL.revokeObjectURL(
+        state.resultURL
+      );
+
+      state.resultURL=null;
+
+    }
+
+    el.downloadBtn.disabled=true;
+    el.copyBtn.disabled=true;
+
+  }catch(error){
+
+    toast(
+      error.message ||
+      "Unable to open this image."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PREVIEW FILE
+========================= */
+
+function showPreview(file){
+
+  el.preview.innerHTML="";
+
+  const image=
+    document.createElement("img");
+
+  image.alt=
+    "Selected image preview";
+
+  const url=
+    URL.createObjectURL(file);
+
+  image.src=url;
+
+  image.onload=()=>{
+    URL.revokeObjectURL(url);
+  };
+
+  el.preview.appendChild(image);
+
+}
+
+
+/* =========================
+   ASPECT RATIO
+========================= */
+
+function updateRatio(source){
+
+  if(
+    !el.keepRatio.checked ||
+    !state.image
+  )
+    return;
+
+  const size=
+    imageDimensions(state.image);
+
+  if(source==="width"){
+
+    const width=
+      parseInt(el.width.value,10);
+
+    if(width>0){
+
+      el.height.value=
+        Math.max(
+          1,
+          Math.round(
+            width*
+            size.height/
+            size.width
+          )
+        );
+
+    }
+
+  }else{
+
+    const height=
+      parseInt(el.height.value,10);
+
+    if(height>0){
+
+      el.width.value=
+        Math.max(
+          1,
+          Math.round(
+            height*
+            size.width/
+            size.height
+          )
+        );
+
+    }
+
+  }
+
+}
+
+
+el.width.addEventListener(
+  "input",
+  ()=>updateRatio("width")
+);
+
+el.height.addEventListener(
+  "input",
+  ()=>updateRatio("height")
+);
+
+
+/* =========================
+   OUTPUT DIMENSIONS
+========================= */
+
+function getOutputDimensions(){
+
+  const source=
+    imageDimensions(state.image);
+
+  let width=
+    parseInt(el.width.value,10);
+
+  let height=
+    parseInt(el.height.value,10);
+
+
+  if(!Number.isFinite(width) || width<=0)
+    width=source.width;
+
+  if(!Number.isFinite(height) || height<=0)
+    height=source.height;
+
+
+  width=
+    Math.min(
+      10000,
+      Math.max(1,width)
+    );
+
+  height=
+    Math.min(
+      10000,
+      Math.max(1,height)
+    );
+
+
+  if(el.keepRatio.checked){
+
+    if(
+      parseInt(el.width.value,10)>0
+    ){
+
+      height=
+        Math.max(
+          1,
+          Math.round(
+            width*
+            source.height/
+            source.width
+          )
+        );
+
+    }else{
+
+      width=
+        Math.max(
+          1,
+          Math.round(
+            height*
+            source.width/
+            source.height
+          )
+        );
+
+    }
+
+  }
+
+
+  /* Prevent excessive canvas memory use */
+
+  const maxPixels=
+    24000000;
+
+  if(width*height>maxPixels){
+
+    const scale=
+      Math.sqrt(
+        maxPixels/
+        (width*height)
+      );
+
+    width=
+      Math.max(
+        1,
+        Math.floor(width*scale)
+      );
+
+    height=
+      Math.max(
+        1,
+        Math.floor(height*scale)
+      );
+
+    toast(
+      "Image dimensions were automatically reduced to protect browser memory."
+    );
+
+  }
+
+
+  return {
+    width,
+    height
+  };
+
+}
+
+
+/* =========================
+   CORNER BACKGROUND COLOR
+========================= */
+
+function getCornerColor(
+  context,
+  width,
+  height
+){
+
+  const sample=
+    Math.max(
+      1,
+      Math.min(
+        12,
+        Math.floor(
+          Math.min(width,height)/40
+        )
+      )
+    );
+
+
+  const points=[
+    [0,0],
+    [width-sample,0],
+    [0,height-sample],
+    [width-sample,height-sample]
+  ];
+
+
+  let red=0;
+  let green=0;
+  let blue=0;
+  let count=0;
+
+
+  for(
+    const [x,y]
+    of points
+  ){
+
+    const data=
+      context.getImageData(
+        x,
+        y,
+        sample,
+        sample
+      ).data;
+
+
+    for(
+      let i=0;
+      i<data.length;
+      i+=4
+    ){
+
+      red+=data[i];
+      green+=data[i+1];
+      blue+=data[i+2];
+
+      count++;
+
+    }
+
+  }
+
+
+  return [
+    red/count,
+    green/count,
+    blue/count
+  ];
+
+}
+
+
+/* =========================
+   BACKGROUND CLEANUP
+========================= */
+
+function cleanupBackground(
+  context,
+  width,
+  height,
+  mode,
+  threshold
+){
+
+  const reference=
+    getCornerColor(
+      context,
+      width,
+      height
+    );
+
+
+  const imageData=
